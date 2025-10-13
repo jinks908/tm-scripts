@@ -463,7 +463,7 @@
         }
         /* TOC menu tab */
         .hide-scrollbar.ignore-scrolling-container.notion-floating-table-of-contents div div div {
-            background-color: var(--tpr-bg-alt);  
+            background-color: var(--tpr-bg-alt);
             border-radius: 7px 0px 0px 7px !important;
         }
 
