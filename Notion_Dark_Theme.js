@@ -23,7 +23,7 @@
             --tpr-skyblue: #9ec6ea;
             --tpr-seafoam: #52e3c3; 
             --tpr-orange: #fc8530;
-            --tpr-yellow: #ffc300;
+            --tpr-yellow: #fec339;
             --tpr-green: #a5fa69;
             --tpr-blue: #00bfff;
             --tpr-purple: #d573ff;
