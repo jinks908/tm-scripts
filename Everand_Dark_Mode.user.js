@@ -12,63 +12,152 @@
 (function() {
     'use strict';
 
-    // Everand logo
-    GM_addStyle('.scribd_blue_long_logo {filter: invert(100%) !important;}');
+    GM_addStyle(`
 
-    // Body
-    GM_addStyle('body {background-color: #0c1621 !important}');
+        :root {
+            /* Colors */
+            --tpr-default: #e3dede;
+            --tpr-bg: #0c1621;
+            --tpr-seafoam: #52e3c3; 
+            --tpr-red: #ff596f;
+            --tpr-dark-grey: #2b3840;
+            --tpr-grey: #596d73;
+        }
 
-    // Main page colors/styles
-    GM_addStyle('.utogen_class_views_layouts_audiobook.autogen_class_views_layouts_web.autogen_class_widgets_page.autogen_class_widgets_base.no_header.locale_en_US.responsive.body_container.mobile_bottom_tabs.jsblock_done {background-color: #0c1621 !important;}');
-    GM_addStyle('.auto__audiobooks_show, .auto__audiobooks_show .audiobook_show_container {background-color: #0c1621 !important;}');
-    GM_addStyle('.megamenu {background-color: #0c1621 !important;}');
-    GM_addStyle('.header {background-color: #0c1621 !important;}');
-    GM_addStyle('#lightbox_area {background-color: #0c1621 !important; z-index: -10 !important;}');
-    GM_addStyle('html {color: #e3dede !important;}');
-    GM_addStyle('a {color: #e3dede !important;}');
+        /* Everand logo */
+        .scribd_blue_long_logo {
+            filter: invert(100%) !important;
+        }
 
-    // Media controls
-    GM_addStyle('.current_time {color: #e3dede !important;}');
-    GM_addStyle('.time_remaining {color: #e3dede !important;}');
-    GM_addStyle('.track_info {color: #e3dede !important;}');
-    GM_addStyle('.track {background-color: #2b3840 !important;}');
-    GM_addStyle('.track.fill {background: none !important; background-color: #596d73 !important;}');
-    GM_addStyle('.handle {background: none !important; background-color: #52e3c3 !important;}');
-    GM_addStyle('.controls_container {color: #e3dede !important;}');
-    GM_addStyle('.auto__audiobooks_player .options .speed {border: 1px solid #e3dede !important;}');
-    GM_addStyle('span.selector_button {border-color: #e3dede !important;}');
-    GM_addStyle('.volume_slider span {color: #e3dede !important;}');
-    GM_addStyle('.icon.icon-ic_audiobook_sleepoff {color: #e3dede !important;}');
+        /* Body */
+        body {
+            background-color: var(--tpr-bg) !important;
+        }
 
-    // Metadata
-    GM_addStyle('h1.title a {color: #f05d71 !important;}');
-    GM_addStyle('h2.author {color: #596d73 !important;}');
-    GM_addStyle('h2.author a {color: #e3dede !important;}');
-    GM_addStyle('.narrator_byline {color: #596d73 !important;}');
-    GM_addStyle('.narrator_byline a {color: #e3dede !important;}');
+        /* Main page styles */
+        .utogen_class_views_layouts_audiobook.autogen_class_views_layouts_web.autogen_class_widgets_page.autogen_class_widgets_base.no_header.locale_en_US.responsive.body_container.mobile_bottom_tabs.jsblock_done {
+            background-color: var(--tpr-bg) !important;
+        }
+        .auto__audiobooks_show, 
+        .auto__audiobooks_show .audiobook_show_container {
+            background-color: var(--tpr-bg) !important;
+        }
+        .megamenu {
+            background-color: var(--tpr-bg) !important;
+        }
+        .header {
+            background-color: var(--tpr-bg) !important;
+        }
+        #lightbox_area {
+            background-color: var(--tpr-bg) !important; 
+            z-index: -10 !important;
+        }
+        html {
+            color: var(--tpr-default) !important;
+        }
+        a {
+            color: var(--tpr-default) !important;
+        }
 
-    // Menu buttons
-    GM_addStyle('.icon.icon-ic_overflowmenu {color: #74a2ac !important;}');
-    GM_addStyle('.icon.icon-ic_toc_list {color: #74a2ac !important;}');
+        /* Media controls */
+        .current_time {
+            color: var(--tpr-default) !important;
+        }
+        .time_remaining {
+            color: var(--tpr-default) !important;
+        }
+        .track_info {
+            color: var(--tpr-default) !important;
+        }
+        .track {
+            background-color: var(--tpr-dark-grey) !important;
+        }
+        .track.fill {
+            background: none !important; 
+            background-color: var(--tpr-grey) !important;
+        }
+        .handle {
+            background: none !important; 
+            background-color: var(--tpr-seafoam) !important;
+        }
+        .controls_container {
+            color: var(--tpr-default) !important;
+        }
+        .auto__audiobooks_player .options .speed {
+            border: 1px solid var(--tpr-default) !important;
+        }
+        span.selector_button {
+            border-color: var(--tpr-default) !important;
+        }
+        .volume_slider span {
+            color: var(--tpr-default) !important;
+        }
+        .icon.icon-ic_audiobook_sleepoff {
+            color: var(--tpr-default) !important;
+        }
 
-    // Menu items
-    GM_addStyle('.button_menu.bottom.left {background-color: #0c1621 !important;}');
-    GM_addStyle('.button_menu_items_container {background-color: #0c1621 !important; color: #e3dede !important;}');
-    GM_addStyle('.button_menu_items_container h2 {color: #f05d71 !important;}');
-    GM_addStyle('.button_menu_items_container div {color: #e3dede !important;}');
-    GM_addStyle('.button_menu_items_container li {color: #e3dede !important;}');
-    GM_addStyle('.button_menu_items_container button {color: #e3dede !important;}');
-    GM_addStyle('.button_menu_items_container a {color: #e3dede !important;}');
-    GM_addStyle('.button_menu_items_container span {color: #e3dede !important;}');
+        /* Metadata */
+        h1.title a {
+            color: var(--tpr-red) !important;
+        }
+        h2.author {
+            color: var(--tpr-grey) !important;
+        }
+        h2.author a {
+            color: var(--tpr-default) !important;
+        }
+        .narrator_byline {
+            color: var(--tpr-grey) !important;
+        }
+        .narrator_byline a {
+            color: var(--tpr-default) !important;
+        }
 
-    // Hide the app banner (advertisement)
-    GM_addStyle('.app-banner {display: none !important;}');
+        /* Menu buttons */
+        .icon.icon-ic_overflowmenu {
+            color: #74a2ac !important;
+        }
+        .icon.icon-ic_toc_list {
+            color: #74a2ac !important;
+        }
+
+        /* Menu items */
+        .button_menu.bottom.left {
+            background-color: var(--tpr-bg) !important;
+        }
+        .button_menu_items_container {
+            background-color: var(--tpr-bg) !important; 
+            color: var(--tpr-default) !important;
+        }
+        .button_menu_items_container h2 {
+            color: var(--tpr-red) !important;
+        }
+        .button_menu_items_container div {
+            color: var(--tpr-default) !important;
+        }
+        .button_menu_items_container li {
+            color: var(--tpr-default) !important;
+        }
+        .button_menu_items_container button {
+            color: var(--tpr-default) !important;
+        }
+        .button_menu_items_container a {
+            color: var(--tpr-default) !important;
+        }
+        .button_menu_items_container span {
+            color: var(--tpr-default) !important;
+        }
+
+        /* Hide the app banner (advertisement) */
+        .app-banner {
+            display: none !important;
+        }
+    `);
 
     // Force background colors with JS
     var mainBody = document.body;
-    mainBody.style.backgroundColor = '#0c1621 !important';
+    mainBody.style.backgroundColor = 'var(--tpr-bg) !important';
     var lightBox = document.getElementById('lightbox_area');
-    lightBox.style.backgroundColor = '#0c1621 !important';
-
+    lightBox.style.backgroundColor = 'var(--tpr-bg) !important';
 
 })();

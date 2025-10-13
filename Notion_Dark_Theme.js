@@ -792,7 +792,6 @@
         blockquote div div.notranslate {
             color: var(--tpr-skyblue) !important;
         }
-
     `);
 
 
