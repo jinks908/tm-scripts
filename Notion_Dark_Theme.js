@@ -13,9 +13,6 @@
 (function() {
     'use strict';
 
-    // TODO
-    // #:: Increase TOC float menu width
-
     GM_addStyle(`
         /* ------------------------------------------------------------- */
         /* #:# Theme Variables                                           */
@@ -356,9 +353,10 @@
             font-weight: bold !important;
         }
         /* Increase default font size (body) */
+        .notion-page-content .notion-selectable .notion-text-block,
         [style*="font-size:16px"],
         [style*="font-size: 16px"] {
-            font-size: 18px !important;
+            font-size: 17px !important;
         }
         /* Increase default font size (menu) */
         [style*="font-size:14px"],
@@ -434,12 +432,17 @@
             border-bottom: 1px solid #404D59 !important;
         }
         .notion-overlay-container.notion-default-overlay-container div div div div div div div {
-            background: rgba(21, 38, 55, 0.7);
+            background: rgba(21, 38, 55, 0.8);
         }
         .notion-overlay-container.notion-default-overlay-container div div div div div div div div {
             transform-origin: right 0% 0px !important;
             transition: all 600ms ease-in-out !important;
             backdrop-filter: blur(10px) !important;
+        }
+        /* Increase TOC menu width (exclude other overlay menus) */
+        .notion-overlay-container.notion-default-overlay-container:not(:has(.notion-scroller.vertical))
+        div div div div div div div div div {
+            width: 400px !important;
         }
         /* Increase TOC indent spacing */
         .notion-overlay-container div[style*="margin-inline-start: 12px;"] {
@@ -448,9 +451,9 @@
         .notion-overlay-container div[style*="margin-inline-start: 24px;"] {
             margin-inline-start: 40px !important;
         }
-        /* TOC font style */
+        /* TOC font style and color */
         .notion-overlay-container div[role="dialog"] a span.notranslate {
-            color: #bbc5ce !important; 
+            color: var(--tpr-skyblue) !important; 
             font-family: var(--tpr-font-main) !important;
             font-weight: 1000 !important;
             font-size: 18px;
@@ -484,8 +487,7 @@
             color: var(--tpr-bg-alt) !important;
             opacity: 1 !important;
         }
-        /* Page options menu */
-        .notion-scroller.vertical div[role="menuitem"]:hover {
+        .notion-scroller.vertical div[role="menuitem"]:hover, .notion-scroller.vertical div[role="option"]:hover {
             color: var(--tpr-seafoam) !important;
             opacity: 1 !important;
         }
