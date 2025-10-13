@@ -14,7 +14,6 @@
     'use strict';
 
     // TODO
-    // #:: Move all TM scripts to a git repo
     // #:: Increase TOC float menu width
 
     GM_addStyle(`
