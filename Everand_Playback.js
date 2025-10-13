@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Everand Playback
 // @namespace    http://tampermonkey.net/
-// @version      2024-03-01
+// @version      1.4.1
 // @description  Enhanced playback controls w/ keybindings
 // @author       SkyColtNinja
 // @match        https://www.everand.com/listen/*
@@ -12,6 +12,10 @@
 (function() {
     'use strict';
 
+    // Set to true to enable debug features
+    let DEBUG = false;
+
+    // Set default playback speed
     let currentSpeed = 1.0;
 
     // Set custom playback speed
@@ -225,4 +229,21 @@
             audio.playbackRate = currentSpeed;
         }
     }, 1000);
-})();
+
+    // Expose for debugging
+    if (DEBUG) {
+        unsafeWindow.everandDebug = {
+        get currentSpeed() { return currentSpeed; },
+        set currentSpeed(val) { currentSpeed = val; },
+        updateSpeed,
+        updateVolume,
+        togglePlayPause,
+        skipTime,
+        jumpToSection,
+        timeToSeconds,
+        showIndicator,
+        getAudio: () => document.querySelector('audio')
+    };
+    console.log('Everand Playback Debug enabled. Access via: everandDebug');
+
+}})();
