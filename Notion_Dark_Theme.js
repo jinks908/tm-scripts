@@ -440,7 +440,7 @@
             backdrop-filter: blur(10px) !important;
         }
         /* Increase TOC menu width (exclude other overlay menus) */
-        .notion-overlay-container.notion-default-overlay-container:not(:has(.notion-scroller.vertical))
+        .notion-overlay-container.notion-default-overlay-container:not(:has(.notion-scroller.vertical, div[role="button"]))
         div div div div div div div div div {
             width: 400px !important;
         }
