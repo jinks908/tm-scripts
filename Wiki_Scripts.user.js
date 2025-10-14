@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         Wiki Popup Hider
 // @namespace    http://tampermonkey.net/
-// @version      2024-01-27
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
 // @description  Hide Wikipedia popups when using Tridactyl hints
 // @author       SkyColtNinja
 // @match        https://en.wikipedia.org/*

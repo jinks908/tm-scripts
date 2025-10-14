@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    http://tampermonkey.net/
-// @version      1.6
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
 // @author       Clayton Jinks
 // @match        https://www.notion.so/skycoltninja/*

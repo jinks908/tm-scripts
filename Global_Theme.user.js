@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         Global Theme
 // @namespace    http://tampermonkey.net/
-// @version      2024-02-01
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Global_Theme.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Global_Theme.user.js
 // @description  Global styles/colors for Firefox
 // @author       SkyColtNinja
 // @match        *://*/*

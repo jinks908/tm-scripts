@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         macOSicons
 // @namespace    http://tampermonkey.net/
-// @version      2024-02-25
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/macOSicons.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/macOSicons.user.js
 // @description  Hide annoying sticky banner
 // @author       SkyColtNinja
 // @match        https://macosicons.com/*

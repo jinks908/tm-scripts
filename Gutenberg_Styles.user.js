@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         Gutenberg Styles
 // @namespace    http://tampermonkey.net/
-// @version      2024-02-25
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Gutenberg_Styles.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Gutenberg_Styles.user.js
 // @description  Hide annoying sticky banner
 // @author       SkyColtNinja
 // @match        www.gutenberg.org/*

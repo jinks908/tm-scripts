@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         Algorithmica Theme
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Algorithmica.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Algorithmica.user.js
 // @description  Main and Syntax Theme for Algorithmica
 // @author       Clayton Jinks
 // @match        https://en.algorithmica.org/*

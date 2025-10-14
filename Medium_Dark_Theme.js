@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         Medium Dark Theme
 // @namespace    http://tampermonkey.net/
-// @version      2024-03-01
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Medium_Dark_Theme.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Medium_Dark_Theme.user.js
 // @description  Dark theme for Medium website
 // @author       SkyColtNinja
 // @match        https://medium.com/*

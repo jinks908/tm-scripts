@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         Amazon Styles
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.user.js
 // @description  Corrections and styles for Dark Mode Amazon theme
 // @author       Clayton Jinks
 // @match        https://www.amazon.com/*

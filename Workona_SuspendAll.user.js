@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         Suspend All Other Workona Tabs
 // @namespace    http://tampermonkey.net/
-// @version      2024-03-01
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Workona_SuspendAll.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Workona_SuspendAll.user.js
 // @description  Automatically suspends all tabs (except current) in Workona
 // @author       SkyColtNinja
 // @match        moz-extension://2c875abd-5a8a-474f-9c91-d1ad15f0e82a/popup.html

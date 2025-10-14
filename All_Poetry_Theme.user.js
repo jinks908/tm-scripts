@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         All Poetry Theme
 // @namespace    http://tampermonkey.net/
-// @version      2024-02-25
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/All_Poetry_Theme.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/All_Poetry_Theme.user.js
 // @description  Correct transparent background for Dark Mode
 // @author       SkyColtNinja
 // @match        https://allpoetry.com/*
