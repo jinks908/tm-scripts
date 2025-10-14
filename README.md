@@ -125,5 +125,3 @@ These scripts are provided as-is for personal use. Modify and distribute freely.
 **SkyColtNinja** (Clayton Jinks)
 
 ---
-
-*Last updated: 2024*
