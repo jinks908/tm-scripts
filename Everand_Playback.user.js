@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         Everand Playback
 // @namespace    http://tampermonkey.net/
-// @version      1.4.1
+// @version      1.1.1
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Everand_Playback.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Everand_Playback.user.js
 // @description  Enhanced playback controls w/ keybindings
 // @author       SkyColtNinja
 // @match        https://www.everand.com/listen/*
