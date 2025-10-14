@@ -2,7 +2,7 @@
 // @name         Everand Dark Mode
 // @namespace    http://tampermonkey.net/
 // @version      2024-03-01
-// @description  try to take over the world!
+// @description  A nicer dark theme for Everand audio player
 // @author       SkyColtNinja
 // @match        https://www.everand.com/listen/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
