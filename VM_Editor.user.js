@@ -6,9 +6,7 @@
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/VM_Editor.user.js
 // @description  Increase font size in Violentmonkey editor
 // @author       SkyColtNinja
-// @match        *://violentmonkey.github.io/*
-// @match        moz-extension://*/dashboard.html
-// @match        chrome-extension://*/dashboard.html
+// @match        moz-extension://fa32445a-b5ed-47f5-92c2-38d896199090/*
 // @grant        GM_addStyle
 // ==/UserScript==
 
