@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         National Geographic Styles
-// @namespace    http://tampermonkey.net/
+// @namespace    SkyColtNinja/userscripts
 // @version      1.1.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/NatGeo_Styles.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/NatGeo_Styles.user.js

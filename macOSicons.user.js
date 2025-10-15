@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         macOSicons
-// @namespace    http://tampermonkey.net/
+// @namespace    SkyColtNinja/userscripts
 // @version      1.1.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/macOSicons.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/macOSicons.user.js

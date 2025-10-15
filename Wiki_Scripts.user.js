@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Wiki Popup Hider
-// @namespace    http://tampermonkey.net/
+// @namespace    SkyColtNinja/userscripts
 // @version      1.1.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js

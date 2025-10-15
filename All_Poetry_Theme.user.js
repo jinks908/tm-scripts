@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         All Poetry Theme
-// @namespace    http://tampermonkey.net/
+// @namespace    SkyColtNinja/userscripts
 // @version      1.1.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/All_Poetry_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/All_Poetry_Theme.user.js

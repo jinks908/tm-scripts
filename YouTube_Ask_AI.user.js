@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Ask AI
-// @namespace    http://tampermonkey.net/
+// @namespace    SkyColtNinja/userscripts
 // @version      1.1.4
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
@@ -13,9 +13,6 @@
 
 (function() {
     'use strict';
-
-    // TODO
-    // #:: Handle "Ask" button being visible / inside action menu / not present
 
     function askAI() {
         // Look for the "Ask" button directly on page
