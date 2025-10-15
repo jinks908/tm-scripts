@@ -14,6 +14,9 @@
 (function() {
     'use strict';
 
+    // TODO
+    // #:: Handle "Ask" button being visible / inside action menu / not present
+
     function askAI() {
         // Look for the 󰇘 button (action menu)
         const menuButtons = document.querySelectorAll('div#menu button[aria-label="More actions"]');
