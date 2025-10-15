@@ -1,14 +1,13 @@
 // ==UserScript==
 // @name         Violentmonkey Editor Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.3
+// @version      1.1.4
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/VM_Editor.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/VM_Editor.user.js
 // @description  Increase font size in Violentmonkey editor
 // @author       SkyColtNinja
-// @match        *://violentmonkey.github.io/*
-// @include      /^moz-extension:\/\/.*\/dashboard/
-// @include      /^chrome-extension:\/\/.*\/dashboard/
+// @match        moz-extension://*/options/index.html*
+// @include      /^moz-extension:\/\/.*\/options\/index\.html/
 // @grant        GM_addStyle
 // ==/UserScript==
 
@@ -18,13 +17,8 @@
     // Increase editor font size
     GM_addStyle(`
         /* Violentmonkey code editor */
-        textarea,
-        .editor,
-        .CodeMirror,
-        .CodeMirror-line,
-        .cm-s-default {
-            font-size: 16px !important;
-            line-height: 1.6 !important;
+        .CodeMirror-code {
+            font-size: 19px !important;
         }
 
         /* For Monaco editor (if used) */
