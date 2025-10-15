@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Ask AI
 // @namespace    http://tampermonkey.net/
-// @version      1.1.3
+// @version      1.1.4
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @description  Keyboard shortcut to open YouTube's Ask AI
@@ -67,6 +67,8 @@
                             };
                         }, 500);
                     break;
+                    } else {
+                        alert('Ask AI not available for this video');
                     };
                 };
             }, 300);
