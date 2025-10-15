@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Ask AI
 // @namespace    http://tampermonkey.net/
-// @version      1.1.2
+// @version      1.1.3
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @description  Keyboard shortcut to open YouTube's Ask AI
@@ -18,7 +18,28 @@
     // #:: Handle "Ask" button being visible / inside action menu / not present
 
     function askAI() {
-        // Look for the 󰇘 button (action menu)
+        // Look for the "Ask" button directly on page
+        const askButtons = document.querySelectorAll('button[aria-label="Ask"]');
+        if (askButtons.length > 0) {
+            askButtons[0].click();
+
+            setTimeout(() => {
+                // Auto-focus on the AI input field
+                const inputField = document.querySelector('textarea.chatInputViewModelChatInput');
+                if (inputField) {
+                    inputField.focus();
+                    // Re-attempt in case YouTube steals focus
+                    setTimeout(() => {
+                        inputField.focus();
+                    }, 100);
+                } else {
+                    console.log('Could not find Ask input field');
+                };
+            }, 500);
+            return;
+        };
+
+        // Otherwise look for the 󰇘 button (action menu)
         const menuButtons = document.querySelectorAll('div#menu button[aria-label="More actions"]');
         if (menuButtons.length > 0) {
             // The "Ask" option is the second item in the menu
