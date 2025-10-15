@@ -42,7 +42,7 @@
         // Otherwise look for the 󰇘 button (action menu)
         const menuButtons = document.querySelectorAll('div#menu button[aria-label="More actions"]');
         if (menuButtons.length > 0) {
-            // The "Ask" option is the second item in the menu
+            // The action menu is usually the second item in the menu
             menuButtons[1].click();
             // Wait for menu to appear
             setTimeout(() => {
