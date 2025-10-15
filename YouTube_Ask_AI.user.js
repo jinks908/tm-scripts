@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Ask AI
 // @namespace    http://tampermonkey.net/
-// @version      1.1.1
+// @version      1.1.2
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @description  Keyboard shortcut to open YouTube's Ask AI
