@@ -8,6 +8,7 @@
 // @author       SkyColtNinja
 // @match        moz-extension://*/options/index.html*
 // @include      /^moz-extension:\/\/.*\/options\/index\.html/
+// @inject-into  auto
 // @grant        GM_addStyle
 // ==/UserScript==
 
