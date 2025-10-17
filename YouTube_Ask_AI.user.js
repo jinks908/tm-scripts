@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Ask AI
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.4
+// @version      1.1.5
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @description  Keyboard shortcut to open YouTube's Ask AI
@@ -13,6 +13,61 @@
 
 (function() {
     'use strict';
+
+    // Add styles for the toast notification
+    GM_addStyle(`
+        .yt-ask-ai-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #f44336;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: "YouTube Sans", "Roboto", sans-serif;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 9999;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .yt-ask-ai-toast.fadeOut {
+            animation: fadeOut 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+    `);
+
+    // Function to show toast notification
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'yt-ask-ai-toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.add('fadeOut');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    }
 
     function askAI() {
         // Look for the "Ask" button directly on page
@@ -31,12 +86,12 @@
                     }, 100);
                 } else {
                     console.log('Could not find Ask input field');
-                };
+                }
             }, 500);
             return;
-        };
+        }
 
-        // Otherwise look for the 󰇘 button (action menu)
+        // Otherwise look for the ⋮ button (action menu)
         const menuButtons = document.querySelectorAll('div#menu button[aria-label="More actions"]');
         if (menuButtons.length > 0) {
             // The action menu is usually the second item in the menu
@@ -46,9 +101,11 @@
                 const btns = document.querySelectorAll('yt-formatted-string.ytd-menu-service-item-renderer');
 
                 // Search for the "Ask" button and click it
+                let foundAsk = false;
                 for (let btn of btns) {
                     if (btn.textContent.includes('Ask')) {
                         btn.click();
+                        foundAsk = true;
 
                         setTimeout(() => {
                             // Auto-focus on the AI input field
@@ -61,22 +118,24 @@
                                 }, 100);
                             } else {
                                 console.log('Could not find Ask input field');
-                            };
+                            }
                         }, 500);
-                    break;
-                    } else {
-                        alert('Ask AI not available for this video');
-                    };
-                };
+                        break;
+                    }
+                }
+
+                if (!foundAsk) {
+                    showToast('Ask AI not available for this video');
+                }
             }, 300);
-        };
-    };
+        }
+    }
 
     // Listen for keyboard shortcut (Ctrl+A)
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.key === 'a') {
             e.preventDefault();
             askAI();
-        };
+        }
     });
 })();
