@@ -2,8 +2,8 @@
 // @name         YouTube Playlist Float
 // @namespace    SkyColtNinja/userscripts
 // @version      1.1.1
-// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Keep_Playlist_Menu_Open.user.js
-// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Keep_Playlist_Menu_Open.user.js
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
 // @description  Keeps the "Save to Playlist" menu open when adding to playlists
 // @author       SkyColtNinja
 // @match        https://www.youtube.com/*
