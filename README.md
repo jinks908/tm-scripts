@@ -108,16 +108,6 @@ Advanced media controls for audiobook listening:
 - The Wiki Theme script disables when embedded in iframes (for Notion compatibility)
 - Debug mode available in Everand Playback (set `DEBUG = true`)
 
-## 🤝 Contributing
-
-Feel free to submit issues or pull requests for:
-- Bug fixes
-- New features
-- Additional website support
-- Performance improvements
-
-## 📜 License
-
 These scripts are provided as-is for personal use. Modify and distribute freely.
 
 ## 👤 Author
