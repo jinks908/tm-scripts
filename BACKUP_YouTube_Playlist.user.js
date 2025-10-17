@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         YouTube Keep Playlist Menu Open
+// @name         YouTube Playlist Float
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.0
-// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Keep_Playlist_Menu_Open.user.js
-// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Keep_Playlist_Menu_Open.user.js
-// @description  Keeps the Save to Playlist menu open when selecting playlists
+// @version      1.1.2
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
+// @description  Keeps the "Save to Playlist" menu open when adding to playlists
 // @author       SkyColtNinja
 // @match        https://www.youtube.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
@@ -16,40 +16,94 @@
 
     let menuObserver = null;
     let isPlaylistMenuOpen = false;
+    let playlistMenuElement = null;
 
-    // Function to prevent menu from closing
-    function preventMenuClose(menu) {
+    // Function to keep menu open by overriding the close behavior
+    function keepMenuOpen(menu) {
         if (!menu) return;
-        console.log('Playlist menu found')
+        console.log('Keeping menu open');
 
-        // Find all playlist checkboxes
-        const checkboxes = menu.querySelectorAll('yt-list-item-view-model.yt-list-item-view-model');
+        // Find the iron-dropdown element which controls visibility
+        const dropdown = menu;
 
-        checkboxes.forEach(checkbox => {
-            // Remove existing listeners by cloning
-            const newCheckbox = checkbox.cloneNode(true);
-            checkbox.parentNode.replaceChild(newCheckbox, checkbox);
+        // Override the close/hide methods
+        if (dropdown.close) {
+            dropdown._originalClose = dropdown.close;
+            dropdown.close = function() {
+                console.log('Close prevented');
+                // Don't actually close
+            };
+        }
 
-            // Add new click handler that stops propagation
-            newCheckbox.addEventListener('click', function(e) {
-                e.stopPropagation();
-                // Toggle the checkbox manually
-                if (newCheckbox.hasAttribute('checked')) {
-                    newCheckbox.removeAttribute('checked');
-                } else {
-                    newCheckbox.setAttribute('checked', '');
+        if (dropdown.hide) {
+            dropdown._originalHide = dropdown.hide;
+            dropdown.hide = function() {
+                console.log('Hide prevented');
+                // Don't actually hide
+            };
+        }
+
+        // Prevent the opened attribute from being removed
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'opened') {
+                    if (!dropdown.hasAttribute('opened')) {
+                        console.log('Re-opening dropdown');
+                        dropdown.setAttribute('opened', '');
+                    }
                 }
-            }, true);
+            });
         });
 
-
-        // Also prevent clicks on the menu items from closing
-        const menuItems = menu.querySelectorAll('toggleable-list-item-view-model');
-        menuItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.stopPropagation();
-            }, true);
+        observer.observe(dropdown, {
+            attributes: true,
+            attributeFilter: ['opened']
         });
+
+        // Store observer so we can disconnect it later
+        dropdown._keepOpenObserver = observer;
+
+        // Get all icon spans
+        const playlistToggles = document.querySelectorAll('yt-list-item-view-model[role="listitem"]');
+
+        // Add click event listener to each span
+        playlistToggles.forEach(span => {
+            span.addEventListener('click', function(event) {
+                // Find the path element within this specific span
+                const pathElement = this.querySelector('path');
+                const playlistName = this.getAttribute('aria-label') || 'Unknown Playlist';
+
+                if (pathElement) {
+                    // If video is unsaved, save it
+                    if (pathElement.getAttribute('d') === 'M18 4v15.06l-5.42-3.87-.58-.42-.58.42L6 19.06V4h12m1-1H5v18l7-5 7 5V3z') {
+                        pathElement.setAttribute('d', 'M19 3H5v18l7-5 7 5V3z');
+                        console.log('Video saved to: ' + playlistName);
+                        return;
+                    } else {
+                        // If video is saved, unsave it
+                        pathElement.setAttribute('d', 'M18 4v15.06l-5.42-3.87-.58-.42-.58.42L6 19.06V4h12m1-1H5v18l7-5 7 5V3z');
+                        console.log('Video removed from : ' + playlistName);
+                        return;
+                    };
+                };
+            });
+        });
+    }
+
+    // Function to restore normal menu behavior
+    function restoreMenuBehavior(menu) {
+        if (!menu) return;
+        console.log('Restoring normal menu behavior');
+
+        if (menu._originalClose) {
+            menu.close = menu._originalClose;
+        }
+        if (menu._originalHide) {
+            menu.hide = menu._originalHide;
+        }
+        if (menu._keepOpenObserver) {
+            menu._keepOpenObserver.disconnect();
+        }
     }
 
     // Watch for playlist menu to appear
@@ -57,25 +111,31 @@
         console.log('Starting to watch for playlist menu');
         const observer = new MutationObserver(function(mutations) {
             // Look for the playlist menu popup
-            const menus = document.querySelectorAll('span.yt-core-attributed-string')
+            let playlistMenu = null;
+
+            const menus = document.querySelectorAll('span.yt-core-attributed-string');
             for (let menu of menus) {
-                // Check if span contains at least "Save to"
                 if (menu.textContent.includes('Save to')) {
-                    const playlistMenu = menu.closest('tp-yt-iron-dropdown.style-scope.ytd-popup-container');
-                    console.log('Found playlist menu');
-                };
-            };
+                    playlistMenu = menu.closest('tp-yt-iron-dropdown.style-scope.ytd-popup-container');
+                    if (playlistMenu) {
+                        break;
+                    }
+                }
+            }
 
             if (playlistMenu && !isPlaylistMenuOpen) {
                 isPlaylistMenuOpen = true;
-                console.log('Playlist menu detected, preventing auto-close');
+                playlistMenuElement = playlistMenu;
+                console.log('Playlist menu detected, keeping it open');
 
                 // Wait a moment for menu to fully render
                 setTimeout(() => {
-                    preventMenuClose(playlistMenu);
+                    keepMenuOpen(playlistMenu);
                 }, 100);
             } else if (!playlistMenu && isPlaylistMenuOpen) {
                 isPlaylistMenuOpen = false;
+                playlistMenuElement = null;
+                console.log('Playlist menu closed');
             }
         });
 
@@ -89,10 +149,22 @@
 
     // Handle clicks outside the menu to allow manual closing
     document.addEventListener('click', function(e) {
-        const playlistMenu = document.querySelector('ytd-add-to-playlist-renderer');
-        if (playlistMenu && !playlistMenu.contains(e.target)) {
-            // Click is outside the menu, allow it to close naturally
+        if (!isPlaylistMenuOpen || !playlistMenuElement) return;
+
+        // Check if click is outside the menu
+        if (!playlistMenuElement.contains(e.target)) {
+            console.log('Click outside menu detected, allowing close');
+            restoreMenuBehavior(playlistMenuElement);
+
+            // Manually close the menu
+            if (playlistMenuElement._originalClose) {
+                playlistMenuElement._originalClose();
+            } else if (playlistMenuElement.close) {
+                playlistMenuElement.close();
+            }
+
             isPlaylistMenuOpen = false;
+            playlistMenuElement = null;
         }
     }, true);
 
