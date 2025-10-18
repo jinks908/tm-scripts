@@ -1,0 +1,672 @@
+Original close method: function(){this._setCanceled(!1);this.opened=!1}
+
+Dropdown object properties: 
+Array(69) [ "__dataEnabled", "__dataReady", "__dataInvalid", "__data", "__dataPending", "__dataOld", "__dataInstanceProps", "__dataCounter", "__serializing", "__dataClientsReady", … ]
+​
+0: "__dataEnabled"
+​
+1: "__dataReady"
+​
+2: "__dataInvalid"
+​
+3: "__data"
+​
+4: "__dataPending"
+​
+5: "__dataOld"
+​
+6: "__dataInstanceProps"
+​
+7: "__dataCounter"
+​
+8: "__serializing"
+​
+9: "__dataClientsReady"
+​
+10: "__dataPendingClients"
+​
+11: "__dataToNotify"
+​
+12: "__dataLinkedPaths"
+​
+13: "__dataHasPaths"
+​
+14: "__dataCompoundStorage"
+​
+15: "__dataHost"
+​
+16: "__dataTemp"
+​
+17: "__dataClientsInitialized"
+​
+18: "rootPath"
+​
+19: "importPath"
+​
+20: "_boundFocusBlurHandler"
+​
+21: "stopKeyboardEventPropagation"
+​
+22: "_imperativeKeyBindings"
+​
+23: "sizingTarget"
+​
+24: "fitInto"
+​
+25: "autoFitOnAttach"
+​
+26: "expandSizingTargetForScrollbars"
+​
+27: "avoidOuterEdge"
+​
+28: "_notifyingDescendant"
+​
+29: "noAutoFocus"
+​
+30: "noCancelOnEscKey"
+​
+31: "noCancelOnOutsideClick"
+​
+32: "restoreFocusOnClose"
+​
+33: "_manager"
+​
+34: "noAnimations"
+​
+35: "root"
+​
+36: "_interestedResizables"
+​
+37: "_boundNotifyResize"
+​
+38: "_boundOnDescendantIronResize"
+​
+39: "__isPropertyEffectsClient"
+​
+40: "__autoDirOptOut"
+​
+41: "__templateInfo"
+​
+42: "$"
+​
+43: "__shady"
+​
+44: "__CE_shadowRoot"
+​
+45: "_active"
+​
+46: "animationConfig"
+​
+47: "__rootNodes"
+​
+48: "closingReason"
+​
+49: "__isAnimating"
+​
+50: "__shouldRemoveTabIndex"
+​
+51: "__lastFocusableNode"
+​
+52: "__firstFocusableNode"
+​
+53: "__rafs"
+​
+54: "__restoreFocusNode"
+​
+55: "__scrollLeft"
+​
+56: "__scrollTop"
+​
+57: "__onCaptureScroll"
+​
+58: "_overlaySetup"
+​
+59: "_readied"
+​
+60: "__domApi"
+​
+61: "_observer"
+​
+62: "noOverlap"
+​
+63: "dynamicAlign"
+​
+64: "isAriaModal"
+​
+65: "_fitInfo"
+​
+66: "_memoizedIsRTL"
+​
+67: "_originalClose"
+​
+68: "close"
+​
+length: 69
+​
+<prototype>: Array []
+​​
+at: function at()
+​​
+concat: function concat()
+​​
+constructor: function Array()
+​​
+copyWithin: function copyWithin()
+​​
+entries: function entries()
+​​
+every: function every()
+​​
+fill: function fill()
+​​
+filter: function filter()
+​​
+find: function find()
+​​
+findIndex: function findIndex()
+​​
+findLast: function findLast()
+​​
+findLastIndex: function findLastIndex()
+​​
+flat: function flat()
+​​
+flatMap: function flatMap()
+​​
+forEach: function forEach()
+​​
+includes: function includes()
+​​
+indexOf: function indexOf()
+​​
+join: function join()
+​​
+keys: function keys()
+​​
+lastIndexOf: function lastIndexOf()
+​​
+length: 0
+​​
+map: function map()
+​​
+pop: function pop()
+​​
+push: function push()
+​​
+reduce: function reduce()
+​​
+reduceRight: function reduceRight()
+​​
+reverse: function reverse()
+​​
+shift: function shift()
+​​
+slice: function slice()
+​​
+some: function some()
+​​
+sort: function sort()
+​​
+splice: function splice()
+​​
+toLocaleString: function toLocaleString()
+​​
+toReversed: function toReversed()
+​​
+toSorted: function toSorted()
+​​
+toSpliced: function toSpliced()
+​​
+toString: function toString()
+​​
+unshift: function unshift()
+​​
+values: function values()
+​​
+with: function with()
+​​
+Symbol(Symbol.iterator): function values()
+​​
+Symbol(Symbol.unscopables): Object { at: true, copyWithin: true, entries: true, … }
+​​
+<prototype>: Object { … }
+​​​
+__defineGetter__: function __defineGetter__()
+​​​​
+length: 2
+​​​​
+name: "__defineGetter__"
+​​​​
+<prototype>: function ()
+​​​
+__defineSetter__: function __defineSetter__()
+​​​
+__lookupGetter__: function __lookupGetter__()
+​​​
+__lookupSetter__: function __lookupSetter__()
+​​​
+__proto__: 
+​​​
+constructor: function Object()
+​​​
+hasOwnProperty: function hasOwnProperty()
+​​​
+isPrototypeOf: function isPrototypeOf()
+​​​
+propertyIsEnumerable: function propertyIsEnumerable()
+​​​
+toLocaleString: function toLocaleString()
+​​​
+toString: function toString()
+​​​
+valueOf: function valueOf()
+​​​
+<get __proto__()>: function __proto__()
+​​​
+<set __proto__()>: function __proto__()
+
+
+Dropdown prototype: 
+Array(140) [ "constructor", "created", "_registered", "_applyListeners", "_ensureAttributes", "ready", "attached", "detached", "attributeChanged", "behaviors", … ]
+​
+[0…99]
+​​
+0: "constructor"
+​​
+1: "created"
+​​
+2: "_registered"
+​​
+3: "_applyListeners"
+​​
+4: "_ensureAttributes"
+​​
+5: "ready"
+​​
+6: "attached"
+​​
+7: "detached"
+​​
+8: "attributeChanged"
+​​
+9: "behaviors"
+​​
+10: "is"
+​​
+11: "__dataAttributes"
+​​
+12: "__hasRegisterFinished"
+​​
+13: "_focusBlurHandler"
+​​
+14: "_disabledChanged"
+​​
+15: "_changedControlState"
+​​
+16: "keyBindings"
+​​
+17: "addOwnKeyBinding"
+​​
+18: "removeOwnKeyBindings"
+​​
+19: "keyboardEventMatchesKeys"
+​​
+20: "_collectKeyBindings"
+​​
+21: "_prepKeyBindings"
+​​
+22: "_addKeyBinding"
+​​
+23: "_resetKeyEventListeners"
+​​
+24: "_listenKeyEventListeners"
+​​
+25: "_unlistenKeyEventListeners"
+​​
+26: "_onKeyBindingEvent"
+​​
+27: "_triggerKeyHandler"
+​​
+28: "_defaultPositionTarget"
+​​
+29: "_localeHorizontalAlign"
+​​
+30: "__shouldPosition"
+​​
+31: "_isRTL"
+​​
+32: "fit"
+​​
+33: "_discoverInfo"
+​​
+34: "resetFit"
+​​
+35: "refit"
+​​
+36: "position"
+​​
+37: "constrain"
+​​
+38: "_sizeDimension"
+​​
+39: "__sizeDimension"
+​​
+40: "center"
+​​
+41: "__getNormalizedRect"
+​​
+42: "__getOffscreenArea"
+​​
+43: "__getPosition"
+​​
+44: "notifyResize"
+​​
+45: "assignParentResizable"
+​​
+46: "stopResizeNotificationsFor"
+​​
+47: "_subscribeIronResize"
+​​
+48: "_unsubscribeIronResize"
+​​
+49: "resizerShouldNotify"
+​​
+50: "_onDescendantIronResize"
+​​
+51: "_fireResize"
+​​
+52: "_onIronRequestResizeNotifications"
+​​
+53: "_parentResizableChanged"
+​​
+54: "_notifyDescendant"
+​​
+55: "_requestResizeNotifications"
+​​
+56: "_findParent"
+​​
+57: "backdropElement"
+​​
+58: "_focusNode"
+​​
+59: "_focusableNodes"
+​​
+60: "toggle"
+​​
+61: "open"
+​​
+62: "close"
+​​
+63: "cancel"
+​​
+64: "invalidateTabbables"
+​​
+65: "_ensureSetup"
+​​
+66: "_openedChanged"
+​​
+67: "_canceledChanged"
+​​
+68: "_withBackdropChanged"
+​​
+69: "_prepareRenderOpened"
+​​
+70: "_renderOpened"
+​​
+71: "_renderClosed"
+​​
+72: "_finishRenderOpened"
+​​
+73: "_finishRenderClosed"
+​​
+74: "_preparePositioning"
+​​
+75: "_finishPositioning"
+​​
+76: "_applyFocus"
+​​
+77: "_onCaptureClick"
+​​
+78: "_onCaptureFocus"
+​​
+79: "_onCaptureEsc"
+​​
+80: "_onCaptureTab"
+​​
+81: "_onIronResize"
+​​
+82: "_onNodesChange"
+​​
+83: "__ensureFirstLastFocusables"
+​​
+84: "__openedChanged"
+​​
+85: "__deraf"
+​​
+86: "__updateScrollObservers"
+​​
+87: "__addScrollListeners"
+​​
+88: "__removeScrollListeners"
+​​
+89: "__isValidScrollAction"
+​​
+90: "__onCaptureScroll"
+​​
+91: "__saveScrollPosition"
+​​
+92: "__restoreScrollPosition"
+​​
+93: "_entryAnimationChanged"
+​​
+94: "_exitAnimationChanged"
+​​
+95: "_copyProperties"
+​​
+96: "_cloneConfig"
+​​
+97: "_getAnimationConfigRecursive"
+​​
+98: "getAnimationConfig"
+​​
+99: "_configureAnimations"
+​
+[100…139]
+​​
+100: "_shouldComplete"
+​​
+101: "_complete"
+​​
+102: "playAnimation"
+​​
+103: "cancelAnimation"
+​​
+104: "_template"
+​​
+105: "properties"
+​​
+106: "listeners"
+​​
+107: "observers"
+​​
+108: "containedElement"
+​​
+109: "_onNeonAnimationFinish"
+​​
+110: "_updateAnimationConfig"
+​​
+111: "_updateOverlayPosition"
+​​
+112: "_allowOutsideScrollChanged"
+​​
+113: "_keyBindings"
+​​
+114: "__dataHasAccessor"
+​​
+115: "focused"
+​​
+116: "__readOnly"
+​​
+117: "_setFocused"
+​​
+118: "__reflectEffects"
+​​
+119: "__notifyEffects"
+​​
+120: "disabled"
+​​
+121: "__observeEffects"
+​​
+122: "keyEventTarget"
+​​
+123: "_boundKeyHandlers"
+​​
+124: "horizontalOffset"
+​​
+125: "verticalOffset"
+​​
+126: "_parentResizable"
+​​
+127: "opened"
+​​
+128: "canceled"
+​​
+129: "_setCanceled"
+​​
+130: "withBackdrop"
+​​
+131: "isAttached"
+​​
+132: "scrollAction"
+​​
+133: "entryAnimation"
+​​
+134: "exitAnimation"
+​​
+135: "horizontalAlign"
+​​
+136: "verticalAlign"
+​​
+137: "allowOutsideScroll"
+​​
+138: "positionTarget"
+​​
+139: "__preBoundTemplateInfo"
+​
+length: 140
+​
+<prototype>: Array []
+​​
+at: function at()
+​​
+concat: function concat()
+​​
+constructor: function Array()
+​​
+copyWithin: function copyWithin()
+​​
+entries: function entries()
+​​
+every: function every()
+​​
+fill: function fill()
+​​
+filter: function filter()
+​​
+find: function find()
+​​
+findIndex: function findIndex()
+​​
+findLast: function findLast()
+​​
+findLastIndex: function findLastIndex()
+​​
+flat: function flat()
+​​
+flatMap: function flatMap()
+​​
+forEach: function forEach()
+​​
+includes: function includes()
+​​
+indexOf: function indexOf()
+​​
+join: function join()
+​​
+keys: function keys()
+​​
+lastIndexOf: function lastIndexOf()
+​​
+length: 0
+​​
+map: function map()
+​​
+pop: function pop()
+​​
+push: function push()
+​​
+reduce: function reduce()
+​​
+reduceRight: function reduceRight()
+​​
+reverse: function reverse()
+​​
+shift: function shift()
+​​
+slice: function slice()
+​​
+some: function some()
+​​
+sort: function sort()
+​​
+splice: function splice()
+​​
+toLocaleString: function toLocaleString()
+​​
+toReversed: function toReversed()
+​​
+toSorted: function toSorted()
+​​
+toSpliced: function toSpliced()
+​​
+toString: function toString()
+​​
+unshift: function unshift()
+​​
+values: function values()
+​​
+with: function with()
+​​
+Symbol(Symbol.iterator): function values()
+​​
+Symbol(Symbol.unscopables): Object { at: true, copyWithin: true, entries: true, … }
+​​
+<prototype>: Object { … }
+​​​
+__defineGetter__: function __defineGetter__()
+​​​
+__defineSetter__: function __defineSetter__()
+​​​
+__lookupGetter__: function __lookupGetter__()
+​​​
+__lookupSetter__: function __lookupSetter__()
+​​​
+__proto__: 
+​​​
+constructor: function Object()
+​​​
+hasOwnProperty: function hasOwnProperty()
+​​​
+isPrototypeOf: function isPrototypeOf()
+​​​
+propertyIsEnumerable: function propertyIsEnumerable()
+​​​
+toLocaleString: function toLocaleString()
+​​​
+toString: function toString()
+​​​
+valueOf: function valueOf()
+​​​
+<get __proto__()>: function __proto__()
+​​​
+<set __proto__()>: function __proto__()
