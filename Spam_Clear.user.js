@@ -54,7 +54,7 @@
         }
     `);
 
-    // Function to show toast notification
+    // Function to show toast notification (w/ debug option)
     function showToast(message, persist = false) {
 
         // First check if Dark Mode is enabled
