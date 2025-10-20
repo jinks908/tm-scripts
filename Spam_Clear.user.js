@@ -14,6 +14,9 @@
 (function() {
     'use strict';
 
+    // TODO
+    // #:: Add confirmation toast notification
+
     function clearSpam() {
         // Find spam link
         const spamLink = document.querySelector('a[href="https://mail.google.com/mail/u/0/#spam"]');
