@@ -80,6 +80,7 @@
         // TODO -> Assign unique IDs to each playlist
         // ! -------------------------------------------------------------
 
+        // N> Use e.preventDefault() or e.stopPropagation() to prevent default behavior
         // Get all icon spans
         const playlistToggles = document.querySelectorAll('yt-list-item-view-model[role="listitem"]');
         const playlistToggleNames = new Set();

@@ -70,9 +70,11 @@
     }
 
     function askAI() {
+        console.log('askAI triggered');
         // Look for the "Ask" button directly on page
         const askButtons = document.querySelectorAll('button[aria-label="Ask"]');
         if (askButtons.length > 0) {
+            console.log('Found Ask button directly on page');
             askButtons[0].click();
 
             setTimeout(() => {
@@ -93,17 +95,22 @@
 
         // Otherwise look for the ⋮ button (action menu)
         const menuButtons = document.querySelectorAll('div#menu button[aria-label="More actions"]');
+        console.log('Menu buttons found:', menuButtons.length);
         if (menuButtons.length > 0) {
             // The action menu is usually the second item in the menu
-            menuButtons[1].click();
+            console.log(menuButtons[1]);
+            const actionMenu = menuButtons[1];
+            actionMenu.click();
             // Wait for menu to appear
             setTimeout(() => {
                 const btns = document.querySelectorAll('yt-formatted-string.ytd-menu-service-item-renderer');
+                console.log(btns);
 
                 // Search for the "Ask" button and click it
                 let foundAsk = false;
                 for (let btn of btns) {
                     if (btn.textContent.includes('Ask')) {
+                        console.log('Found Ask button in menu');
                         btn.click();
                         foundAsk = true;
 
@@ -122,13 +129,15 @@
                         }, 500);
                         break;
                     }
+                    actionMenu.click();
                 }
 
                 if (!foundAsk) {
                     // Close the menu and show toast notification
-                    menuButton[1].click();
-                    console.log('Ask AI not available for this video');
-                    showToast('Ask AI not available for this video');
+
+                    setTimeout(() => {
+                        showToast('Ask AI not available for this video');
+                    }, 300);
                 }
             }, 300);
         }
