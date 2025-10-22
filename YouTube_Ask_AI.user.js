@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Ask AI
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1
+// @version      1.2.2-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @description  Keyboard shortcut to open YouTube's Ask AI
@@ -127,6 +127,7 @@
                 if (!foundAsk) {
                     // Close the menu and show toast notification
                     menuButton[1].click();
+                    console.log('Ask AI not available for this video');
                     showToast('Ask AI not available for this video');
                 }
             }, 300);
