@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         YouTube Playlist Float
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.0-stable
+// @version      1.2.1-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
-// @description  Fix icon toggling (aesthetic only)
+// @description  Fix icon toggles for other playlists within the same DOM load
 // @author       SkyColtNinja
 // @match        https://www.youtube.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
@@ -13,6 +13,9 @@
 
 (function() {
     'use strict';
+
+    // TODO
+    // #:: Refresh the playlist menu/contents when a different playlist menu is selected
 
     let menuObserver = null;
     let isPlaylistMenuOpen = false;
@@ -74,8 +77,21 @@
             }
         }
 
+        // TODO -> Assign unique IDs to each playlist
+        // ! -------------------------------------------------------------
+
         // Get all icon spans
         const playlistToggles = document.querySelectorAll('yt-list-item-view-model[role="listitem"]');
+        const playlistToggleNames = new Set();
+        // console.log(playlistToggles);
+
+        // Assign unique IDs based on playlist names
+        for (let i = 0; i < playlistToggles.length; i++) {
+            const idName = playlistToggles[i]._signalValues[3].replaceAll(' ', '').replaceAll(',', '');
+            playlistToggles[i].setAttribute('id', idName);
+        };
+
+        // ! -------------------------------------------------------------
 
         // Remove old event listeners first
         playlistToggleListeners.forEach((listener, element) => {
