@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Playlist Float
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.9-stable
+// @version      1.2.0-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
 // @description  Fix icon toggling (aesthetic only)
@@ -31,7 +31,8 @@
         if (dropdown.close) {
             dropdown._originalClose = dropdown.close;
             dropdown.close = function() {
-                console.log('Close prevented');
+                console.log('Set canceled ONLY');
+                dropdown._setCanceled(!1);
                 // Don't actually close
             };
         }
