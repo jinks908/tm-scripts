@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Playlist Float
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.9-alpha
+// @version      1.1.9-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
 // @description  Fix icon toggling (aesthetic only)
@@ -17,6 +17,7 @@
     let menuObserver = null;
     let isPlaylistMenuOpen = false;
     let playlistMenuElement = null;
+    let playlistToggleListeners = new Map();
 
     // Function to keep menu open by overriding the close behavior
     function keepMenuOpen(menu) {
@@ -70,23 +71,33 @@
             } else {
                 pathElement.setAttribute('d', 'M19 3H5v18l7-5 7 5V3z');
                 console.log('Video saved to playlist');
-            };
-        };
+            }
+        }
 
         // Get all icon spans
         const playlistToggles = document.querySelectorAll('yt-list-item-view-model[role="listitem"]');
 
+        // Remove old event listeners first
+        playlistToggleListeners.forEach((listener, element) => {
+            element.removeEventListener('click', listener);
+        });
+        playlistToggleListeners.clear();
+
         // Add click event listener to each span
         playlistToggles.forEach(span => {
-            span.addEventListener('click', function(event) {
+            const clickHandler = function(event) {
                 let isSaved = this.getAttribute('aria-pressed') === 'true';
-                console.log('Saved: ', isSaved);
+                console.log('Saved to ' + this.getAttribute('aria-label') + ': ', isSaved);
                 this.setAttribute('aria-pressed', isSaved ? 'false' : 'true');
                 console.log('Toggled aria-pressed to: ', !isSaved);
                 toggleIcon(this.querySelector('path'), isSaved);
-            });
+            };
+
+            span.addEventListener('click', clickHandler);
+            playlistToggleListeners.set(span, clickHandler);
         });
-    };
+    }
+
 
     // Function to restore normal menu behavior
     function restoreMenuBehavior(menu) {
