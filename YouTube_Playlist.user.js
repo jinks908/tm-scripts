@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         YouTube Playlist Float
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.8
+// @version      1.1.9-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
-// @description  Keeps the "Save to Playlist" menu open when adding to playlists
+// @description  Fix icon toggling (aesthetic only)
 // @author       SkyColtNinja
 // @match        https://www.youtube.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
@@ -63,32 +63,30 @@
         // Store observer so we can disconnect it later
         dropdown._keepOpenObserver = observer;
 
+        function toggleIcon(pathElement, saved) {
+            if (saved) {
+                pathElement.setAttribute('d', 'M18 4v15.06l-5.42-3.87-.58-.42-.58.42L6 19.06V4h12m1-1H5v18l7-5 7 5V3z');
+                console.log('Video removed from playlist');
+            } else {
+                pathElement.setAttribute('d', 'M19 3H5v18l7-5 7 5V3z');
+                console.log('Video saved to playlist');
+            };
+        };
+
         // Get all icon spans
         const playlistToggles = document.querySelectorAll('yt-list-item-view-model[role="listitem"]');
 
         // Add click event listener to each span
         playlistToggles.forEach(span => {
             span.addEventListener('click', function(event) {
-                // Find the path element within this specific span
-                const pathElement = this.querySelector('path');
-                const playlistName = this.getAttribute('aria-label') || 'Unknown Playlist';
-
-                if (pathElement) {
-                    // If video is unsaved, save it
-                    if (pathElement.getAttribute('d') === 'M18 4v15.06l-5.42-3.87-.58-.42-.58.42L6 19.06V4h12m1-1H5v18l7-5 7 5V3z') {
-                        pathElement.setAttribute('d', 'M19 3H5v18l7-5 7 5V3z');
-                        console.log('Video saved to: ' + playlistName);
-                        return;
-                    } else {
-                        // If video is saved, unsave it
-                        pathElement.setAttribute('d', 'M18 4v15.06l-5.42-3.87-.58-.42-.58.42L6 19.06V4h12m1-1H5v18l7-5 7 5V3z');
-                        console.log('Video removed from : ' + playlistName);
-                        return;
-                    };
-                };
+                let isSaved = this.getAttribute('aria-pressed') === 'true';
+                console.log('Saved: ', isSaved);
+                this.setAttribute('aria-pressed', isSaved ? 'false' : 'true');
+                console.log('Toggled aria-pressed to: ', !isSaved);
+                toggleIcon(this.querySelector('path'), isSaved);
             });
         });
-    }
+    };
 
     // Function to restore normal menu behavior
     function restoreMenuBehavior(menu) {
