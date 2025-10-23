@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wiki Popup / Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1
+// @version      1.2.2
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
 // @description  Hide Wikipedia popups when using Tridactyl hints
@@ -15,10 +15,12 @@
     'use strict';
 
     // #:# Fix MathML/SVG expression backgrounds
-    const mathElements = document.querySelectorAll('.mwe-math-element');
-    mathElements.forEach(elem => {
-        // Note that Wiki's native dark theme inverts colors, hence 'white' -> 'black'
-        elem.closest('table')?.style.setProperty('background-color', 'white', 'important');
+    const tables = document.querySelectorAll('table');
+    tables.forEach(table => {
+        if (table.querySelector('.mwe-math-element')) {
+            // Note that Wiki's native dark theme inverts colors, hence 'white' -> 'black'
+            table.style.setProperty('background-color', 'white', 'important');
+        };
     });
 
 
