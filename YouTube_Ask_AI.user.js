@@ -29,29 +29,29 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             z-index: 9999;
             animation: slideIn 0.3s ease-out;
-        };
+        }
 
         @keyframes slideIn {
             from {
                 transform: translateX(400px);
                 opacity: 0;
-            };
+            }
             to {
                 transform: translateX(0);
                 opacity: 1;
-            };
-        };
+            }
+        }
 
         .yt-ask-ai-toast.slideOut {
             animation: slideOut 0.3s ease-out;
-        };
+        }
 
         @keyframes slideOut {
             to {
                 opacity: 0;
                 transform: translateX(400px);
-            };
-        };
+            }
+        }
     `);
 
     // Function to show toast notification
