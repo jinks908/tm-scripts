@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Ask AI
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.2-alpha
+// @version      1.2.2-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @description  Keyboard shortcut to open YouTube's Ask AI
@@ -20,11 +20,11 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #f44336;
+            background: #ff5f5f;
             color: white;
             padding: 16px 24px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 16px;
             font-family: "YouTube Sans", "Roboto", sans-serif;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             z-index: 9999;
@@ -42,14 +42,14 @@
             }
         }
 
-        .yt-ask-ai-toast.fadeOut {
-            animation: fadeOut 0.3s ease-out forwards;
+        .yt-ask-ai-toast.slideOut {
+            animation: slideOut 0.3s ease-out;
         }
 
-        @keyframes fadeOut {
+        @keyframes slideOut {
             to {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateX(400px);
             }
         }
     `);
@@ -62,7 +62,7 @@
         document.body.appendChild(toast);
 
         setTimeout(() => {
-            toast.classList.add('fadeOut');
+            toast.classList.add('slideOut');
             setTimeout(() => {
                 toast.remove();
             }, 300);
