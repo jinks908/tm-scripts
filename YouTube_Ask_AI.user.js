@@ -29,29 +29,29 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             z-index: 9999;
             animation: slideIn 0.3s ease-out;
-        }
+        };
 
         @keyframes slideIn {
             from {
                 transform: translateX(400px);
                 opacity: 0;
-            }
+            };
             to {
                 transform: translateX(0);
                 opacity: 1;
-            }
-        }
+            };
+        };
 
         .yt-ask-ai-toast.slideOut {
             animation: slideOut 0.3s ease-out;
-        }
+        };
 
         @keyframes slideOut {
             to {
                 opacity: 0;
                 transform: translateX(400px);
-            }
-        }
+            };
+        };
     `);
 
     // Function to show toast notification
@@ -67,14 +67,12 @@
                 toast.remove();
             }, 300);
         }, 3000);
-    }
+    };
 
     function askAI() {
-        console.log('askAI triggered');
         // Look for the "Ask" button directly on page
         const askButtons = document.querySelectorAll('button[aria-label="Ask"]');
         if (askButtons.length > 0) {
-            console.log('Found Ask button directly on page');
             askButtons[0].click();
 
             setTimeout(() => {
@@ -86,31 +84,24 @@
                     setTimeout(() => {
                         inputField.focus();
                     }, 100);
-                } else {
-                    console.log('Could not find Ask input field');
-                }
+                };
             }, 500);
             return;
         }
 
-        // Otherwise look for the ⋮ button (action menu)
+        // Otherwise look for ⋮ buttons (action menus)
         const menuButtons = document.querySelectorAll('div#menu button[aria-label="More actions"]');
-        console.log('Menu buttons found:', menuButtons.length);
         if (menuButtons.length > 0) {
-            // The action menu is usually the second item in the menu
-            console.log(menuButtons[1]);
+            // The one we want is the second item in the menu
             const actionMenu = menuButtons[1];
             actionMenu.click();
             // Wait for menu to appear
             setTimeout(() => {
+                // Look for the "Ask" button in the dialog menu
                 const btns = document.querySelectorAll('yt-formatted-string.ytd-menu-service-item-renderer');
-                console.log(btns);
-
-                // Search for the "Ask" button and click it
                 let foundAsk = false;
-                for (let btn of btns) {
+                for (const btn of btns) {
                     if (btn.textContent.includes('Ask')) {
-                        console.log('Found Ask button in menu');
                         btn.click();
                         foundAsk = true;
 
@@ -123,31 +114,29 @@
                                 setTimeout(() => {
                                     inputField.focus();
                                 }, 100);
-                            } else {
-                                console.log('Could not find Ask input field');
-                            }
+                            };
                         }, 500);
                         break;
-                    }
+                    };
+                    // Close action menu
                     actionMenu.click();
-                }
+                };
 
+                // Notify missing Ask button
                 if (!foundAsk) {
-                    // Close the menu and show toast notification
-
                     setTimeout(() => {
                         showToast('Ask AI not available for this video');
                     }, 300);
-                }
+                };
             }, 300);
-        }
-    }
+        };
+    };
 
     // Listen for keyboard shortcut (Ctrl+A)
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.key === 'a') {
             e.preventDefault();
             askAI();
-        }
+        };
     });
 })();
