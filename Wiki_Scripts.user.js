@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wiki Popup / Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.3
+// @version      1.2.4
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
 // @description  Hide Wikipedia popups when using Tridactyl hints
@@ -14,7 +14,10 @@
 (function() {
     'use strict';
 
-    // #:# Fix MathML/SVG expression backgrounds
+
+    // #:# Styles / Fixes
+    // #;# ------------------------------------------------------------ #
+    // ## Fix MathML/SVG expression backgrounds
     const tables = document.querySelectorAll('table');
     tables.forEach(table => {
         if (table.querySelector('.mwe-math-element')) {
@@ -23,6 +26,11 @@
         };
     });
 
+    // #:# Hide cookie notice banners
+    const cnoticeBanners = document.querySelectorAll('.cnotice');
+    cnoticeBanners.forEach(banner => {
+        banner.style.setProperty('display', 'none', 'important');
+    });
 
     // #:# Fix popup persistence when using Tridactyl hints
     // Hint mode active flag
