@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Ask AI
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.2-stable
+// @version      1.2.3-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Ask_AI.user.js
 // @description  Keyboard shortcut to open YouTube's Ask AI
@@ -87,7 +87,7 @@
                 };
             }, 500);
             return;
-        }
+        };
 
         // Otherwise look for ⋮ buttons (action menus)
         const menuButtons = document.querySelectorAll('div#menu button[aria-label="More actions"]');

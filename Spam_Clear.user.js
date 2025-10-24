@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Spam Clear
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1
+// @version      1.2.2
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Spam_Clear.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Spam_Clear.user.js
 // @description  Auto-delete all spam emails
@@ -80,11 +80,8 @@
                     toast.remove();
                 }, 300);
             }, 3000);
-        }
-    }
-
-    // Uncomment to expose showToast globally for debugging
-    // unsafeWindow.showToast = showToast;
+        };
+    };
 
     function clearSpam() {
         // Find spam link

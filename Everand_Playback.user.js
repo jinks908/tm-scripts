@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Everand Playback
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.1
+// @version      1.2.8-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Everand_Playback.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Everand_Playback.user.js
 // @description  Enhanced playback controls w/ keybindings
@@ -30,7 +30,6 @@
         // Restrict between 0.25x and 4.0x (standard HTML5 audio limits)
         currentSpeed = Math.max(0.25, Math.min(4.0, currentSpeed));
 
-        // `~/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/lib.dom.d.ts:11369`
         audio.playbackRate = currentSpeed;
 
         // Show speed indicator
@@ -45,7 +44,6 @@
         let newVolume = Math.round((audio.volume + change) * 100) / 100;
         newVolume = Math.max(0.0, Math.min(1.0, newVolume)); // Clamp between 0 and 1
 
-        // `~/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/lib.dom.d.ts:11413`
         audio.volume = newVolume;
 
         // Show volume indicator

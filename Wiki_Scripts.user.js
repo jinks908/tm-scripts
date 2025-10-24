@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wiki Popup / Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.2
+// @version      1.2.3
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
 // @description  Hide Wikipedia popups when using Tridactyl hints
@@ -47,7 +47,7 @@
                     popup.remove(); // Also remove it from DOM
                 });
             }, 800);
-        }
+        };
     });
 
     observer.observe(document.body, {

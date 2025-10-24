@@ -3,7 +3,7 @@
 // @namespace    SkyColtNinja/userscripts
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Everand_Dark_Mode.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Everand_Dark_Mode.user.js
-// @version      1.1.1
+// @version      1.2.8-stable
 // @description  A nicer dark theme for Everand audio player
 // @author       SkyColtNinja
 // @match        https://www.everand.com/listen/*
