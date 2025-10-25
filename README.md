@@ -5,9 +5,9 @@ A collection of userscripts to enhance various site themes, features, and functi
 ## 🚀 Installation
 
 1. Install a userscript manager:
+   - [Violentmonkey](https://violentmonkey.github.io/) (Chrome, Firefox, Edge)
    - [Tampermonkey](https://www.tampermonkey.net/) (Chrome, Firefox, Safari, Edge)
    - [Greasemonkey](https://www.greasespot.net/) (Firefox)
-   - [Violentmonkey](https://violentmonkey.github.io/) (Chrome, Firefox, Edge)
 
 2. Click on any script file in this repository
 
