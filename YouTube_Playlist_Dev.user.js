@@ -8,12 +8,30 @@
 // @author       SkyColtNinja
 // @match        https://www.youtube.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @grant        none
+// @grant        GM_addStyle
 // ==/UserScript==
 
 
 (function() {
     'use strict';
+
+    /* 
+        yt-sheet-view-model slot="dropdown-content" tabindex="-1" class="ytSheetViewModelHost ytSheetViewModelContextual"
+    tp-yt-iron-dropdown
+    style="outline: none; max-width: 400px; width: 100%; z-index: 2202; position: fixed; left: 30.7167px; top: 391.55px;bottom: 10% !important;"
+    class="style-scope ytd-popup-container"
+    * */
+
+    GM_addStyle(`
+        yt-sheet-view-model.ytSheetViewModelHost.ytSheetViewModelContextual {
+            max-height: 75% !important;
+            width: 90% !important;
+            bottom: 10% !important;
+        }
+        yt-contextual-sheet-layout.ytContextualSheetLayoutHost {
+            height: 60vh !important;
+        }
+    `);
 
     let menuObserver = null;
     let isPlaylistMenuOpen = false;
@@ -150,6 +168,8 @@
                 if (menu.textContent.includes('Save to')) {
                     playlistMenu = menu.closest('tp-yt-iron-dropdown.style-scope.ytd-popup-container');
                     if (playlistMenu) {
+                        // playlistMenu.style.setProperty('bottom', '10%');
+                        // playlistMenu.style.setProperty('top', 'auto', 'important');
                         break;
                     };
                 };
