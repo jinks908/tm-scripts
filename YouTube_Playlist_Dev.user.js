@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Playlist Dev
 // @namespace    SkyColtNinja/userscripts
-// @version      1.4.1-dev
+// @version      1.4.2-dev
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist_Dev.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist_Dev.user.js
 // @description  Fix icon toggles for other playlists within the same DOM load
@@ -15,26 +15,18 @@
 (function() {
     'use strict';
 
-    /* 
-        yt-sheet-view-model slot="dropdown-content" tabindex="-1" class="ytSheetViewModelHost ytSheetViewModelContextual"
-    tp-yt-iron-dropdown
-    style="outline: none; max-width: 400px; width: 100%; z-index: 2202; position: fixed; left: 30.7167px; top: 391.55px;bottom: 10% !important;"
-    class="style-scope ytd-popup-container"
+    GM_addStyle(`
+        yt-sheet-view-model.ytSheetViewModelHost.ytSheetViewModelContextual {
+            max-height: 75% !important;
+            width: 90% !important;
+            /*             bottom: 10% !important; */
+        }
+        yt-contextual-sheet-layout.ytContextualSheetLayoutHost {
+            height: 60vh !important;
+        }
+    `);
 
-    <yt-sheet-view-model slot="dropdown-content" tabindex="-1" class="ytSheetViewModelHost ytSheetViewModelContextual" style="outline: none; width: 90% !important; box-sizing: border-box; max-width: 400px; max-height: 778.55px;">
-
-    * */
-
-    // GM_addStyle(`
-    //     yt-sheet-view-model.ytSheetViewModelHost.ytSheetViewModelContextual {
-    //         width: 90% !important;
-    //     }
-
-    //     yt-contextual-sheet-layout.ytContextualSheetLayoutHost {
-    //         max-height: 60vh !important;
-    //         overflow-y: auto !important;
-    //     }
-    // `);
+    const winBottom = window.innerHeight || document.documentElement.clientHeight;
 
     let menuObserver = null;
     let isPlaylistMenuOpen = false;
@@ -63,43 +55,12 @@
         };
     };
 
-    // Add this function after your existing functions
-    function constrainMenuPosition(menu) {
-        if (!menu) return;
-
-        const rect = menu.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const bottomLimit = viewportHeight * 0.9; // 90% of viewport (leaving 10% at bottom)
-
-        if (rect.bottom > bottomLimit) {
-            const currentTop = parseFloat(menu.style.top);
-            const overflow = rect.bottom - bottomLimit;
-            menu.style.top = `${currentTop - overflow}px`;
-            menu.style.maxHeight = `${bottomLimit - rect.top + overflow}px`;
-        }
-    }
-
     // Function to keep menu open by overriding the close behavior
     function keepMenuOpen(menu) {
         if (!menu) return;
 
         // Find the iron-dropdown element which controls visibility
         const dropdown = menu;
-
-        const sheetViewModel = dropdown.querySelector('yt-sheet-view-model.ytSheetViewModelHost.ytSheetViewModelContextual');
-        if (sheetViewModel) {
-            sheetViewModel.style.removeProperty('max-height');
-            // sheetViewModel.style.setProperty('max-height', '60vh');
-            sheetViewModel.style.setProperty('width', '90%', 'important');
-        }
-        const contextualLayout = dropdown.querySelector('yt-contextual-sheet-layout');
-        if (contextualLayout) {
-            contextualLayout.style.setProperty('height', '60vh');
-            contextualLayout.style.setProperty('max-height', '60vh');
-        }
-            // contextualLayout.style.setProperty('overflow-y', 'auto', 'important');
-
-        constrainMenuPosition(dropdown);
 
         // Store YouTube's original close/hide methods
         if (dropdown.close) {
@@ -190,6 +151,9 @@
         if (menu._keepOpenObserver) {
             menu._keepOpenObserver.disconnect();
         };
+
+        // Remove previous 'bottom' setting
+        menu.style.removeProperty('bottom');
     };
 
     // Wait for playlist menu to appear
@@ -202,8 +166,6 @@
                 if (menu.textContent.includes('Save to')) {
                     playlistMenu = menu.closest('tp-yt-iron-dropdown.style-scope.ytd-popup-container');
                     if (playlistMenu) {
-                        playlistMenu.style.removeProperty('top');
-                        playlistMenu.style.setProperty('bottom', '10%');
                         break;
                     };
                 };
@@ -214,10 +176,16 @@
                 isPlaylistMenuOpen = true;
                 playlistMenuElement = playlistMenu;
 
-                // Let it load
+                // Wait for render
                 setTimeout(() => {
+                    const rect = playlistMenu.getBoundingClientRect();
+                    // Adjust position if menu is off-screen
+                    if (rect.bottom >= winBottom) {
+                        playlistMenu.style.setProperty('bottom', '100px', 'important');
+                        playlistMenu.style.removeProperty('top');
+                    };
                     keepMenuOpen(playlistMenu);
-                }, 100);
+                }, 500);
 
             // If menu is gone and it was open, restore behavior
             } else if (!playlistMenu && isPlaylistMenuOpen) {
