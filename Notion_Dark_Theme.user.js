@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.6
+// @version      1.3.7
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -456,17 +456,26 @@
             width: 400px !important;
         }
         /* Increase TOC indent spacing */
+        /* Second-level menu items */
         .notion-overlay-container div[style*="margin-inline-start: 12px;"] {
             margin-inline-start: 20px !important;
         }
+        .notion-overlay-container div[style*="margin-inline-start: 12px;"] span {
+            font-size: 17px !important;
+        }
+        /* Third-level menu items */
         .notion-overlay-container div[style*="margin-inline-start: 24px;"] {
             margin-inline-start: 40px !important;
         }
+        .notion-overlay-container div[style*="margin-inline-start: 24px;"] span {
+            font-size: 16px !important;
+        }
         /* TOC font style and color */
+        /* Top-level menu items */
         .notion-overlay-container div[role="dialog"] a span.notranslate {
-            color: var(--tpr-skyblue) !important; 
+            color: var(--tpr-default) !important; 
             font-family: var(--tpr-font-main) !important;
-            font-weight: 1000 !important;
+            font-weight: 600;
             font-size: 18px;
         }
         .notion-overlay-container div[role="dialog"] a span.notranslate:hover {
