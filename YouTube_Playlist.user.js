@@ -1,20 +1,34 @@
 // ==UserScript==
 // @name         YouTube Playlist Float
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.1-stable
+// @version      1.4.3-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist.user.js
-// @description  Fix icon toggles for other playlists within the same DOM load
+// @description  Keep the "Save to playlist" menu open while selecting
 // @author       SkyColtNinja
 // @match        https://www.youtube.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @grant        none
+// @grant        GM_addStyle
 // ==/UserScript==
 
 
 (function() {
     'use strict';
 
+    GM_addStyle(`
+        yt-sheet-view-model.ytSheetViewModelHost.ytSheetViewModelContextual {
+            max-height: 75% !important;
+            width: 90% !important;
+        }
+        yt-contextual-sheet-layout.ytContextualSheetLayoutHost {
+            height: 60vh !important;
+        }
+    `);
+
+    // Get bottom of viewport
+    const winBottom = window.innerHeight || document.documentElement.clientHeight;
+
+    // Initialize
     let menuObserver = null;
     let isPlaylistMenuOpen = false;
     let playlistMenuElement = null;
@@ -138,6 +152,9 @@
         if (menu._keepOpenObserver) {
             menu._keepOpenObserver.disconnect();
         };
+
+        // Remove previous 'bottom' setting
+        menu.style.removeProperty('bottom');
     };
 
     // Wait for playlist menu to appear
@@ -160,10 +177,16 @@
                 isPlaylistMenuOpen = true;
                 playlistMenuElement = playlistMenu;
 
-                // Let it load
+                // Wait for render
                 setTimeout(() => {
+                    const rect = playlistMenu.getBoundingClientRect();
+                    // Adjust position if menu is off-screen
+                    if (rect.bottom >= winBottom) {
+                        playlistMenu.style.setProperty('bottom', '100px', 'important');
+                        playlistMenu.style.removeProperty('top');
+                    };
                     keepMenuOpen(playlistMenu);
-                }, 100);
+                }, 500);
 
             // If menu is gone and it was open, restore behavior
             } else if (!playlistMenu && isPlaylistMenuOpen) {

@@ -19,15 +19,16 @@
         yt-sheet-view-model.ytSheetViewModelHost.ytSheetViewModelContextual {
             max-height: 75% !important;
             width: 90% !important;
-            /*             bottom: 10% !important; */
         }
         yt-contextual-sheet-layout.ytContextualSheetLayoutHost {
             height: 60vh !important;
         }
     `);
 
+    // Get bottom of viewport
     const winBottom = window.innerHeight || document.documentElement.clientHeight;
 
+    // Initialize
     let menuObserver = null;
     let isPlaylistMenuOpen = false;
     let playlistMenuElement = null;
