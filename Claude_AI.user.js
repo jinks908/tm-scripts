@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Claude AI
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.2
+// @version      1.1.5
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Claude_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Claude_AI.user.js
 // @description  Prevent <Enter> prompt submission without <Ctrl> key
@@ -14,43 +14,43 @@
 (function() {
     'use strict';
 
-    function setupEnterKeyHandler() {
-        // Remove existing listener to avoid duplicates
-        document.removeEventListener('keydown', handleEnterKey, true);
-        // Add new listener
-        document.addEventListener('keydown', handleEnterKey, true);
-    };
-
-    // Use capture phase to intercept before page scripts
     function handleEnterKey(e) {
-        // Reverts to Karabiner mapping for Ctrl+Enter
         if (e.ctrlKey && e.key === 'Enter') {
+            console.log('Ctrl+Enter detected - allowing');
             return true;
-        // Allow Shift+Enter for new lines
         } else if (e.shiftKey && e.key === 'Enter') {
+            console.log('Shift+Enter detected - allowing');
             return true;
-        // Block Enter key to prevent prompt submission
         } else if (e.key === 'Enter') {
+            console.log('Enter detected - blocking');
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
             return false;
-        };
-    };
+        }
+    }
 
-    // Initial setup
-    setupEnterKeyHandler();
+    function attachToChatInput() {
+        const chatInput = document.querySelector('[data-testid="chat-input"]');
 
-    // Intercept history changes to reapply handler
-    ['pushState', 'replaceState'].forEach(method => {
-        const original = history[method];
-        history[method] = function() {
-            original.apply(this, arguments);
-            setupEnterKeyHandler();
-        };
+        if (chatInput && !chatInput.dataset.enterHandlerAttached) {
+            chatInput.addEventListener('keydown', handleEnterKey, true);
+            chatInput.dataset.enterHandlerAttached = 'true';
+            console.log('Enter key handler attached to chat input');
+        }
+    }
+
+    // Watch for the chat input to appear/change
+    const observer = new MutationObserver(() => {
+        attachToChatInput();
     });
 
-    // Handle back/forward navigation
-    window.addEventListener('popstate', setupEnterKeyHandler);
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // Try attaching immediately
+    attachToChatInput();
 
 })();
