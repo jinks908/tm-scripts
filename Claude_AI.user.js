@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Claude AI
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.1
+// @version      1.1.2
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Claude_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Claude_AI.user.js
 // @description  Prevent <Enter> prompt submission without <Ctrl> key
@@ -22,7 +22,7 @@
     };
 
     // Use capture phase to intercept before page scripts
-    handleEnterKey(e) {
+    function handleEnterKey(e) {
         // Reverts to Karabiner mapping for Ctrl+Enter
         if (e.ctrlKey && e.key === 'Enter') {
             return true;
