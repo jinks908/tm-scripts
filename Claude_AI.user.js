@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Claude AI
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.7-stable
+// @version      1.1.8-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Claude_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Claude_AI.user.js
 // @description  Prevent <Enter> prompt submission without <Ctrl> key
@@ -27,7 +27,6 @@
         };
         // Block Enter key
         if (e.key === 'Enter') {
-            console.log('BLOCKING Enter key');
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
