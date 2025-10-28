@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Playlist Float (Firemonkey compatible)
 // @namespace    SkyColtNinja/userscripts
-// @version      1.4.4-alpha
+// @version      1.4.4-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist_FM.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Playlist_FM.user.js
 // @description  Keep the "Save to playlist" menu open while selecting
