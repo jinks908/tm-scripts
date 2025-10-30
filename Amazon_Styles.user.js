@@ -1,18 +1,23 @@
 // ==UserScript==
 // @name         Amazon Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1-stable
+// @version      1.2.2-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.user.js
+// @resource     customCSS https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.css
 // @description  Corrections and styles for Dark Mode Amazon theme
 // @author       Clayton Jinks
 // @match        https://www.amazon.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        GM_addStyle
+// @grant        GM_getResourceText
 // ==/UserScript==
 
 (function() {
     'use strict';
+
+    // Inject the external CSS
+    const customCSS = GM_getResourceText('customCSS');
 
     // Get root styles
     const computedStyle = getComputedStyle(document.documentElement);
@@ -25,93 +30,7 @@
             }
         });
 
-        GM_addStyle(`
-            :root body {
-                --__dChF3jKG1w4B: #f93c3c !important;
-            }
-            a:link {
-                color: #4291ee !important;
-            }
-            .a-section a.popover-trigger {
-                color: #232F3E !important;
-            }
-            #FeedbackAgent_feature_div h2[class*=reportAnIssueTitle],
-            #amazon-devices-legal-only-no-merchandising_feature_div .content-grid-block>h3,
-            #aplus>h2,
-            #ask-btf-container .askWidgetHeader,
-            #ask-btf_feature_div .ask-blue-widget-header>h3,
-            #audible-carousel-pdp-dramabot_feature_div .a-carousel-heading,
-            #audible-podcast-carousel-pdp-dramabot_feature_div .a-carousel-heading,
-            #audibleProductDetailsTitle,
-            #bnx-widget_feature_div .bnx_header h2[role=heading],
-            #brandInsights_feature_div_3 h2,
-            #bundleSummary_feature_div h1,
-            #climatePledgeFriendly .cpf-dpx-attribute-pill-text>h2,
-            #customer-reviews_feature_div h2,
-            #customer-reviews_feature_div h3,
-            #customerReviews h2,
-            #customerReviews h3,
-            #detailBulletsWrapper_feature_div>h2,
-            #discovery-and-inspiration_feature_div .a-cardui-body>h2,
-            #discovery-and-inspiration_feature_div .featureHeading,
-            #discovery-and-inspiration_feature_div [class*=carousel-title],
-            #dp-container .bucket:not([id*=aplus]) h2,
-            #dpx-rex-nice-widget-container>h2,
-            #editorialReviews-btf-ri_feature_div h3>span,
-            #editorialReviews-btf-ri_feature_div>h2,
-            #editorialReviews_feature_div h3,
-            #editorialReviews_feature_div>h2,
-            #expert-reviews_feature_div .a-cardui-header h3,
-            #feature-bullets>h1,
-            #feature-bullets>h2,
-            #followTheAuthor_feature_div h1[class*=followHeading],
-            #houseOfCardsFeature #hoc-expander-heading>.a-expander-prompt,
-            #houseOfCardsFeature .hoc-feature-header>h3,
-            #iconfarmv2_feature_div h1,
-            #important-information>h2,
-            #ive-videos-for-this-product-widget_feature_div .a-carousel-heading,
-            #legalEUBtf_feature_div>h2,
-            #moreAboutTheAuthorCard_feature_div #books-entity-teaser,
-            #music-tracks>h4,
-            #musicTracks_feature_div>h2,
-            #newerVersion_feature_div h2,
-            #newerVersion_feature_div h4,
-            #organic-complements-top_feature_div [class*=headerSection] h2[class*=header],
-            #postsSameBrandCard_feature_div [class*=carousel-title],
-            #pre-owned-condition-drawer>h2,
-            #prodDetails .a-expander-container>.a-row h3,
-            #prodDetails .secHeader,
-            #prodDetails h1,
-            #prodDetails>h2,
-            #product-comparison_feature_div h2,
-            #productDescription_feature_div h2.default,
-            #productDescription_feature_div h2.softlines,
-            #productDetails_expanderSectionTables .prodDet-expander-header-styling>.a-expander-prompt,
-            #productDocuments_feature_div h2,
-            #productFactsDesktop_feature_div h3,
-            #provenance-certifications>h1,
-            #red-regulation-content_feature_div h4>strong,
-            #rhf .rhf-header,
-            #rhf-container .a-carousel-heading,
-            #sbl-header-title,
-            #similarities_feature_div [class*=vseVideoWidgetHeaderBlock] h3,
-            #similarities_feature_div h2,
-            #technicalSpecifications_feature_div h5,
-            #technicalSpecifications_feature_div>h2,
-            #toySafety_feature_div>h3,
-            #twister-plus-feature .twister-plus-header,
-            #va-related-videos-widget_feature_div .a-carousel-heading,
-            #valuePick_feature_div h4,
-            #vasTitleText,
-            #whatsInTheBoxDeck>h2,
-            #whispersyncforvoice_primary>h2,
-            [data-elementid=vse-cards-vw-dp-widget-title] {
-              color: #4291ee !important;
-            }
-            .MMGridLayout .formatsRow .swatchElement .slot-price > * {
-                color: #e47911 !important;
-            }
-        `)
+        GM_addStyle(customCSS);
 
         // Injected styles
         const styleSheet = document.createElement('style');
