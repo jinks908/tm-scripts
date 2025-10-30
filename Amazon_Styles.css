@@ -1,3 +1,4 @@
+/* Custom Amazon Styles (for Dark Mode) */
 :root body {
     --__dChF3jKG1w4B: #f93c3c !important;
 }
@@ -83,8 +84,6 @@ a:link {
 .MMGridLayout .formatsRow .swatchElement .slot-price > * {
     color: #e47911 !important;
 }
-
-/* innerHTML */
 .a-accordion .a-accordion-row, .a-accordion .a-accordion-row .a-accordion-active {
     background-color: #141414 !important;
 }
