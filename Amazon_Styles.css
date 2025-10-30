@@ -83,3 +83,37 @@ a:link {
 .MMGridLayout .formatsRow .swatchElement .slot-price > * {
     color: #e47911 !important;
 }
+
+/* innerHTML */
+.a-accordion .a-accordion-row, .a-accordion .a-accordion-row .a-accordion-active {
+    background-color: #141414 !important;
+}
+.a-button-inner {
+    display: flex !important; 
+}
+.a-divider-inner {
+    display: none !important;
+}
+html * input, html * textarea {
+    color: #d0d3d0 !important; background-color: #000000 !important;
+}
+a:link {
+    color: #4291ee !important;
+}
+.a-section a.popover-trigger {
+    color: #232F3E !important;
+}
+.a-carousel-header-row .a-carousel-container h2.a-carousel-heading, .audible h2 {
+    color: #0578ff !important;
+}
+[style*="color:#c10015!important"], [style*="color: #c10015 !important"], [style*="color:#ff0000!important"],
+[style*="color: #ff0000 !important"], [style*="color:#f00!important"], [style*="color: #f00 !important"] {
+    color: #f93c3c !important; 
+}
+.r4m-sou-comparison-header-price *, .a-color-price, .bia-price,  .a-price[data-a-color='base'],
+#gw-asin-popover .pricing .price, #gw-asin-popover .pricing .price .a-color-price {
+    color: #f93c3c !important;
+}
+html * input, html * textarea {
+    background: none !important;
+}
