@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Amazon Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.4-alpha
+// @version      1.2.4-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.user.js
 // @resource     customCSS https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.css
-// @description  Corrections and styles for Dark Mode Amazon theme
+// @description  Enhanced styles for Amazon Dark Mode
 // @author       Clayton Jinks
 // @match        https://www.amazon.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
@@ -15,7 +15,7 @@
 (function() {
     'use strict';
 
-    // Get root styles
+    // Get root styles (for dark mode check)
     const computedStyle = getComputedStyle(document.documentElement);
 
     function injectStyles() {
