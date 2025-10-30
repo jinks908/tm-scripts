@@ -1,4 +1,6 @@
 /* Custom Amazon Styles (for Dark Mode) */
+/* Version: 1.2.4 */
+
 :root body {
     --__dChF3jKG1w4B: #f93c3c !important;
 }
@@ -14,7 +16,6 @@ a:link {
 .btf-sub-nav-desktop-product-info-wrapper {
     background: rgba(5, 160, 209, 1.0) !important;
 }
-
 
 #FeedbackAgent_feature_div h2[class*=reportAnIssueTitle],
 #amazon-devices-legal-only-no-merchandising_feature_div .content-grid-block>h3,
