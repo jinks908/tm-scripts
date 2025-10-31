@@ -1,7 +1,8 @@
 /* Custom Amazon Styles (for Dark Mode) */
-/* Version: 1.2.6 */
+/* Version: 1.2.7 */
 
 :root {
+    /* Amazon Colors */
     --amzn-prime-blue: #1176ec;
     --amzn-accent-blue: #146eb4;
     --amzn-orange: #FF9900;
@@ -13,11 +14,28 @@
     --white: #ffffff;
     --light-grey: #bbbbbb;
     --black: #000000;
+
+    /* TPR Colors */
+    --tpr-default: #e3dede;
+    --tpr-skyblue: #9ec6ea;
+    --tpr-seafoam: #52e3c3; 
+    --tpr-orange: #fc8530;
+    --tpr-yellow: #fec339;
+    --tpr-green: #a5fa69;
+    --tpr-blue: #00bfff;
+    --tpr-purple: #d573ff;
+    --tpr-pink: #ff70e2;
+    --tpr-red: #ff596f;
+    --tpr-comment: #5997a3;
+    --tpr-grey: #a9b6bd;
+    --tpr-dark-grey: #5d6f6f;
+    --tpr-bg: #0c1621;
+    --tpr-bg-alt: #111f2e;
 }
 
 /* General links */
 a:link {
-    color: var(--amzn-accent-blue) !important;
+    color: var(--tpr-blue) !important;
 }
 .a-section a.popover-trigger {
     color: var(--amzn-dark-smoke) !important;
@@ -25,11 +43,12 @@ a:link {
 
 /* Hover nav bar */
 .btf-sub-nav-desktop-product-info-wrapper {
-    background-color: var(--amzn-dark) !important;
-    color: var(--amzn-prime-blue) !important;
+    background: rgba(24, 32, 42, 0.80) !important;
+    backdrop-filter: blur(10px) !important;
+    color: var(--tpr-blue) !important;
 }
 .btf-sub-nav-desktop-product-info-wrapper .tab-content:not(:hover), .top-tab-content:not(:hover) {
-    color: var(--amzn-prime-blue) !important;
+    color: var(--tpr-blue) !important;
 }
 /* Product name */
 .btf-sub-nav-desktop-product-info-wrapper .btf-sub-nav-desktop-title-container .btf-sub-nav-desktop-title-text:not(:hover) {
@@ -42,11 +61,11 @@ img.sub-nav-desktop-top-tab-icon {
 
 /* Prime delivery countdown */
 #ftCountdown, .ftCountdownClass {
-    color: var(--amzn-green) !important;
+    color: var(--tpr-green) !important;
 }
 /* Change any other greens */
 [style*="color: #067D62"], [style*="color:#067D62"] {
-    color: var(--amzn-green) !important;
+    color: var(--tpr-green) !important;
 }
 
 /* Product information accordions */
@@ -136,10 +155,10 @@ p.aui-primitive, span.aui-primitive {
 #whatsInTheBoxDeck>h2,
 #whispersyncforvoice_primary>h2,
 [data-elementid=vse-cards-vw-dp-widget-title] {
-  color: var(--amzn-accent-blue) !important;
+  color: var(--tpr-blue) !important;
 }
 .MMGridLayout .formatsRow .swatchElement .slot-price > * {
-    color: var(--amzn-orange) !important;
+    color: var(--tpr-orange) !important;
 }
 
 /* Fix white backgrounds and product image visibility */
@@ -158,14 +177,14 @@ html * input, html * textarea {
 
 /* Audible product carousel */
 .a-carousel-header-row .a-carousel-container h2.a-carousel-heading, .audible h2 {
-    color: var(--amzn-prime-blue) !important;
+    color: var(--tpr-blue) !important;
 }
 /* Fix price colors (reds) */
 [style*="color:#c10015!important"], [style*="color: #c10015 !important"], [style*="color:#ff0000!important"],
 [style*="color: #ff0000 !important"], [style*="color:#f00!important"], [style*="color: #f00 !important"] {
-    color: var(--amzn-red) !important; 
+    color: var(--tpr-red) !important; 
 }
 .r4m-sou-comparison-header-price *, .a-color-price, .bia-price,  .a-price[data-a-color='base'],
 #gw-asin-popover .pricing .price, #gw-asin-popover .pricing .price .a-color-price {
-    color: var(--amzn-red) !important;
+    color: var(--tpr-red) !important;
 }
