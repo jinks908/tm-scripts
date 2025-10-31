@@ -1,5 +1,5 @@
 /* Custom Amazon Styles (for Dark Mode) */
-/* Version: 1.2.7 */
+/* Version: 1.2.8 */
 
 :root {
     /* Amazon Colors */
@@ -33,6 +33,20 @@
     --tpr-bg-alt: #111f2e;
 }
 
+/* Fix white backgrounds and product image visibility */
+html * input, html * textarea {
+    color: var(--white) !important; background-color: var(--black) !important;
+}
+.a-accordion .a-accordion-row, .a-accordion .a-accordion-row .a-accordion-active {
+    background-color: var(--amzn-dark) !important;
+}
+.a-button-inner {
+    display: flex !important; 
+}
+.a-divider-inner {
+    display: none !important;
+}
+
 /* General links */
 a:link {
     color: var(--tpr-blue) !important;
@@ -41,12 +55,13 @@ a:link {
     color: var(--amzn-dark-smoke) !important;
 }
 
-/* Hover nav bar */
+/* Hover Navbar */
 .btf-sub-nav-desktop-product-info-wrapper {
     background: rgba(24, 32, 42, 0.80) !important;
     backdrop-filter: blur(10px) !important;
     color: var(--tpr-blue) !important;
 }
+/* Menu items */
 .btf-sub-nav-desktop-product-info-wrapper .tab-content:not(:hover), .top-tab-content:not(:hover) {
     color: var(--tpr-blue) !important;
 }
@@ -59,6 +74,10 @@ img.sub-nav-desktop-top-tab-icon {
     filter: invert(1) !important;
 }
 
+/* Delivery options */
+.a-icon-premium-with-text, .a-icon-prime-jp-with-text, .a-icon-prime-with-text {
+    color: var(--light-grey) !important;
+}
 /* Prime delivery countdown */
 #ftCountdown, .ftCountdownClass {
     color: var(--tpr-green) !important;
@@ -75,12 +94,12 @@ img.sub-nav-desktop-top-tab-icon {
 #prodDetails .prodDet-expander-header-styling, .a-section-expander-container {
     background: none !important;
 }
-/* Customer review section */
-[style*="color: #0F1111"], [style*="color:#0F1111"],
-h1.aui-primitive, h2.aui-primitive, h3.aui-primitive,
-h4.aui-primitive, h5.aui-primitive, h6.aui-primitive,
-p.aui-primitive, span.aui-primitive {
-    color: var(--light-grey) !important;
+/* Model comparison tables */
+.aplus-v2 .premium-aplus-module-11, .aplus-v2 .premium-aplus-module-11 .faq-block,
+.aplus-v2 .premium-aplus-module-5 table.a-bordered td,
+.aplus-v2 .premium-aplus-module-5 table.a-bordered th,
+table.a-bordered td, table.a-bordered th {
+    background: none !important;
 }
 
 /* Various product links */
@@ -161,20 +180,6 @@ p.aui-primitive, span.aui-primitive {
     color: var(--tpr-orange) !important;
 }
 
-/* Fix white backgrounds and product image visibility */
-html * input, html * textarea {
-    color: var(--white) !important; background-color: var(--black) !important;
-}
-.a-accordion .a-accordion-row, .a-accordion .a-accordion-row .a-accordion-active {
-    background-color: var(--amzn-dark) !important;
-}
-.a-button-inner {
-    display: flex !important; 
-}
-.a-divider-inner {
-    display: none !important;
-}
-
 /* Audible product carousel */
 .a-carousel-header-row .a-carousel-container h2.a-carousel-heading, .audible h2 {
     color: var(--tpr-blue) !important;
@@ -182,9 +187,17 @@ html * input, html * textarea {
 /* Fix price colors (reds) */
 [style*="color:#c10015!important"], [style*="color: #c10015 !important"], [style*="color:#ff0000!important"],
 [style*="color: #ff0000 !important"], [style*="color:#f00!important"], [style*="color: #f00 !important"] {
-    color: var(--tpr-red) !important; 
+    color: var(--amzn-red) !important; 
 }
 .r4m-sou-comparison-header-price *, .a-color-price, .bia-price,  .a-price[data-a-color='base'],
 #gw-asin-popover .pricing .price, #gw-asin-popover .pricing .price .a-color-price {
-    color: var(--tpr-red) !important;
+    color: var(--amzn-red) !important;
+}
+
+/* Customer review section */
+[style*="color: #0F1111"], [style*="color:#0F1111"],
+h1.aui-primitive, h2.aui-primitive, h3.aui-primitive,
+h4.aui-primitive, h5.aui-primitive, h6.aui-primitive,
+p.aui-primitive, span.aui-primitive {
+    color: var(--light-grey) !important;
 }
