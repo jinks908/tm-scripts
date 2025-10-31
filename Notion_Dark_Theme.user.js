@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.8-alpha
+// @version      1.3.8-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @resource     customCSS https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.css
@@ -9,6 +9,7 @@
 // @author       SkyColtNinja
 // @match        https://www.notion.so/skycoltninja/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @grant        GM_getResourceText
 // @grant        GM_addStyle
 // ==/UserScript==
 
@@ -16,16 +17,10 @@
 (function() {
     'use strict';
 
-    // Apply CSS
+    // Apply CSS theme
     const customCSS = GM_getResourceText('customCSS');
     GM_addStyle(customCSS);
 
-    // #;# ------------------------------------------------------------ #
-    // #:# JavaScript
-    // #;# ------------------------------------------------------------ #
-
-    // ## Fixes and Features
-    // #& ------------------------------------------------------------ #
     // Fix div colors being overridden by Notion's inline styles (e.g., in databases)
     const targetDivs = document.querySelectorAll('.notion-scroller.vertical div div div div div div');
 
@@ -37,8 +32,6 @@
         div.style.setProperty('color', currentColor, 'important');
     });
 
-    // ## Back to Top Button
-    // #& ------------------------------------------------------------ #
     // Create "Back To Top" scroll button
     function createBackToTopButton() {
         const button = document.createElement('button');
