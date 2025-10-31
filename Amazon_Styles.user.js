@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.5-alpha
+// @version      1.2.6-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.user.js
 // @resource     customCSS https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.css
