@@ -1,20 +1,29 @@
 /* Custom Amazon Styles (for Dark Mode) */
-/* Version: 1.2.4 */
+/* Version: 1.2.5 */
 
-:root body {
-    --__dChF3jKG1w4B: #f93c3c !important;
+:root {
+    --amzn-prime-blue: #1176ec;
+    --amzn-accent-blue: #146eb4;
+    --amzn-orange: #FF9900;
+    --amzn-smoke: #37475a;
+    --amzn-dark-smoke: #232f3e;
+    --amzn-dark: #18202a;
+    --amzn-red: #f93c3c;
+    --white: #ffffff;
+    --black: #000000;
 }
+
 a:link {
-    color: #4291ee !important;
+    color: var(--amzn-accent-blue) !important;
 }
 .a-section a.popover-trigger {
-    color: #232F3E !important;
+    color: var(--amzn-dark-smoke) !important;
 }
 .btf-sub-nav-desktop-product-info-wrapper .tab-content:not(:hover) {
-    color: #ffffff !important;
+    color: var(--white) !important;
 }
 .btf-sub-nav-desktop-product-info-wrapper {
-    background: rgba(5, 160, 209, 1.0) !important;
+    background: var(--amzn-accent-blue) !important;
 }
 
 #FeedbackAgent_feature_div h2[class*=reportAnIssueTitle],
@@ -88,13 +97,13 @@ a:link {
 #whatsInTheBoxDeck>h2,
 #whispersyncforvoice_primary>h2,
 [data-elementid=vse-cards-vw-dp-widget-title] {
-  color: #4291ee !important;
+  color: var(--amzn-accent-blue) !important;
 }
 .MMGridLayout .formatsRow .swatchElement .slot-price > * {
-    color: #e47911 !important;
+    color: var(--amzn-orange) !important;
 }
 .a-accordion .a-accordion-row, .a-accordion .a-accordion-row .a-accordion-active {
-    background-color: #141414 !important;
+    background-color: var(--amzn-dark) !important;
 }
 .a-button-inner {
     display: flex !important; 
@@ -103,24 +112,24 @@ a:link {
     display: none !important;
 }
 html * input, html * textarea {
-    color: #d0d3d0 !important; background-color: #000000 !important;
+    color: var(--white) !important; background-color: var(--black) !important;
 }
 a:link {
-    color: #4291ee !important;
+    color: var(--amzn-accent-blue) !important;
 }
 .a-section a.popover-trigger {
-    color: #232F3E !important;
+    color: var(--amzn-dark-smoke) !important;
 }
 .a-carousel-header-row .a-carousel-container h2.a-carousel-heading, .audible h2 {
-    color: #0578ff !important;
+    color: var(--amzn-prime-blue) !important;
 }
 [style*="color:#c10015!important"], [style*="color: #c10015 !important"], [style*="color:#ff0000!important"],
 [style*="color: #ff0000 !important"], [style*="color:#f00!important"], [style*="color: #f00 !important"] {
-    color: #f93c3c !important; 
+    color: var(--amzn-red) !important; 
 }
 .r4m-sou-comparison-header-price *, .a-color-price, .bia-price,  .a-price[data-a-color='base'],
 #gw-asin-popover .pricing .price, #gw-asin-popover .pricing .price .a-color-price {
-    color: #f93c3c !important;
+    color: var(--amzn-red) !important;
 }
 html * input, html * textarea {
     background: none !important;
