@@ -4,7 +4,7 @@
 // @version      1.3.8-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
-// @resource     customCSS https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.css
+// @resource     customCSS https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.css?v=1.3.9
 // @description  A nicer dark theme for Notion
 // @author       SkyColtNinja
 // @match        https://www.notion.so/skycoltninja/*
