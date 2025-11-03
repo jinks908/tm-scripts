@@ -1,5 +1,5 @@
 /* Custom Amazon Styles (for Dark Mode) */
-/* Version: 1.2.8 */
+/* Version: 1.2.9 */
 
 :root {
     /* Amazon Colors */
@@ -72,6 +72,14 @@ a:link {
 /* Top arrow */
 img.sub-nav-desktop-top-tab-icon {
     filter: invert(1) !important;
+}
+/* Books menu */
+.a-section[role="navigation"] {
+    background-color: var(--amzn-dark) !important;
+}
+/* Books logo */
+.a-link-normal[aria-label="Books"] {
+filter: invert(1) !important;
 }
 
 /* Delivery options */
