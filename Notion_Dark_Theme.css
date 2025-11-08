@@ -1,6 +1,6 @@
 /*
 ** Notion Dark Theme
-** Version: 1.3.9
+** Version: 1.4.0
 **/
 
 /* ------------------------------------------------------------- */
@@ -787,4 +787,12 @@ blockquote div {
 }
 blockquote div div.notranslate {
     color: var(--tpr-skyblue) !important;
+}
+
+/* ## Tables and Databases
+** ------------------------------------------------------------- */
+.notion-table-row th[scope="col"] {
+    background-color: var(--tpr-bg-alt) !important;
+    color: var(--tpr-seafoam) !important;
+    font-weight: 600 !important;
 }
