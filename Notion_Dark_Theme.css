@@ -1,6 +1,6 @@
 /*
 ** Notion Dark Theme
-** Version: 1.4.1
+** Version: 1.4.2
 **/
 
 /* ------------------------------------------------------------- */
@@ -795,5 +795,8 @@ blockquote div div.notranslate {
     background-color: var(--tpr-bg-alt) !important;
     color: var(--tpr-seafoam) !important;
     font-weight: 600 !important;
+    border: 1px solid var(--tpr-dark-grey) !important;
+}
+tr.notion-table-row td {
     border: 1px solid var(--tpr-dark-grey) !important;
 }
