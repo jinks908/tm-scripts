@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.4.2-alpha
+// @version      1.4.3-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
-// @resource     customCSS https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.css?v=1.4.2
+// @resource     customCSS https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.css?v=1.4.3
 // @description  A nicer dark theme for Notion
 // @author       SkyColtNinja
 // @match        https://www.notion.so/skycoltninja/*
