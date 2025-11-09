@@ -15,8 +15,6 @@
 (function() {
     'use strict';
 
-    // [ ] Add: Todo tasks for git repos
-    // [x] Add: More tasks
 
     // Get root styles (for dark mode check)
     const computedStyle = getComputedStyle(document.documentElement);

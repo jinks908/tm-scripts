@@ -78,8 +78,6 @@
             };
         };
 
-        // [ ] Fix: This is the YouTube file
-        // [x] Remove: Even more tasks
         // Prevent the opened attribute from being removed
         const observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {

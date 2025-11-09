@@ -26,8 +26,6 @@
             return;
         };
 
-        // [ ] Add: Todo tasks for git repos
-        // [x] Feat: More tasks
         // Block Enter key
         if (e.key === 'Enter') {
             e.preventDefault();
