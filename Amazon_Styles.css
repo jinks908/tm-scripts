@@ -1,5 +1,5 @@
 /* Custom Amazon Styles (for Dark Mode) */
-/* Version: 1.2.9 */
+/* Version: 1.3.0 */
 
 :root {
     /* Amazon Colors */
@@ -208,4 +208,8 @@ h1.aui-primitive, h2.aui-primitive, h3.aui-primitive,
 h4.aui-primitive, h5.aui-primitive, h6.aui-primitive,
 p.aui-primitive, span.aui-primitive {
     color: var(--light-grey) !important;
+}
+/* Pagination buttons */
+.s-pagination-item svg, .a-list-item .s-pagination-selected {
+    filter: invert(1) !important;
 }
