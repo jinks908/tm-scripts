@@ -94,6 +94,10 @@ filter: invert(1) !important;
 [style*="color: #067D62"], [style*="color:#067D62"] {
     color: var(--tpr-green) !important;
 }
+/* "In Stock" text */
+.a-color-success {
+    color: var(--tpr-green) !important;
+}
 
 /* Product information accordions */
 #twister-plus-desktop-twister-container .text-swatch-button-with-slots.a-button-selected .swatch-title-text-container {
@@ -209,6 +213,11 @@ h4.aui-primitive, h5.aui-primitive, h6.aui-primitive,
 p.aui-primitive, span.aui-primitive {
     color: var(--light-grey) !important;
 }
+/* Review titles and text */
+h5[data-reviewbind="ReviewTitle"], div[data-reviewbind="ReviewText"], div[data-reviewbind="ProfileBadge"] {
+    color: var(--white) !important;
+}
+
 /* Pagination buttons */
 .s-pagination-item svg, .a-list-item .s-pagination-selected {
     filter: invert(1) !important;
