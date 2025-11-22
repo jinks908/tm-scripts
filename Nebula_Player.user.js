@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nebula Player Controls
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.2-stable
+// @version      1.2.1-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Nebula_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Nebula_Player.user.js
 // @description  Custom keybindings for the Nebula video player
@@ -24,7 +24,6 @@
         video.click();
 
         showIndicator('Focused');
-        console.log('Player focused');
     };
 
     // Set custom volume
@@ -52,15 +51,26 @@
         indicator.textContent = text;
 
         // Set colors based on type
-        let bgColor;
+        let bgColor, fgColor;
         switch(type) {
             case 'volume':
+                fgColor = '#000000';
                 bgColor = '#00aeff';
                 break;
-            case 'media':
+            case 'play':
+                fgColor = '#000000';
                 bgColor = '#f7c143';
                 break;
+            case 'back':
+                fgColor = '#000000';
+                bgColor = '#f7768e';
+                break;
+            case 'forward':
+                fgColor = '#000000';
+                bgColor = '#52e3c3';
+                break;
             default: // speed
+                fgColor = '#000000';
                 bgColor = '#52e3c3';
         }
 
@@ -70,7 +80,7 @@
             top: 20px;
             right: 20px;
             background: ${bgColor};
-            color: #000000;
+            color: ${fgColor};
             padding: 8px 12px;
             border-radius: 4px;
             font-family: "Poppins", sans-serif !important;
@@ -109,11 +119,26 @@
         switch(e.key) {
             case 'ArrowUp':
                 e.preventDefault();
-                updateVolume(0.05); // Increase volume by 5%
+                updateVolume(0.05);
                 break;
             case 'ArrowDown':
                 e.preventDefault();
-                updateVolume(-0.05); // Decrease volume by 5%
+                updateVolume(-0.05);
+                break;
+            case 'ArrowLeft':
+                showIndicator('⏮  5s', 'back');
+                break;
+            case 'ArrowRight':
+                showIndicator('⏭  5s', 'forward');
+                break;
+            case 'j':
+                showIndicator('⏮  15s', 'back');
+                break;
+            case 'l':
+                showIndicator('⏭  15s', 'forward');
+                break;
+            case 'k':
+                showIndicator('Play/Pause', 'play');
                 break;
         };
     }, true);
