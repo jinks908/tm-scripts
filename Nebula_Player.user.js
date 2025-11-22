@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nebula Player Controls
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.1-alpha
+// @version      1.0.2-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Nebula_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Nebula_Player.user.js
 // @description  Custom keybindings for the Nebula video player
@@ -24,6 +24,7 @@
         video.click();
 
         showIndicator('Focused');
+        console.log('Player focused');
     };
 
     // Set custom volume
@@ -87,7 +88,7 @@
             setTimeout(() => {
                 if (indicator && indicator.parentNode) {
                     indicator.parentNode.removeChild(indicator);
-                }
+                };
             }, 300);
         }, 2000);
     };
@@ -97,11 +98,15 @@
         // Only trigger if not focused on input/textarea
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
+        // Focus player
+        if (e.code === 'KeyF' && e.altKey && e.shiftKey) {
+            e.preventDefault();
+            focusVideoPlayer();
+            return;
+        };
+
+        // Other bindings
         switch(e.key) {
-            case (e.altKey && e.ctrlKey && e.key === 'f'):
-                e.preventDefault();
-                focusVideoPlayer(); // Focus the video player
-                break;
             case 'ArrowUp':
                 e.preventDefault();
                 updateVolume(0.05); // Increase volume by 5%
