@@ -1,5 +1,5 @@
 /* Custom Amazon Styles (for Dark Mode) */
-/* Version: 1.2.9 */
+/* Version: 1.3.1 */
 
 :root {
     /* Amazon Colors */
@@ -92,6 +92,10 @@ filter: invert(1) !important;
 }
 /* Change any other greens */
 [style*="color: #067D62"], [style*="color:#067D62"] {
+    color: var(--tpr-green) !important;
+}
+/* "In Stock" text */
+.a-color-success {
     color: var(--tpr-green) !important;
 }
 
@@ -208,4 +212,13 @@ h1.aui-primitive, h2.aui-primitive, h3.aui-primitive,
 h4.aui-primitive, h5.aui-primitive, h6.aui-primitive,
 p.aui-primitive, span.aui-primitive {
     color: var(--light-grey) !important;
+}
+/* Review titles and text */
+h5[data-reviewbind="ReviewTitle"], div[data-reviewbind="ReviewText"], div[data-reviewbind="ProfileBadge"] {
+    color: var(--white) !important;
+}
+
+/* Pagination buttons */
+.s-pagination-item svg, .a-list-item .s-pagination-selected {
+    filter: invert(1) !important;
 }

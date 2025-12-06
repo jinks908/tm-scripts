@@ -1,3 +1,4 @@
+.DS_Store
 DEBUG_YouTube_Playlist.user.js
 test.html
 test.js
@@ -6,3 +7,4 @@ console_data.log
 youtube_js_functions.js
 youtube_js_functions_excerpt.js
 amazon_default.css
+TODO.md
