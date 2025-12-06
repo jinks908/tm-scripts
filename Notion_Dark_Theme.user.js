@@ -1,8 +1,10 @@
 // ==UserScript==
-// @name         Notion Theme (Optimized)
-// @namespace    http://tampermonkey.net/
-// @version      1.5.0-alpha
-// @description  A nicer dark theme for Notion - Performance Optimized
+// @name         Notion Theme
+// @namespace    SkyColtNinja/userscripts
+// @version      1.5.1-alpha
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
+// @description  A nicer dark theme for Notion
 // @author       Clayton Jinks
 // @match        https://www.notion.so/skycoltninja/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
@@ -381,6 +383,8 @@
             margin-inline-start: 40px !important;
         }
 
+        /* TOC font style and color */
+        /* Top-level menu items */
         .notion-overlay-container div[role="dialog"] a span.notranslate {
             color: var(--tpr-skyblue) !important; 
             font-family: var(--tpr-font-main) !important;
@@ -392,16 +396,18 @@
             color: var(--tpr-seafoam) !important;
         }
 
+        /* TOC menu tab */
         .hide-scrollbar.ignore-scrolling-container.notion-floating-table-of-contents div div div {
             background-color: var(--tpr-bg-alt);
             border-radius: 7px 0px 0px 7px !important;
         }
 
-        /* Dialog Menus */
+        /* Text edit menu */
         .notion-text-action-menu div div {
             background-color: var(--tpr-bg-alt) !important;
         }
 
+        /* Dialog menus */
         div[role="dialog"],
         .notion-scroller .vertical,
         .sticky-portal-target {
@@ -425,6 +431,7 @@
             opacity: 1 !important;
         }
 
+        /* In-page menus / links */
         .notion-selectable.notion-page-block a:hover,
         div[dir="ltr"]:hover {
             color: var(--tpr-bg-alt) !important;
@@ -469,6 +476,7 @@
         }
 
         /* Overlay Menus */
+        /* NOTE: The 2 rules below are set to none since we style each overlay menu individually */
         div[data-overlay="true"] div[role="dialog"] div,
         div[data-overlay="true"] div[role="dialog"] {
             background: none !important;
@@ -520,7 +528,13 @@
             fill: var(--tpr-bg);
         }
 
-        /* Page Design */
+        /* ## Page Design
+        ** ------------------------------------------------------------- */
+        /* Set content width for non-full-width pages */
+        /* NOTE: We may want split Ares/Aurora settings here */
+        /* .layout {--content-width: minmax(auto, 75%) !important;} */
+
+        /* Breadcrumb and top bar colors */
         header {
             background-color: var(--tpr-bg-alt) !important;
             color: var(--tpr-seafoam) !important;
@@ -539,27 +553,32 @@
             color: var(--tpr-default) !important;
         }
 
+        /* Page title color */
         .notion-selectable.notion-page-block h1 {
             color: #07fdaf !important;
         }
 
+        /* Hide top-level page discussions */
         .layout-content-with-divider {
             display: none !important;
         }
 
+        /* Set embedded file block styles */
         .notion-file-block div div {
             color: #36c2c2 !important;
             font-weight: bold !important;
         }
 
         /* Cursor Color */
-        html, body, #notion-app, div, .notranslate, .notion-selectable, .notion-text-block,
-        .notion-header-block, .notion-page-block, .notion-code-block, .notion-callout-block,
-        .notion-divider-block, .notion-table_of_contents-block, .notion-collection_view_page-block,
+        html, body, #notion-app, div, .notranslate, .notion-selectable,
+        .notion-text-block, .notion-header-block, .notion-page-block,
+        .notion-code-block, .notion-callout-block, .notion-divider-block,
+        .notion-table_of_contents-block, .notion-collection_view_page-block,
         h1, h2, h3, h4, span {
             caret-color: var(--tpr-default) !important;
         }
 
+        /* Section divider */
         div[role="separator"] {
             border-bottom: 1px solid var(--tpr-dark-grey) !important;
         }
@@ -594,6 +613,7 @@
             color: var(--tpr-default) !important;
         }
 
+        /* Header bottom border */
         div.layout-full {
             border-bottom: 1px solid var(--tpr-bg-alt) !important; 
         }
@@ -612,6 +632,7 @@
             color: var(--tpr-default) !important;
         }
 
+        /* Hover sidebar */
         [style*="background-color:var(--c-bacEle)"],
         [style*="background-color: var(--c-bacEle)"],
         [style*="background:var(--c-bacEle)"],
@@ -620,6 +641,7 @@
             fill: var(--tpr-bg-alt) !important;
         }
 
+        /* Sidebar box shadow (right border) */
         :root,
         .notion-light-theme {
             --c-sidBoxSha: 1px 0px 0px 0px rgba(158, 198, 234, 0.5) !important;
@@ -635,7 +657,8 @@
             border-end-end-radius: 0px !important;
         }
 
-        /* Code / Callout / Quote Blocks */
+        /* ## Code / Callout / Quote Blocks
+        ** ------------------------------------------------------------- */
         .notion-selectable .notion-callout-block, div[role="note"] div {
             background-color: var(--tpr-bg-alt) !important;
         }
@@ -697,7 +720,7 @@
             background: none !important;
         }
 
-        /* Quote Blocks */
+        /* Set quote block styles (for notes) */
         blockquote {
             margin: 20px 25px 20px 25px !important;
         }
@@ -710,17 +733,33 @@
         blockquote div div.notranslate {
             color: var(--tpr-skyblue) !important;
         }
+
+        /* ## Tables and Databases
+        ** ------------------------------------------------------------- */
+        .notion-table-row th[scope="col"] {
+            background-color: var(--tpr-bg-alt) !important;
+            color: var(--tpr-seafoam) !important;
+            font-weight: 600 !important;
+            border: 1px solid var(--tpr-dark-grey) !important;
+        }
+
+        tr.notion-table-row td,
+        [style*="border: 1px solid var(--c-tabDivCol)"],
+        [style*="border:1px solid var(--c-tabDivCol)"] {
+            border: 1px solid var(--tpr-dark-grey) !important;
+        }
     `);
 
-    // Wait for DOM to be interactive before running JavaScript
+    // #:# JavaScript
+    // Load DOM before running JavaScript
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initializeFeatures);
     } else {
         initializeFeatures();
-    }
+    };
 
+    // Debounce mutation observer
     function initializeFeatures() {
-        // Debounced mutation observer for better performance
         let observerTimeout;
         const debouncedObserver = () => {
             clearTimeout(observerTimeout);
@@ -729,7 +768,6 @@
             }, 250);
         };
 
-        // Use passive observer with debouncing
         const observer = new MutationObserver(debouncedObserver);
 
         observer.observe(document.body, {
@@ -739,12 +777,13 @@
 
         // Initial injection
         injectBackToTopButton();
-    }
+    };
 
-    // Back to Top Button (optimized)
+    // Create Back-to-Top Button
     function createBackToTopButton() {
         const button = document.createElement('button');
         button.className = 'back-to-top-btn';
+        // Draw up arrow
         button.innerHTML = `
             <svg viewBox="0 0 16 16" fill="var(--tpr-seafoam)">
                 <path d="M8 4.414l-4.293 4.293-1.414-1.414L8 1.586l5.707 5.707-1.414 1.414L8 4.414z"/>
@@ -753,33 +792,40 @@
             Back to Top
         `;
 
+        // Create smooth scroll-to-top event on click
         button.addEventListener('click', () => {
+            // Grab Notion's scroller container
             const scrollContainer = document.querySelector('.notion-frame .notion-scroller');
             if (scrollContainer) {
                 scrollContainer.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
-            }
+            };
         }, { passive: true });
 
         return button;
-    }
+    };
 
+    // Inject button into the sidebar
     function injectBackToTopButton() {
+        // Check if button already exists
         if (document.querySelector('.back-to-top-btn')) return;
 
+        // Wait for the sidebar to load
         const sidebar = document.querySelector('.notion-sidebar');
         if (!sidebar) return;
 
+        // Inject button
         const button = createBackToTopButton();
+        // Find the bottom section of the sidebar
         const sidebarBottom = sidebar.querySelector('[style*="margin-top: auto"]');
 
         if (sidebarBottom) {
             sidebarBottom.parentNode.insertBefore(button, sidebarBottom);
         } else {
             sidebar.appendChild(button);
-        }
-    }
+        };
+    };
 
 })();
