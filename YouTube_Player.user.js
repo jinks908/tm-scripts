@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.2-alpha
+// @version      1.1.0-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -40,19 +40,26 @@
 
     // Boost volume beyond 100%
     function toggleVolumeBooster() {
+
         // Query the YouTube video player
         const video = document.querySelector('video');
 
-        // Create AudioContext and GainNode for volume boosting
-        const audioCtx = new AudioContext();
-        video.gainNode = video.audioCtx.createGain();
-        // Feed the video element into the AudioContext
-        video.source = video.audioCtx.createMediaElementSource(video);
+        // Check for existing AudioContext
+        if (!video.audioCtx) {
+            // Create AudioContext and GainNode for volume boosting
+            const audioCtx = new AudioContext();
+            // Attach to video element
+            video.audioCtx = audioCtx;
+            video.gainNode = video.audioCtx.createGain();
+            // Feed the video element into the AudioContext
+            video.source = video.audioCtx.createMediaElementSource(video);
 
-        // Connect source to gainNode and gainNode to destination
-        video.source.connect(video.gainNode);
-        video.gainNode.connect(video.audioCtx.destination);
+            // Connect source to gainNode and gainNode to destination
+            video.source.connect(video.gainNode);
+            video.gainNode.connect(video.audioCtx.destination);
+        };
 
+        // Reset volume booster
         if (volumeBoosterEnabled) {
             // Disable volume booster
             video.gainNode.gain.value = 1.0;
