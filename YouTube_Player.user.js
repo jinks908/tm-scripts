@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1-alpha
+// @version      1.3.1-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -93,6 +93,30 @@
             showIndicator(`Volume: ${Math.round(newVolume * 100)}%`, 'decrease');
         };
     };
+
+    // Set default playback speed
+    let currentSpeed = 1.0;
+
+    // Set custom playback speed
+    function updateSpeed(change) {
+        const video = document.querySelector('video');
+        if (!video) return;
+
+        // Add/subtract increment to current speed and ensure two decimal places
+        currentSpeed = Math.round((video.playbackRate + change) * 100) / 100;
+        // Restrict between 0.25x and 4.0x (standard HTML5 audio limits)
+        currentSpeed = Math.max(0.25, Math.min(4.0, currentSpeed));
+
+        // Apply new playback speed
+        video.playbackRate = currentSpeed;
+
+        // Show speed indicator
+        if (change > 0) {
+            showIndicator(currentSpeed + 'x', 'increase');
+        } else {
+            showIndicator(currentSpeed + 'x', 'decrease');
+        };
+    }
 
     // Reset playback speed to 1.0x
     function defaultPlaybackRate() {
@@ -189,6 +213,14 @@
 
         // Volume controls
         switch(e.key) {
+            case '>':
+                e.preventDefault();
+                updateSpeed(0.05); // Increase speed by 0.05x
+                break;
+            case '<':
+                e.preventDefault();
+                updateSpeed(-0.05); // Decrease speed by 0.05x
+                break;
             case 'ArrowUp':
                 e.preventDefault();
                 updateVolume(0.05);
@@ -199,5 +231,15 @@
                 break;
         };
     }, true);
+
+    // Sync with actual playback rate periodically
+    // NOTE: This handles cases where speed is changed via UI controls
+    // N> and/or switching to/from other audiobooks
+    setInterval(() => {
+        const video = document.querySelector('video');
+        if (video && Math.abs(video.playbackRate - currentSpeed) > 0.01) {
+            video.playbackRate = currentSpeed;
+        };
+    }, 1000);
 
 })();
