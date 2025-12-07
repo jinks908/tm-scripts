@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Claude AI
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.8-stable
+// @version      1.1.9-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Claude_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Claude_AI.user.js
-// @description  Prevent <Enter> prompt submission without <Ctrl> key
+// @description  Change default behavior for certain keybindings
 // @author       SkyColtNinja
 // @match        https://claude.ai/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
@@ -15,17 +15,24 @@
 (function() {
     'use strict';
 
-    function handleEnterKey(e) {
+    function handleKeymaps(e) {
+        // Block Claude.ai default bindings for 'Shift+Cmd+,' and 'Shift+Cmd+.'
+        // NOTE: We dont use preventDefault() since we still need these handled at the browser level
+        if (e.metaKey && e.shiftKey && (e.key === ',' || e.key === '.')) {
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            return;
+        }
         // Only watch chat input box
         if (!e.target.closest('[data-testid="chat-input"]') && 
             !e.target.matches('[data-testid="chat-input"]')) {
             return;
         };
-        // Allow Ctrl+Enter or Shift+Enter
+        // Allow 'Ctrl+Enter' or 'Shift+Enter'
         if (e.ctrlKey || e.shiftKey) {
             return;
         };
-        // Block Enter key
+        // Block 'Enter' key
         if (e.key === 'Enter') {
             e.preventDefault();
             e.stopPropagation();
@@ -35,6 +42,6 @@
     };
 
     // Since we run at document-start, we run before page scripts
-    document.addEventListener('keydown', handleEnterKey, true);
+    document.addEventListener('keydown', handleKeymaps, true);
 
 })();
