@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.1-alpha
+// @version      1.4.1-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -16,11 +16,6 @@
 
     /*
         [ ] Fix: Sync playback rate with YouTube UI
-        [x] Feat: Increase/decrease volume
-        [x] Fix: Focus video player (prevent pause)
-        [x] Feat: Select default playback rate
-        [x] Add: Indicator float notifications
-        [x] Feat: Toggle volume booster
     */
 
     // Focus player to enable keybindings
@@ -31,7 +26,7 @@
         };
         video.focus({ preventScroll: true });
 
-        showIndicator('Focused', 'normal');
+        showIndicator('Focused  ', 'normal');
     };
 
     // Create toggle variable
@@ -63,13 +58,13 @@
             // Disable volume booster
             video.gainNode.gain.value = 1.0;
             volumeBoosterEnabled = false;
-            showIndicator('Volume Booster Off', 'decrease');
+            showIndicator('Volume Boost Off  ', 'decrease');
             return;
         } else {
             // Boost volume by 400%
             video.gainNode.gain.value = 4.0;
             volumeBoosterEnabled = true;
-            showIndicator('Volume Booster On: 400%', 'increase');
+            showIndicator('Volume Booster On  ', 'increase');
             return;
         };
     };
@@ -88,9 +83,26 @@
 
         // Show volume indicator
         if (change > 0) {
-            showIndicator(`Volume: ${Math.round(newVolume * 100)}%`, 'increase');
+
+            showIndicator(`  Volume: ${Math.round(newVolume * 100)}%`, 'increase');
         } else {
-            showIndicator(`Volume: ${Math.round(newVolume * 100)}%`, 'decrease');
+            showIndicator(` Volume: ${Math.round(newVolume * 100)}%`, 'decrease');
+        };
+    };
+
+    // Mute/unmute volume
+    function toggleMute() {
+        const video = document.querySelector('video');
+        if (!video) return;
+
+        // Toggle mute
+        video.muted = !video.muted;
+
+        // Show mute indicator
+        if (video.muted) {
+            showIndicator('󰖁 ', 'decrease');
+        } else {
+            showIndicator('  ', 'increase');
         };
     };
 
@@ -112,19 +124,23 @@
 
         // Show speed indicator
         if (change > 0) {
-            showIndicator(currentSpeed + 'x', 'increase');
+            showIndicator('󰓅 ' + currentSpeed + 'x', 'increase');
         } else {
-            showIndicator(currentSpeed + 'x', 'decrease');
+            showIndicator('󰾆 ' + currentSpeed + 'x', 'decrease');
         };
-    }
+    };
 
     // Reset playback speed to 1.0x
     function defaultPlaybackRate() {
         const video = document.querySelector('video');
         if (!video) return;
 
+        // Reset playback speed
         video.playbackRate = 1.0;
-        showIndicator('Playback Speed: 1.0x', 'normal');
+
+        // Update global variable
+        currentSpeed = 1.0;
+        showIndicator('󰾅 Speed: 1.0x', 'normal');
     };
 
     // Show indicator float
@@ -228,6 +244,10 @@
             case 'ArrowDown':
                 e.preventDefault();
                 updateVolume(-0.05);
+                break;
+            case 'm':
+                e.preventDefault();
+                toggleMute();
                 break;
         };
     }, true);
