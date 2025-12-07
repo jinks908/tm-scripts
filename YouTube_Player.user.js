@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.4.1-alpha
+// @version      1.4.3-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -14,9 +14,16 @@
 (function() {
     'use strict';
 
-    /*
-        [ ] Fix: Sync playback rate with YouTube UI
-    */
+    // Load NerdFontSymbols for icons
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://www.nerdfonts.com/assets/css/webfont.css';
+    document.head.appendChild(link);
+
+    // Confirm font loaded
+    document.fonts.ready.then(() => {
+        console.log('NerdFontSymbols loaded');
+    });
 
     // Focus player to enable keybindings
     function focusVideoPlayer() {
@@ -183,7 +190,7 @@
             color: ${fgColor};
             padding: 8px 12px;
             border-radius: 4px;
-            font-family: "Poppins", sans-serif !important;
+            font-family: "NerdFontsSymbols Nerd Font", "Poppins", sans-serif !important;
             font-weight: 600;
             font-size: 16px;
             z-index: 10000;
