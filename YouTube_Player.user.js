@@ -14,13 +14,13 @@
 (function() {
     'use strict';
 
-    /* TODO
-        [ ] Add: Indicator float notifications
-        [ ] Add: Player controls
-            [ ] Select default playback rate
-            [ ] Focus video player
-            [ ] Increase/decrease volume
-            [ ] Toggle volume booster
+    /*
+        [ ] Fix: Sync playback rate with YouTube UI
+        [x] Feat: Increase/decrease volume
+        [x] Fix: Focus video player (prevent pause)
+        [x] Feat: Select default playback rate
+        [x] Add: Indicator float notifications
+        [x] Feat: Toggle volume booster
     */
 
     // Focus player to enable keybindings
@@ -30,9 +30,8 @@
             return;
         };
         video.focus({ preventScroll: true });
-        video.click();
 
-        showIndicator('Focused');
+        showIndicator('Focused', 'normal');
     };
 
     // Create toggle variable
@@ -64,14 +63,34 @@
             // Disable volume booster
             video.gainNode.gain.value = 1.0;
             volumeBoosterEnabled = false;
-            showIndicator('Volume Booster Off', 'boost-off');
+            showIndicator('Volume Booster Off', 'decrease');
             return;
         } else {
             // Boost volume by 400%
             video.gainNode.gain.value = 4.0;
             volumeBoosterEnabled = true;
-            showIndicator('Volume Booster On: 400%', 'boost-on');
+            showIndicator('Volume Booster On: 400%', 'increase');
             return;
+        };
+    };
+
+    // Increase/decrease volume
+    function updateVolume(change) {
+        const video = document.querySelector('video');
+        if (!video) return;
+
+        // Calculate new volume
+        let newVolume = Math.round((video.volume + change) * 100) / 100;
+        newVolume = Math.max(0.0, Math.min(1.0, newVolume));
+
+        // Set new volume
+        video.volume = newVolume;
+
+        // Show volume indicator
+        if (change > 0) {
+            showIndicator(`Volume: ${Math.round(newVolume * 100)}%`, 'increase');
+        } else {
+            showIndicator(`Volume: ${Math.round(newVolume * 100)}%`, 'decrease');
         };
     };
 
@@ -81,7 +100,7 @@
         if (!video) return;
 
         video.playbackRate = 1.0;
-        showIndicator('Playback Speed: 1.0x', 'speed');
+        showIndicator('Playback Speed: 1.0x', 'normal');
     };
 
     // Show indicator float
@@ -98,21 +117,21 @@
         // Set colors based on type
         let bgColor, fgColor;
         switch(type) {
-            case 'speed':
+            case 'normal':
                 fgColor = '#000000';
                 bgColor = '#00aeff';
                 break;
-            case 'boost-on':
+            case 'decrease':
                 fgColor = '#000000';
                 bgColor = '#f7768e';
                 break;
-            case 'boost-off':
+            case 'increase':
                 fgColor = '#000000';
                 bgColor = '#52e3c3';
                 break;
             default: // focus
                 fgColor = '#000000';
-                bgColor = '#52e3c3';
+                bgColor = '#f7c143';
         }
 
         // Style the indicator float
@@ -168,7 +187,7 @@
             return;
         };
 
-        // Other bindings
+        // Volume controls
         switch(e.key) {
             case 'ArrowUp':
                 e.preventDefault();
