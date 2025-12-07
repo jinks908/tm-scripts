@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.0-alpha
+// @version      1.0.2-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -16,9 +16,10 @@
 
     /* TODO
         [ ] Add: Indicator float notifications
-        [ ] Add: Player control keybindings
+        [ ] Add: Player controls
             [ ] Select default playback rate
             [ ] Focus video player
+            [ ] Increase/decrease volume
             [ ] Toggle volume booster
     */
 
@@ -34,6 +35,9 @@
         showIndicator('Focused');
     };
 
+    // Create toggle variable
+    let volumeBoosterEnabled = false;
+
     // Boost volume beyond 100%
     function toggleVolumeBooster() {
         // Query the YouTube video player
@@ -41,25 +45,27 @@
 
         // Create AudioContext and GainNode for volume boosting
         const audioCtx = new AudioContext();
-        const gainNode = audioCtx.createGain();
+        video.gainNode = video.audioCtx.createGain();
         // Feed the video element into the AudioContext
-        const source = audioCtx.createMediaElementSource(video);
+        video.source = video.audioCtx.createMediaElementSource(video);
 
         // Connect source to gainNode and gainNode to destination
-        source.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
+        video.source.connect(video.gainNode);
+        video.gainNode.connect(video.audioCtx.destination);
 
-        if (gainNode.gain.value > 1.0) {
+        if (volumeBoosterEnabled) {
             // Disable volume booster
-            gainNode.gain.value = 1.0;
+            video.gainNode.gain.value = 1.0;
+            volumeBoosterEnabled = false;
             showIndicator('Volume Booster Off', 'boost-off');
             return;
+        } else {
+            // Boost volume by 400%
+            video.gainNode.gain.value = 4.0;
+            volumeBoosterEnabled = true;
+            showIndicator('Volume Booster On: 400%', 'boost-on');
+            return;
         };
-
-        // Boost volume by 400%
-        gainNode.gain.value = 4.0;
-        showIndicator('Volume Booster On: 400%', 'boost-on');
-        return;
     };
 
     // Reset playback speed to 1.0x
