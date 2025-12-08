@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.1-alpha
+// @version      1.5.2-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -74,47 +74,57 @@
         .token.attr-value { color: var(--tpr-red) !important; }
         .token.selector { color: var(--tpr-pink); }
 
-
         /* ## Foreground Colors
         ** ------------------------------------------------------------- */
-        /* Default Color */
-        [style*="color:rgba(55, 53, 47"],
-        [style*="color: rgba(55, 53, 47"],
+        /* Change default White */
+        [style*="color:rgba(55, 53, 47, 1)"],
+        [style*="color: rgba(55, 53, 47,"],
         [style*="color: rgb(55, 53, 47)"],
-        [style*="fill:rgba(55, 53, 47"],
-        [style*="fill: rgba(55, 53, 47"],
-        [style*="fill: rgb(55, 53, 47)"],
-        [style*="color:rgba(72, 71, 67"],
-        [style*="color: rgba(72, 71, 67"],
-        [style*="color: rgb(72, 71, 67)"],
+        [style*="fill:rgba(55, 53, 47, 1)"],
+        [style*="fill: rgba(55, 53, 47,"],
+        [style*="fill: rgb(55, 53, 47)"] {
+            color: var(--tpr-default) !important;
+            fill: var(--tpr-default) !important;
+        }
+        [style*="color:rgba(72, 71, 67, 1)"],
+        [style*="color: rgba(72, 71, 67,"],
+        [style*="color: rgb(72, 71, 67)"] {
+            color: var(--tpr-default) !important;
+        }
         [style*="color:var(--c-texPri)"],
         [style*="color: var(--c-texPri)"],
         [style*="fill:var(--c-texPri)"],
         [style*="fill: var(--c-texPri)"] {
-            color: var(--tpr-default) !important;
+            color: var(--tpr-default) !important; 
             fill: var(--tpr-default) !important;
         }
 
-        /* Sky Blue (default grey replacement) */
-        [style*="color:rgba(134, 131, 126"],
-        [style*="color: rgba(134, 131, 126"],
+        /* Change default Gray */
+        [style*="color:rgba(134, 131, 126, 1)"],
+        [style*="color: rgba(134, 131, 126,"],
         [style*="color: rgb(134, 131, 126)"],
-        [style*="fill: rgba(134, 131, 126"],
-        [style*="fill: rgb(134, 131, 126)"],
+        [style*="fill: rgba(134, 131, 126,"],
+        [style*="fill: rgb(134, 131, 126)"] {
+            color: var(--tpr-skyblue) !important; 
+            fill: var(--tpr-skyblue) !important;
+        }
         [style*="color:var(--c-graTexSec)"],
         [style*="color: var(--c-graTexSec)"],
         [style*="fill:var(--c-graTexSec)"],
         [style*="fill: var(--c-graTexSec)"] {
-            color: var(--tpr-skyblue) !important;
+            color: var(--tpr-skyblue) !important; 
             fill: var(--tpr-skyblue) !important;
         }
 
-        /* Seafoam (brown) */
-        [style*="color:rgba(159, 118, 90"],
-        [style*="color: rgba(159, 118, 90"],
+        /* Change default Brown */
+        [style*="color:rgba(159, 118, 90, 1)"],
+        [style*="color: rgba(159, 118, 90,"],
         [style*="color: rgb(159, 118, 90)"],
-        [style*="fill: rgba(159, 118, 90"],
-        [style*="fill: rgb(159, 118, 90)"],
+        [style*="fill: rgba(159, 118, 90,"],
+        [style*="fill: rgb(159, 118, 90)"] {
+            color: var(--tpr-seafoam) !important;
+            fill: var(--tpr-seafoam) !important;
+        }
         [style*="color:var(--c-broTexSec)"],
         [style*="color: var(--c-broTexSec)"],
         [style*="fill:var(--c-broTexSec)"],
@@ -123,17 +133,23 @@
             fill: var(--tpr-seafoam) !important;
         }
 
-        /* Orange */
-        [style*="color:rgba(199, 121, 69"],
-        [style*="color: rgba(199, 121, 69"],
+        /* Change default Orange */
+        [style*="color:rgba(199, 121, 69, 1)"],
+        [style*="color: rgba(199, 121, 69,"],
         [style*="color: rgb(199, 121, 69)"],
-        [style*="fill: rgba(199, 121, 69"],
-        [style*="fill: rgb(199, 121, 69)"],
-        [style*="color:rgba(204, 121, 47"],
-        [style*="color: rgba(204, 121, 47"],
+        [style*="fill: rgba(199, 121, 69,"],
+        [style*="fill: rgb(199, 121, 69)"] {
+            color: var(--tpr-orange) !important;
+            fill: var(--tpr-orange) !important;
+        }
+        [style*="color:rgba(204, 121, 47, 1)"],
+        [style*="color: rgba(204, 121, 47,"],
         [style*="color: rgb(204, 121, 47)"],
-        [style*="fill: rgba(204, 121, 47"],
-        [style*="fill: rgb(204, 121, 47)"],
+        [style*="fill: rgba(204, 121, 47,"],
+        [style*="fill: rgb(204, 121, 47)"] {
+            color: var(--tpr-orange) !important;
+            fill: var(--tpr-orange) !important;
+        }
         [style*="color:var(--c-oraTexSec)"],
         [style*="color: var(--c-oraTexSec)"],
         [style*="fill:var(--c-oraTexSec)"],
@@ -142,17 +158,23 @@
             fill: var(--tpr-orange) !important;
         }
 
-        /* Yellow */
-        [style*="color:rgba(203, 148, 52"],
-        [style*="color: rgba(203, 148, 52"],
+        /* Change default Yellow */
+        [style*="color:rgba(203, 148, 52, 1)"],
+        [style*="color: rgba(203, 148, 52,"],
         [style*="color: rgb(203, 148, 52)"],
-        [style*="fill: rgba(203, 148, 52"],
-        [style*="fill: rgb(203, 148, 52)"],
-        [style*="color:rgba(195, 148, 67"],
-        [style*="color: rgba(195, 148, 67"],
+        [style*="fill: rgba(203, 148, 52,"],
+        [style*="fill: rgb(203, 148, 52)"] {
+            color: var(--tpr-yellow) !important;
+            fill: var(--tpr-yellow) !important;
+        }
+        [style*="color:rgba(195, 148, 67, 1)"],
+        [style*="color: rgba(195, 148, 67,"],
         [style*="color: rgb(195, 148, 67)"],
-        [style*="fill: rgba(195, 148, 67"],
-        [style*="fill: rgb(195, 148, 67)"],
+        [style*="fill: rgba(195, 148, 67,"],
+        [style*="fill: rgb(195, 148, 67)"] {
+            color: var(--tpr-yellow) !important;
+            fill: var(--tpr-yellow) !important;
+        }
         [style*="color:var(--c-yelTexSec)"],
         [style*="color: var(--c-yelTexSec)"],
         [style*="fill:var(--c-yelTexSec)"],
@@ -161,12 +183,15 @@
             fill: var(--tpr-yellow) !important;
         }
 
-        /* Green */
-        [style*="color:rgba(80, 148, 110"],
-        [style*="color: rgba(80, 148, 110"],
+        /* Change default Green */
+        [style*="color:rgba(80, 148, 110, 1)"],
+        [style*="color: rgba(80, 148, 110,"],
         [style*="color: rgb(80, 148, 110)"],
-        [style*="fill: rgba(80, 148, 110"],
-        [style*="fill: rgb(80, 148, 110)"],
+        [style*="fill: rgba(80, 148, 110,"],
+        [style*="fill: rgb(80, 148, 110)"] {
+            color: var(--tpr-green) !important;
+            fill: var(--tpr-green) !important;
+        }
         [style*="color:var(--c-greTexSec)"],
         [style*="color: var(--c-greTexSec)"],
         [style*="fill:var(--c-greTexSec)"],
@@ -175,12 +200,15 @@
             fill: var(--tpr-green) !important;
         }
 
-        /* Blue */
-        [style*="color:rgba(63, 126, 190"],
-        [style*="color: rgba(63, 126, 190"],
+        /* Change default Blue */
+        [style*="color:rgba(63, 126, 190, 1)"],
+        [style*="color: rgba(63, 126, 190,"],
         [style*="color: rgb(63, 126, 190)"],
-        [style*="fill: rgba(63, 126, 190"],
-        [style*="fill: rgb(63, 126, 190)"],
+        [style*="fill: rgba(63, 126, 190,"],
+        [style*="fill: rgb(63, 126, 190)"] {
+            color: var(--tpr-blue) !important;
+            fill: var(--tpr-blue) !important;
+        }
         [style*="color:var(--c-bluTexSec)"],
         [style*="color: var(--c-bluTexSec)"],
         [style*="fill:var(--c-bluTexSec)"],
@@ -189,12 +217,15 @@
             fill: var(--tpr-blue) !important;
         }
 
-        /* Purple */
-        [style*="color:rgba(154, 107, 180"],
-        [style*="color: rgba(154, 107, 180"],
+        /* Change default Purple */
+        [style*="color:rgba(154, 107, 180, 1)"],
+        [style*="color: rgba(154, 107, 180,"],
         [style*="color: rgb(154, 107, 180)"],
-        [style*="fill: rgba(154, 107, 180"],
-        [style*="fill: rgb(154, 107, 180)"],
+        [style*="fill: rgba(154, 107, 180,"],
+        [style*="fill: rgb(154, 107, 180)"] {
+            color: var(--tpr-purple) !important;
+            fill: var(--tpr-purple) !important;
+        }
         [style*="color:var(--c-purTexSec)"],
         [style*="color: var(--c-purTexSec)"],
         [style*="fill:var(--c-purTexSec)"],
@@ -203,17 +234,23 @@
             fill: var(--tpr-purple) !important;
         }
 
-        /* Pink */
-        [style*="color:rgba(174, 96, 133"],
-        [style*="color: rgba(174, 96, 133"],
+        /* Change default Pink */
+        [style*="color:rgba(174, 96, 133, 1)"],
+        [style*="color: rgba(174, 96, 133,"],
         [style*="color: rgb(174, 96, 133)"],
-        [style*="fill: rgba(174, 96, 133"],
-        [style*="fill: rgb(174, 96, 133)"],
-        [style*="color:rgba(179, 84, 136"],
-        [style*="color: rgba(179, 84, 136"],
+        [style*="fill: rgba(174, 96, 133,"],
+        [style*="fill: rgb(174, 96, 133)"] {
+            color: var(--tpr-pink) !important;
+            fill: var(--tpr-pink) !important;
+        }
+        [style*="color:rgba(179, 84, 136, 1)"],
+        [style*="color: rgba(179, 84, 136,"],
         [style*="color: rgb(179, 84, 136)"],
-        [style*="fill: rgba(179, 84, 136"],
-        [style*="fill: rgb(179, 84, 136)"],
+        [style*="fill: rgba(179, 84, 136,"],
+        [style*="fill: rgb(179, 84, 136)"] {
+            color: var(--tpr-pink) !important;
+            fill: var(--tpr-pink) !important;
+        }
         [style*="color:var(--c-pinTexSec)"],
         [style*="color: var(--c-pinTexSec)"],
         [style*="fill:var(--c-pinTexSec)"],
@@ -222,7 +259,7 @@
             fill: var(--tpr-pink) !important;
         }
 
-        /* Red */
+        /* Change default Red */
         [style*="color:var(--c-redTexSec)"],
         [style*="color: var(--c-redTexSec)"],
         [style*="fill:var(--c-redTexSec)"],
@@ -231,12 +268,21 @@
             fill: var(--tpr-red) !important;
         }
 
+
+        /* ## Background Colors
+        ** ------------------------------------------------------------- */
+
+        /* TODO: Set theme background colors */
+
+        /* [style*="background:var(--c-greBacSec)"], [style*="background: var(--c-greBacSec)"], [style*="fill:var(--c-greBacSec)"], [style*="fill: var(--c-greBacSec)"], [style*="background:var(--ca-greBacSecTra)"], [style*="background: var(--ca-greBacSecTra)"] {background: rgba(172, 249, 129, 1) !important; fill: var(--tpr-green) !important;} */
+
         /* ------------------------------------------------------------- */
-        /* #:# UI Elements                                               */
-        /* ------------------------------------------------------------- */
+        /* #:# UI Elements
+        ** ------------------------------------------------------------- */
 
         /* ## Fonts
         ** ------------------------------------------------------------- */
+        /* Main font */
         body, 
         .notion-app-inner .notion-light-theme, 
         .notion-app-inner .notion-light-theme div,
@@ -248,69 +294,60 @@
             font-weight: 500 !important;
             scrollbar-color: #273542 !important;
         }
-
-        /* Header Fonts */
+        /* Header font */
         .layout .layout-content h1, h2, h3, h4, h5, h6 {
             font-family: var(--tpr-font-header) !important;
             font-weight: SemiBold !important;
         }
-
-        /* Hyperlink Color */
+        /* Default inline hyperlink color */
         a.notion-link-token {
             color: var(--tpr-seafoam) !important;
             font-weight: bold !important;
         }
-
-        /* Font Sizes */
+        /* Increase default font size (body) */
         .notion-page-content .notion-selectable .notion-text-block,
         [style*="font-size:16px"],
         [style*="font-size: 16px"] {
             font-size: 17px !important;
         }
-
+        /* Increase default font size (menu) */
         [style*="font-size:14px"],
         [style*="font-size: 14px"] {
             font-size: 15px !important;
         }
-
-        /* Increase Weight */   
+        /* Increase boldness on text blocks (exclude header fonts)
         [style*="font-weight:600"]:not(.layout .layout-content h1, h2, h3, h4, h5, h6),
         [style*="font-weight: 600"]:not(.layout .layout-content h1, h2, h3, h4, h5, h6) {
             font-weight: 800 !important;
         }
-
-        /* Code Block Fonts */
+         */
+        /* Block code font */
         .notion-code-block, 
         .notion-code-block span {
             font-family: var(--tpr-font-code) !important;
             font-size: 102% !important;
         }
-
         /* Fix code block overflow (wrap on whole words, not characters) */
         .notion-code-block div.notranslate {
             word-break: break-word !important;
         }
-
         /* New text block autofill color */
         div.notranslate::after {
             -webkit-text-fill-color: var(--tpr-skyblue) !important;
             color: var(--tpr-skyblue) !important;
             caret-color: var(--tpr-skyblue) !important;
         }
-
         /* Inline code font */
-        span[style*='font-family: "SFMono-Regular"'],
+        span[style*="font-family: "SFMono-Regular""],
         span[style*="font-family: SFMono-Regular"] {
             font-family: var(--tpr-font-code) !important;
             font-size: 90% !important;
         }
-
         /* Hyperlink styles */
         span[class*="link-annotation"] {
             opacity: 1 !important;
             border-bottom: 1px solid var(--tpr-dark-grey) !important;
         }
-
         a span div.notranslate {
             border-bottom: 1px solid #273542 !important;
         }
@@ -318,23 +355,22 @@
         /* ## Menus and Buttons
         ** ------------------------------------------------------------- */
         /* Change alternate blue buttons, checkboxes, etc. */
-        [style*="background-color:rgba(0, 119, 212"],
-        [style*="background-color: rgba(0, 119, 212"],
+        [style*="background-color:rgba(0, 119, 212, 1)"],
+        [style*="background-color: rgba(0, 119, 212,"],
         [style*="background-color: rgb(0, 119, 212)"],
-        [style*="fill: rgba(0, 119, 212"],
+        [style*="fill: rgba(0, 119, 212,"],
         [style*="fill: rgb(0, 119, 212)"],
-        [style*="background-color:rgba(35, 131, 226"],
-        [style*="background-color: rgba(35, 131, 226"],
+        [style*="background-color:rgba(35, 131, 226, 1)"],
+        [style*="background-color: rgba(35, 131, 226,"],
         [style*="background-color: rgb(35, 131, 226)"],
-        [style*="fill: rgba(35, 131, 226"],
+        [style*="fill: rgba(35, 131, 226,"],
         [style*="fill: rgb(35, 131, 226)"] {
             background-color: var(--tpr-blue) !important;
         }
-
         /* Change white button backgrounds (e.g., header image adjustments) */
         div.layout-full .pseudoSelection div div div,
         div[role="button"][style*="background-color:rgb(239, 239, 238)"],
-        div[role="button"][style*="background-color: rgb(239, 239, 238)"],
+        div[role="button"][style*="background-color: rgb(239, 239, 238)"]
         [style*="background:rgb(239, 239, 238)"],
         [style*="background: rgb(239, 239, 238)"] {
             background-color: rgba(12, 22, 33, 0.5) !important;
@@ -345,9 +381,7 @@
             background-color: var(--tpr-bg-alt) !important;
             border-bottom: 1px solid #404D59 !important;
         }
-
-        .notion-topbar-action-buttons div[role="button"], 
-        .notion-page-controls div[role="button"] {
+        .notion-topbar-action-buttons div[role="button"], .notion-page-controls div[role="button"] {
             color: var(--tpr-skyblue) !important;
         }
 
@@ -358,44 +392,45 @@
             border-left: 1px solid #404D59 !important;
             border-bottom: 1px solid #404D59 !important;
         }
-
         .notion-overlay-container.notion-default-overlay-container div div div div div div div {
             background: rgba(21, 38, 55, 0.8);
         }
-
         .notion-overlay-container.notion-default-overlay-container div div div div div div div div {
             transform-origin: right 0% 0px !important;
             transition: all 600ms ease-in-out !important;
             backdrop-filter: blur(10px) !important;
         }
-
         /* Increase TOC menu width (exclude other overlay menus) */
         .notion-overlay-container.notion-default-overlay-container:not(:has(.notion-scroller.vertical, div[role="button"]))
         div div div div div div div div div {
             width: 400px !important;
         }
-
+        /* Increase TOC indent spacing */
+        /* Second-level menu items */
         .notion-overlay-container div[style*="margin-inline-start: 12px;"] {
             margin-inline-start: 20px !important;
         }
-
+        .notion-overlay-container div[style*="margin-inline-start: 12px;"] span {
+            font-size: 17px !important;
+        }
+        /* Third-level menu items */
         .notion-overlay-container div[style*="margin-inline-start: 24px;"] {
             margin-inline-start: 40px !important;
         }
-
+        .notion-overlay-container div[style*="margin-inline-start: 24px;"] span {
+            font-size: 16px !important;
+        }
         /* TOC font style and color */
         /* Top-level menu items */
         .notion-overlay-container div[role="dialog"] a span.notranslate {
-            color: var(--tpr-skyblue) !important; 
+            color: var(--tpr-default) !important; 
             font-family: var(--tpr-font-main) !important;
-            font-weight: 1000 !important;
+            font-weight: 600;
             font-size: 18px;
         }
-
         .notion-overlay-container div[role="dialog"] a span.notranslate:hover {
             color: var(--tpr-seafoam) !important;
         }
-
         /* TOC menu tab */
         .hide-scrollbar.ignore-scrolling-container.notion-floating-table-of-contents div div div {
             background-color: var(--tpr-bg-alt);
@@ -406,7 +441,6 @@
         .notion-text-action-menu div div {
             background-color: var(--tpr-bg-alt) !important;
         }
-
         /* Dialog menus */
         div[role="dialog"],
         .notion-scroller .vertical,
@@ -415,7 +449,6 @@
             color: var(--tpr-default) !important;
             box-shadow: 0px 0px 25px #0d0d0d !important;
         }
-
         .notion-selectable a:hover,
         div[dir="ltr"] div:hover,
         div[role="menuitem"]:hover,
@@ -424,73 +457,71 @@
             color: var(--tpr-bg-alt) !important;
             opacity: 1 !important;
         }
-
-        .notion-scroller.vertical div[role="menuitem"]:hover, 
-        .notion-scroller.vertical div[role="option"]:hover {
+        .notion-scroller.vertical div[role="menuitem"]:hover, .notion-scroller.vertical div[role="option"]:hover {
             color: var(--tpr-seafoam) !important;
             opacity: 1 !important;
         }
-
         /* In-page menus / links */
         .notion-selectable.notion-page-block a:hover,
         div[dir="ltr"]:hover {
             color: var(--tpr-bg-alt) !important;
             background-color: var(--tpr-seafoam) !important;
         }
-
+        .notion-selectable a:hover,
+        div[dir="ltr"] div:hover,
+        div[role="menuitem"]:hover,
+        div[role="dialog"]:hover {
+            background-color: var(--tpr-seafoam) !important;
+        }
         .notion-sidebar .notion-selectable a,
         .notion-sidebar .notion-selectable.notion-page-block {
             background-color: var(--tpr-bg-alt) !important;
         }
-
         div[role="dialog"] span,
         div[role="dialog"] svg {
             color: var(--tpr-default) !important;
         }
-
         div[role="dialog"] svg.trash {
             filter: invert(0%) !important;
         }
-
         div[role="menu"],
         div[role="menuitem"] svg {
             color: var(--tpr-default) !important;
         }
-
         .notion-scroller .sticky-portal-target div {
             color: var(--tpr-default) !important;
         }
-
         .notion-topbar svg path {
             fill: var(--tpr-default) !important;
         }
-
         div[role="button"] svg {
             fill: var(--tpr-default) !important;
         }
-
+        div[role="button"] svg,
+        div[dir="ltr"] svg {
+            fill: var(--tpr-default) !important;
+        }
         .notion-outliner-bookmarks div[role="button"] svg,
         .notion-outliner-private-header-container div[role="button"] svg,
         .notion-sidebar div[dir="ltr"]:hover svg {
             fill: var(--tpr-bg-alt) !important;
         }
 
-        /* Overlay Menus */
+        /* Overlay menus */
         /* NOTE: The 2 rules below are set to none since we style each overlay menu individually */
-        div[data-overlay="true"] div[role="dialog"] div,
+        div[data-overlay="true"] div[role="dialog"] div {
+            background: none !important;
+        }
         div[data-overlay="true"] div[role="dialog"] {
             background: none !important;
         }
-
         .pseudoHover .pseudoActive {
             opacity: 1 !important;
         }
-
         .notion-overlay-container div a:hover,
         .notion-overlay-container span:hover {
             color: var(--tpr-seafoam) !important;
         }
-
         div[data-overlay="true"] div[role="dialog"] {
             clip-path: none !important;
             transform: none !important;
@@ -512,20 +543,22 @@
             font-size: 14px;
             transition: background 20ms ease-in 0s;
         }
-
         .back-to-top-btn:hover {
             background: var(--tpr-seafoam);
             color: var(--tpr-bg);
         }
-
         .back-to-top-btn svg {
             width: 16px;
             height: 16px;
             margin-right: 8px;
         }
-
         .back-to-top-btn:hover svg, svg:hover {
             fill: var(--tpr-bg);
+        }
+
+        /* Fix Find-and-Replace popup colors (Note --> We have to select via style since there are other elements under ".notion-cursor-listener" that would be affected otherwise) */
+        .notion-cursor-listener div[style*="box-shadow: rgba(15, 15, 15, 0.04) 0px 0px 0px 1px, rgba(15, 15, 15, 0.03) 0px 3px 6px, rgba(15, 15, 15, 0.06) 0px 9px 24px; position: absolute; top: 0px; right: 16px; z-index: 1000; background-color: rgb(255, 255, 255); border-radius: 12px; width: 280px; outline: rgba(35, 131, 226, 0.14) solid 3px; opacity: 1; transform: translateY(60px); transition-property: opacity, transform; transition-duration: 150ms; transition-delay: 0ms; transition-timing-function: ease;"] {
+            background: none !important;
         }
 
         /* ## Page Design
@@ -540,24 +573,19 @@
             color: var(--tpr-seafoam) !important;
             font-weight: 600 !important;
         }
-
         div[role="button"], .shadow-cursor-breadcrumb, .notranslate, .notranslate div {
             color: inherit !important;
         }
-
         .notranslate .shadow-cursor-breadcrumb a {
             color: var(--tpr-default) !important;
         }
-
         .notion-collection_view_page-block a, .notion-page-block a {
             color: var(--tpr-default) !important;
         }
-
         /* Page title color */
         .notion-selectable.notion-page-block h1 {
             color: #07fdaf !important;
         }
-
         /* Hide top-level page discussions */
         .layout-content-with-divider {
             display: none !important;
@@ -569,21 +597,33 @@
             font-weight: bold !important;
         }
 
-        /* Cursor Color */
-        html, body, #notion-app, div, .notranslate, .notion-selectable,
-        .notion-text-block, .notion-header-block, .notion-page-block,
-        .notion-code-block, .notion-callout-block, .notion-divider-block,
-        .notion-table_of_contents-block, .notion-collection_view_page-block,
-        h1, h2, h3, h4, span {
+        /* Set cursor color */
+        html, 
+        body, 
+        #notion-app, 
+        div, 
+        .notranslate, 
+        .notion-selectable, 
+        .notion-text-block,
+        .notion-header-block, 
+        .notion-page-block, 
+        .notion-code-block, 
+        .notion-callout-block,
+        .notion-divider-block, 
+        .notion-table_of_contents-block, 
+        .notion-collection_view_page-block,
+        h1, 
+        h2, 
+        h3, 
+        h4, 
+        span {
             caret-color: var(--tpr-default) !important;
         }
-
         /* Section divider */
         div[role="separator"] {
             border-bottom: 1px solid var(--tpr-dark-grey) !important;
         }
-
-        /* Main Colors */
+        /* Main colors */
         #notion-app,
         body.notion-body,
         html.notion-html {
@@ -592,21 +632,18 @@
             caret-color: var(--tpr-default) !important;
         }
 
-        /* Sidebar and Frame */
+        /* Sidebar and frame colors */
         * {
             scrollbar-width: none !important;
         }
-
         .notion-frame {
             background-color: var(--tpr-bg) !important;
             color: var(--tpr-default) !important;
         }
-
         .notion-sidebar-container {
             background-color: var(--tpr-bg-alt) !important;
             color: var(--tpr-default) !important;
         }
-
         .notion-app-inner,
         .notion-light-theme,
         .notion-sidebar {
@@ -617,16 +654,13 @@
         div.layout-full {
             border-bottom: 1px solid var(--tpr-bg-alt) !important; 
         }
-
         .notion-selectable.notion-table_of_contents-block {
             background-color: var(--tpr-bg) !important;
         }
-
         .notion-close-sidebar,
         .notion-sidebar img {
             opacity: 1 !important;
         }
-
         .notion-light-theme,
         div[dir="ltr"] {
             color: var(--tpr-default) !important;
@@ -646,12 +680,10 @@
         .notion-light-theme {
             --c-sidBoxSha: 1px 0px 0px 0px rgba(158, 198, 234, 0.5) !important;
         }
-
         .notion-sidebar {
             height: 100% !important;
             top: -15px; 
         }
-
         .notion-sidebar, .notion-sidebar div {
             border-start-end-radius: 0px !important;
             border-end-end-radius: 0px !important;
@@ -662,12 +694,10 @@
         .notion-selectable .notion-callout-block, div[role="note"] div {
             background-color: var(--tpr-bg-alt) !important;
         }
-
         .notion-selectable.notion-callout-block {
             border: 1px solid var(--tpr-dark-grey) !important;
             box-shadow: 0px 0px 30px #0d0d0d !important;
         }
-
         .notion-selectable.notion-collection_view_page-block div {
             background-color: var(--tpr-bg-alt) !important;
             color: var(--tpr-default) !important;
@@ -678,44 +708,34 @@
             padding-bottom: 15px !important;
             background-color: var(--tpr-bg-alt) !important;
         }
-
         .notion-selectable.notion-code-block, .notion-selectable.notion-callout-block {
             margin-top: 25px !important;
             margin-bottom: 25px !important;
             border: 1px solid #404D59 !important;
             box-shadow: 0px 0px 25px #0d0d0d !important;
         }
-
         .notion-code-block div {
             color: var(--tpr-default) !important;
             background-color: var(--tpr-bg-alt) !important;
         }
-
-        .notion-light-theme .language-css .token.string, 
-        .style .token.string, 
-        .notion-light-theme .token.entity,
-        .notion-light-theme .token.operator, 
-        .notion-light-theme .token.url {
+        .notion-light-theme .language-css .token.string, .style .token.string, .notion-light-theme .token.entity,
+        .notion-light-theme .token.operator, .notion-light-theme .token.url {
             background: none !important;
         }
-
         .notion-selectable {
             color: var(--tpr-default) !important;
             caret-color: var(--tpr-default) !important;
         }
-
         .notion-divider-block {
             background-color: var(--tpr-bg) !important;
             color: var(--tpr-default) !important;
             caret-color: var(--tpr-default) !important;
         }
-
         .notion-header-block {
             background-color: var(--tpr-bg) !important;
             color: var(--tpr-default) !important;
             caret-color: var(--tpr-default) !important;
         }
-
         .notion-header-block div {
             background: none !important;
         }
@@ -724,12 +744,10 @@
         blockquote {
             margin: 20px 25px 20px 25px !important;
         }
-
         blockquote div {
             color: var(--tpr-yellow) !important;
             font-size: 19px !important;
         }
-
         blockquote div div.notranslate {
             color: var(--tpr-skyblue) !important;
         }
@@ -742,10 +760,7 @@
             font-weight: 600 !important;
             border: 1px solid var(--tpr-dark-grey) !important;
         }
-
-        tr.notion-table-row td,
-        [style*="border: 1px solid var(--c-tabDivCol)"],
-        [style*="border:1px solid var(--c-tabDivCol)"] {
+        tr.notion-table-row td, [style*="border: 1px solid var(--c-tabDivCol)"], [style*="border:1px solid var(--c-tabDivCol)"] {
             border: 1px solid var(--tpr-dark-grey) !important;
         }
     `);
