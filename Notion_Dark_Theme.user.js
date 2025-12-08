@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.2-alpha
+// @version      1.5.3-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -14,6 +14,8 @@
 
 (function() {
     'use strict';
+
+    // [ ] Fix: Broken dialog menu animations/colors
 
     // Apply CSS at document-start
     GM_addStyle(`
@@ -450,7 +452,7 @@
             box-shadow: 0px 0px 25px #0d0d0d !important;
         }
         .notion-selectable a:hover,
-        div[dir="ltr"] div:hover,
+        div[dir="ltr"] div div:hover,
         div[role="menuitem"]:hover,
         div[role="dialog"]:hover {
             background-color: var(--tpr-seafoam) !important;
@@ -463,12 +465,12 @@
         }
         /* In-page menus / links */
         .notion-selectable.notion-page-block a:hover,
-        div[dir="ltr"]:hover {
+        div[dir="ltr"] div div:hover {
             color: var(--tpr-bg-alt) !important;
             background-color: var(--tpr-seafoam) !important;
         }
         .notion-selectable a:hover,
-        div[dir="ltr"] div:hover,
+        div[dir="ltr"] div div:hover,
         div[role="menuitem"]:hover,
         div[role="dialog"]:hover {
             background-color: var(--tpr-seafoam) !important;
