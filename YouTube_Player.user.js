@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.4.4-stable
+// @version      1.4.5-debug
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -76,6 +76,15 @@
         };
     };
 
+    // Initialize video volume level
+    const videoInit = document.querySelector('video');
+    let currentVolume;
+    let start = false;
+    if (videoInit && !start) {
+        currentVolume = videoInit.volume;
+        start = true;
+    };
+
     // Increase/decrease volume
     function updateVolume(change) {
         const video = document.querySelector('video');
@@ -87,10 +96,10 @@
 
         // Set new volume
         video.volume = newVolume;
+        currentVolume = newVolume;
 
         // Show volume indicator
         if (change > 0) {
-
             showIndicator(`  Volume: ${Math.round(newVolume * 100)}%`, 'increase');
         } else {
             showIndicator(` Volume: ${Math.round(newVolume * 100)}%`, 'decrease');
@@ -266,6 +275,9 @@
         const video = document.querySelector('video');
         if (video && Math.abs(video.playbackRate - currentSpeed) > 0.01) {
             video.playbackRate = currentSpeed;
+        };
+        if (video && Math.abs(video.volume - currentVolume) > 0.01) {
+            video.volume = currentVolume;
         };
     }, 1000);
 

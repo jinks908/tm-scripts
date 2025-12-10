@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.3-alpha
+// @version      1.5.5-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -455,6 +455,7 @@
         div[dir="ltr"] div div:hover,
         div[role="menuitem"]:hover,
         div[role="dialog"]:hover {
+            border-radius: 4px !important;
             background-color: var(--tpr-seafoam) !important;
             color: var(--tpr-bg-alt) !important;
             opacity: 1 !important;
@@ -466,6 +467,7 @@
         /* In-page menus / links */
         .notion-selectable.notion-page-block a:hover,
         div[dir="ltr"] div div:hover {
+            border-radius: 4px !important;
             color: var(--tpr-bg-alt) !important;
             background-color: var(--tpr-seafoam) !important;
         }
@@ -474,6 +476,8 @@
         div[role="menuitem"]:hover,
         div[role="dialog"]:hover {
             background-color: var(--tpr-seafoam) !important;
+            color: var(--tpr-bg-alt) !important;
+            border-radius: 4px !important;
         }
         .notion-sidebar .notion-selectable a,
         .notion-sidebar .notion-selectable.notion-page-block {
@@ -538,7 +542,7 @@
             padding: 6px 14px;
             margin-top: 25px;
             cursor: pointer;
-            border-radius: 3px;
+            border-radius: 4px;
             color: var(--tpr-seafoam);
             background: transparent;
             border: none;
@@ -665,7 +669,7 @@
         }
         .notion-light-theme,
         div[dir="ltr"] {
-            color: var(--tpr-default) !important;
+            /* color: var(--tpr-default) !important; */
         }
 
         /* Hover sidebar */
