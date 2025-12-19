@@ -2,8 +2,8 @@
 // @name         Color Picker Dark Theme
 // @namespace    SkyColtNinja/userscripts
 // @version      1.1.0
-// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/Color_Picker.user.js
-// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/Color_Picker.user.js
+// @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Color_Picker.user.js
+// @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Color_Picker.user.js
 // @description  Dark theme for color picker which preserves the color palettes
 // @author       SkyColtNinja
 // @match        https://htmlcolorcodes.com/*
