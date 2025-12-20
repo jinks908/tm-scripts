@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Color Picker Dark Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.0
+// @version      1.2.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Color_Picker.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Color_Picker.user.js
 // @description  Dark theme for color picker which preserves the color palettes
@@ -17,7 +17,7 @@
     GM_addStyle(`
         body, .bg-white, .bg-neutral-50, .bg-neutral-100, .bg-background {
             color: #ffffff !important;
-            background-color: #101628 !important;
+            background-color: #051626 !important;
         }
         .rich-text, .rich-text p, p, h1, h2, h3, h4, h5, h6 {
             color: #ffffff !important;

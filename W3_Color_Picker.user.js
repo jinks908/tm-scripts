@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Color Picker Dark Theme (For W3 Schools)
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.0
+// @version      1.0.3
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/W3_Color_Picker.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/W3_Color_Picker.user.js
 // @description  Dark theme for color picker which preserves the color palettes
@@ -15,11 +15,18 @@
     'use strict';
 
     GM_addStyle(`
-        .w3-white, [style*="color:#000 !important"], [style*="color: #000 !important"] {
+        .w3-white, .w3-white div, #main, #right, #footer, #huecontainer, .contentcontainer,
+        table, table tbody tr, #sidenav, #leftmenuinner, #leftmenuinnerinner,
+        [style*="color:#000 !important"],
+        [style*="color: #000 !important"],
+        [style*="background-color:#f5f6f7"],
+        [style*="background-color: #f5f6f7"],
+        [style*="background-color:#E7E9EB"],
+        [style*="background-color: #E7E9EB"],
+        [style*="background-color:#fff !important"],
+        [style*="background-color: #fff !important"] {
             color: #ffffff !important;
-        }
-        .w3-white, [style*="background-color:#fff !important"], [style*="background-color: #fff !important"] {
-            color: #000000 !important;
+            background-color: #051626 !important;
         }
     `);
 
