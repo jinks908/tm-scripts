@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.7
+// @version      1.2.8
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -93,14 +93,6 @@
             height: 100%;
             width: 0%;
             transition: width 0.3s ease;
-            animation: colorShift linear forwards;
-        }
-        @keyframes colorShift {
-        0% { background-color: #ff5f5f; }
-        50% { background-color: #ff875f; }
-        75% { background-color: #f6be55; }
-        90% { background-color: #a6e87d; }
-        100% { background-color: #46fc8f; }
         }
         .youtube-clear-playlist-progress-text {
             font-size: 16px;
@@ -114,7 +106,6 @@
 
         // Create toast element
         const toast = document.createElement('div');
-
         toast.className = 'youtube-clear-playlist-toast';
         toast.textContent = message;
         toast.style.color = textColor || '#ffffff';
@@ -133,10 +124,12 @@
     // Function to extract total video count from playlist metadata
     function getTotalVideoCount() {
         let metadataStats = document.querySelector('.metadata-stats');
+
         // Watch Later playlist
         if (metadataStats) {
             // Look for video count under video metadata
             const spans = metadataStats.querySelectorAll('span.style-scope.yt-formatted-string');
+
             for (let span of spans) {
                 const text = span.textContent.trim();
                 // Match numbers only
@@ -145,12 +138,16 @@
                     return parseInt(match[0]);
                 };
             };
+
         } else {
             // Other playlists
             const metadataRows = document.querySelectorAll('div.yt-content-metadata-view-model__metadata-row')
+
             if (metadataRows.length < 2) return null;
+
             metadataStats = metadataRows[1];
             const spans = metadataStats.querySelectorAll('span.yt-core-attributed-string');
+
             for (let span of spans) {
                 const text = span.textContent.trim();
                 // Match pattern "<num> videos"
@@ -159,6 +156,7 @@
                     return parseInt(match[0]);
                 };
             };
+
         };
 
         // If video count not found, fallback to counting (visible) menu buttons
@@ -166,7 +164,8 @@
         const menuButtons = document.querySelectorAll('div#contents button[aria-label="Action menu"]');
         if (menuButtons.length > 0) {
             return menuButtons.length;
-        }
+        };
+
         return null;
     };
 
@@ -183,13 +182,25 @@
             `;
             document.body.appendChild(progressElement);
         };
+
         const textElement = progressElement.querySelector('.youtube-clear-playlist-progress-text');
         const fillElement = progressElement.querySelector('.youtube-clear-playlist-progress-fill');
+
+        // Set progress color based on completion percentage
+        function getProgressColor(percentage) {
+            if (percentage < 35) return '#ff5f5f';
+            if (percentage < 50) return '#ff875f';
+            if (percentage < 80) return '#f6be55';
+            if (percentage < 90) return '#a6e87d';
+            return '#46fc8f';
+        };
+
         if (total) {
             const percentage = (current / total) * 100;
             textElement.textContent = `${current}/${total} videos removed`;
             fillElement.style.width = `${percentage}%`;
-            fillElement.style.animationDuration = `${total * 0.5}s`;
+            fillElement.style.backgroundColor = getProgressColor(percentage);
+            fillElement.style.transition = 'width 0.3s ease, background-color 0.5s ease';
         } else {
             textElement.textContent = `${current} videos removed`;
         };
@@ -202,11 +213,11 @@
             setTimeout(() => {
                 if (progressElement && progressElement.parentNode) {
                     progressElement.remove();
-                }
+                };
                 progressElement = null;
             }, 300);
-        }
-    }
+        };
+    };
 
     function clearWatchLater() {
         // To stop process, set `stop = true;` in the console
@@ -218,7 +229,7 @@
             videosRemoved = 0;
             totalVideos = null;
             return;
-        }
+        };
 
         // Look for the three-dot menu buttons on each video
         const menuButtons = document.querySelectorAll('div#contents button[aria-label="Action menu"]');
@@ -240,8 +251,8 @@
                         // Find the clickable parent element (often a role="menuitem", but in this case it's role="option")
                         removeButton = span.closest('[role="option"]') || span.closest('button') || span.closest('a');
                         break;
-                    }
-                }
+                    };
+                };
 
                 // Method 2: Fallback - look for any element with "Remove from" text
                 if (!removeButton) {
@@ -250,9 +261,9 @@
                         if (element.textContent && element.textContent.includes('Remove from')) {
                             removeButton = element.closest('[role="menuitem"]') || element.closest('button') || element.closest('a') || element;
                             break;
-                        }
-                    }
-                }
+                        };
+                    };
+                };
 
                 if (removeButton) {
                     removeButton.click();
@@ -269,18 +280,22 @@
             }, 300); // Increased delay slightly
         } else {
             console.log('All videos cleared.');
+
             hideProgressMeter();
             videosRemoved = 0;
             totalVideos = null;
+
             setTimeout(() => {
                 showToast('Process Complete (All videos cleared)', '#6cefa0', false);
             }, 500);
+
             // Restore popup visibility
             GM_addStyle(`
                 ytd-popup-container.style-scope.ytd-app {
                     visibility: visible;
                 }
             `);
+
         };
     };
 
