@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.5-alpha
+// @version      1.2.6
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -32,7 +32,7 @@
             transform: translate(-50%, -50%);
             background: #112136;
             color: #ffffff;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 500;
             padding: 24px;
             border-radius: 12px;
@@ -212,9 +212,9 @@
     function clearWatchLater() {
         // To stop process, set `stop = true;` in the console
         if (stop) {
-            console.log('Script stopped by user');
+            console.log('Process Stopped (Ctrl+K to resume)');
             hideProgressMeter();
-            showToast('Script stopped by user', '#ff875f', false);
+            showToast('Process Stopped (Ctrl+K to resume)', '#ff5f5f', false);
             stop = false;
             videosRemoved = 0;
             totalVideos = null;
@@ -274,7 +274,7 @@
             videosRemoved = 0;
             totalVideos = null;
             setTimeout(() => {
-                showToast('Process complete. All videos cleared.', '#46fc8f', false);
+                showToast('Process Complete (All videos cleared)', '#46fc8f', false);
             }, 500);
         }
     }
