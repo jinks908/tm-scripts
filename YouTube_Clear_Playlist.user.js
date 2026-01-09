@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.2-alpha
+// @version      1.2.3-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -105,6 +105,9 @@
             font-size: 16px;
             font-weight: 500;
             margin-bottom: 8px;
+        }
+        ytd-popup-container.style-scope.ytd-app {
+            visibility: hidden;
         }
     `);
 
