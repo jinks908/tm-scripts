@@ -107,9 +107,6 @@
             font-weight: 500;
             margin-bottom: 8px;
         }
-        ytd-popup-container.style-scope.ytd-app {
-            visibility: hidden;
-        }
     `);
 
     // Function to show toast notification
@@ -276,8 +273,14 @@
             setTimeout(() => {
                 showToast('Process Complete (All videos cleared)', '#46fc8f', false);
             }, 500);
-        }
-    }
+            // Restore popup visibility
+            GM_addStyle(`
+                ytd-popup-container.style-scope.ytd-app {
+                    visibility: visible;
+                }
+            `);
+        };
+    };
 
     // Keybinding (Ctrl+d)
     document.addEventListener('keydown', function(e) {
@@ -288,11 +291,23 @@
             videosRemoved = 0;
             showProgressMeter(0, totalVideos);
             clearWatchLater();
+            // Hide popup visibility
+            GM_addStyle(`
+                ytd-popup-container.style-scope.ytd-app {
+                    visibility: hidden;
+                }
+            `);
         };
         if (e.ctrlKey && e.key === 'k') {
             e.preventDefault();
             // Killswitch
             stop = true;
+            // Restore popup visibility
+            GM_addStyle(`
+                ytd-popup-container.style-scope.ytd-app {
+                    visibility: visible;
+                }
+            `);
         };
     });
 
