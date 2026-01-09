@@ -192,7 +192,7 @@
             if (percentage < 50) return '#ff875f';
             if (percentage < 80) return '#f6be55';
             if (percentage < 90) return '#a6e87d';
-            return '#46fc8f';
+            if (percentage <= 100) return '#46fc8f';
         };
 
         if (total) {
