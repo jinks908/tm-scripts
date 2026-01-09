@@ -214,7 +214,7 @@
         if (stop) {
             console.log('Process Stopped (Ctrl+K to resume)');
             hideProgressMeter();
-            showToast('Process Stopped (Ctrl+K to resume)', '#ff5f5f', false);
+            showToast('Process Stopped (Ctrl+K to resume)', '#f6be55', false);
             stop = false;
             videosRemoved = 0;
             totalVideos = null;
