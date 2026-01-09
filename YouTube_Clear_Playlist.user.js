@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.1-alpha
+// @version      1.2.1-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -130,42 +130,66 @@
 
     // Function to extract total video count from playlist metadata
     function getTotalVideoCount() {
-        const metadataStats = document.querySelector('.metadata-stats');
-        if (!metadataStats) return null;
+        let metadataStats = document.querySelector('.metadata-stats');
+        // Watch Later playlist
+        if (metadataStats) {
+            // Look for video count under video metadata
+            const spans = metadataStats.querySelectorAll('span.style-scope.yt-formatted-string');
+            for (let span of spans) {
+                const text = span.textContent.trim();
+                // Match numbers only
+                const match = text.match(/^\d+$/);
+                if (match) {
+                    return parseInt(match[0]);
+                };
+            };
+        } else {
+            // Other playlists
+            const metadataRows = document.querySelectorAll('.yt-content-metadata-view-model__metadata-row')
+            if (!metadataRows.length < 2) return null;
+            metadataStats = metadataRows[1];
+            const spans = metadataStats.querySelectorAll('span.yt-core-attributed-string');
+            for (let span of spans) {
+                const text = span.textContent.trim();
+                // Match pattern "<num> videos"
+                let match = text.match(/(\d+)\s+videos/);
+                if (match) {
+                    return parseInt(match[0]);
+                };
+            };
+        };
 
-        const spans = metadataStats.querySelectorAll('span.style-scope.yt-formatted-string');
-        for (let span of spans) {
-            const text = span.textContent.trim();
-            const match = text.match(/^\d+$/);
-            if (match) {
-                return parseInt(match[0]);
-            }
+        // If video count not found, fallback to counting (visible) menu buttons
+        // NOTE: This may be inaccurate if not all videos are loaded
+        const menuButtons = document.querySelectorAll('div#contents button[aria-label="Action menu"]');
+        if (menuButtons.length > 0) {
+            return menuButtons.length;
         }
         return null;
+    };
+
+    // Function to show/update progress meter
+    function showProgressMeter(current, total) {
+        if (!progressElement) {
+            progressElement = document.createElement('div');
+            progressElement.className = 'youtube-clear-playlist-progress';
+            document.body.appendChild(progressElement);
+        }
+
+        if (total) {
+            const percentage = (current / total) * 100;
+            progressElement.innerHTML = `
+                <div class="youtube-clear-playlist-progress-text">${current}/${total} videos removed</div>
+                <div class="youtube-clear-playlist-progress-bar">
+                    <div class="youtube-clear-playlist-progress-fill" style="width: ${percentage}%; animation-duration: ${total * 0.5}s;"></div>
+                </div>
+            `;
+        } else {
+            progressElement.innerHTML = `
+                <div class="youtube-clear-playlist-progress-text">${current} videos removed</div>
+            `;
+        }
     }
-
-     // Function to show/update progress meter
-     function showProgressMeter(current, total) {
-         if (!progressElement) {
-             progressElement = document.createElement('div');
-             progressElement.className = 'youtube-clear-playlist-progress';
-             document.body.appendChild(progressElement);
-         }
-
-         if (total) {
-             const percentage = (current / total) * 100;
-             progressElement.innerHTML = `
-                 <div class="youtube-clear-playlist-progress-text">${current}/${total} videos removed</div>
-                 <div class="youtube-clear-playlist-progress-bar">
-                     <div class="youtube-clear-playlist-progress-fill" style="width: ${percentage}%; animation-duration: ${total * 0.5}s;"></div>
-                 </div>
-             `;
-         } else {
-             progressElement.innerHTML = `
-                 <div class="youtube-clear-playlist-progress-text">${current} videos removed</div>
-             `;
-         }
-     }
 
     // Function to hide progress meter
     function hideProgressMeter() {
