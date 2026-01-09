@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.6
+// @version      1.2.7
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -30,7 +30,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #112136;
+            background: #121c2a;
             color: #ffffff;
             font-size: 20px;
             font-weight: 500;
@@ -67,7 +67,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #112136;
+            background: #121c2a;
             color: #ffffff;
             padding: 24px;
             border-radius: 12px;
@@ -97,9 +97,9 @@
         }
         @keyframes colorShift {
         0% { background-color: #ff5f5f; }
-        25% { background-color: #ff875f; }
-        50% { background-color: #f6be55; }
-        75% { background-color: #a6e87d; }
+        50% { background-color: #ff875f; }
+        75% { background-color: #f6be55; }
+        90% { background-color: #a6e87d; }
         100% { background-color: #46fc8f; }
         }
         .youtube-clear-playlist-progress-text {
@@ -175,23 +175,25 @@
         if (!progressElement) {
             progressElement = document.createElement('div');
             progressElement.className = 'youtube-clear-playlist-progress';
-            document.body.appendChild(progressElement);
-        }
-
-        if (total) {
-            const percentage = (current / total) * 100;
             progressElement.innerHTML = `
-                <div class="youtube-clear-playlist-progress-text">${current}/${total} videos removed</div>
+                <div class="youtube-clear-playlist-progress-text"></div>
                 <div class="youtube-clear-playlist-progress-bar">
-                    <div class="youtube-clear-playlist-progress-fill" style="width: ${percentage}%; animation-duration: ${total * 0.5}s;"></div>
+                    <div class="youtube-clear-playlist-progress-fill"></div>
                 </div>
             `;
+            document.body.appendChild(progressElement);
+        };
+        const textElement = progressElement.querySelector('.youtube-clear-playlist-progress-text');
+        const fillElement = progressElement.querySelector('.youtube-clear-playlist-progress-fill');
+        if (total) {
+            const percentage = (current / total) * 100;
+            textElement.textContent = `${current}/${total} videos removed`;
+            fillElement.style.width = `${percentage}%`;
+            fillElement.style.animationDuration = `${total * 0.5}s`;
         } else {
-            progressElement.innerHTML = `
-                <div class="youtube-clear-playlist-progress-text">${current} videos removed</div>
-            `;
-        }
-    }
+            textElement.textContent = `${current} videos removed`;
+        };
+    };
 
     // Function to hide progress meter
     function hideProgressMeter() {
@@ -271,7 +273,7 @@
             videosRemoved = 0;
             totalVideos = null;
             setTimeout(() => {
-                showToast('Process Complete (All videos cleared)', '#46fc8f', false);
+                showToast('Process Complete (All videos cleared)', '#6cefa0', false);
             }, 500);
             // Restore popup visibility
             GM_addStyle(`
