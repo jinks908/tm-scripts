@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1-alpha
+// @version      1.2.2-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -145,8 +145,8 @@
             };
         } else {
             // Other playlists
-            const metadataRows = document.querySelectorAll('.yt-content-metadata-view-model__metadata-row')
-            if (!metadataRows.length < 2) return null;
+            const metadataRows = document.querySelectorAll('div.yt-content-metadata-view-model__metadata-row')
+            if (metadataRows.length < 2) return null;
             metadataStats = metadataRows[1];
             const spans = metadataStats.querySelectorAll('span.yt-core-attributed-string');
             for (let span of spans) {
