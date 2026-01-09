@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.4-alpha
+// @version      1.2.5-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -32,6 +32,8 @@
             transform: translate(-50%, -50%);
             background: #112136;
             color: #ffffff;
+            font-size: 18px;
+            font-weight: 500;
             padding: 24px;
             border-radius: 12px;
             font-family: "Google Sans", "Roboto", sans-serif;
