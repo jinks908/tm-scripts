@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.3-alpha
+// @version      1.2.4-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -29,17 +29,16 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            background: #ff5f5f;
-            color: white;
-            padding: 16px 24px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-family: "Google Sans", "Roboto", sans-serif;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 9999;
-            min-width: 200px;
-            text-align: center;
             transform: translate(-50%, -50%);
+            background: #112136;
+            color: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: "Google Sans", "Roboto", sans-serif;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            z-index: 10000;
+            min-width: 300px;
+            text-align: center;
             animation: slideIn 0.3s ease-out;
         }
         @keyframes slideIn {
@@ -88,19 +87,19 @@
             margin-top: 16px;
             overflow: hidden;
         }
-         .youtube-clear-playlist-progress-fill {
-             height: 100%;
-             width: 0%;
-             transition: width 0.3s ease;
-             animation: colorShift linear forwards;
-         }
-         @keyframes colorShift {
-             0% { background-color: #ff5f5f; }
-             25% { background-color: #ff875f; }
-             50% { background-color: #f6be55; }
-             75% { background-color: #a6e87d; }
-             100% { background-color: #46fc8f; }
-         }
+        .youtube-clear-playlist-progress-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            animation: colorShift linear forwards;
+        }
+        @keyframes colorShift {
+        0% { background-color: #ff5f5f; }
+        25% { background-color: #ff875f; }
+        50% { background-color: #f6be55; }
+        75% { background-color: #a6e87d; }
+        100% { background-color: #46fc8f; }
+        }
         .youtube-clear-playlist-progress-text {
             font-size: 16px;
             font-weight: 500;
@@ -112,13 +111,14 @@
     `);
 
     // Function to show toast notification
-    function showToast(message, persist = false) {
+    function showToast(message, textColor, persist = false) {
 
         // Create toast element
         const toast = document.createElement('div');
 
         toast.className = 'youtube-clear-playlist-toast';
         toast.textContent = message;
+        toast.style.color = textColor || '#ffffff';
         document.body.appendChild(toast);
 
         if (!persist) {
@@ -212,7 +212,7 @@
         if (stop) {
             console.log('Script stopped by user');
             hideProgressMeter();
-            showToast('Script stopped by user', false);
+            showToast('Script stopped by user', '#ff875f', false);
             stop = false;
             videosRemoved = 0;
             totalVideos = null;
@@ -272,7 +272,7 @@
             videosRemoved = 0;
             totalVideos = null;
             setTimeout(() => {
-                showToast('All videos cleared.', false);
+                showToast('Process complete. All videos cleared.', '#46fc8f', false);
             }, 500);
         }
     }
