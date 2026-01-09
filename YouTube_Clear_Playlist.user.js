@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.1
+// @version      1.1.0
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -17,6 +17,11 @@
 
     // Killswitch
     let stop = false;
+
+    // Progress tracking
+    let totalVideos = null;
+    let videosRemoved = 0;
+    let progressElement = null;
 
     // Toast notification styles
     GM_addStyle(`
@@ -56,6 +61,49 @@
                 transform: translateY(20px);
             }
         }
+
+        .youtube-clear-playlist-progress {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: #212121;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: "Google Sans", "Roboto", sans-serif;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            z-index: 10000;
+            min-width: 300px;
+            text-align: center;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .youtube-clear-playlist-progress.fadeOut {
+            animation: fadeOut 0.3s ease-out forwards;
+        }
+
+        .youtube-clear-playlist-progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 16px;
+            overflow: hidden;
+        }
+
+        .youtube-clear-playlist-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff5f5f, #ff9999);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .youtube-clear-playlist-progress-text {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
     `);
 
     // Function to show toast notification
@@ -78,11 +126,67 @@
         };
     };
 
+    // Function to extract total video count from playlist metadata
+    function getTotalVideoCount() {
+        const metadataStats = document.querySelector('.metadata-stats');
+        if (!metadataStats) return null;
+
+        const spans = metadataStats.querySelectorAll('span.style-scope.yt-formatted-string');
+        for (let span of spans) {
+            const text = span.textContent.trim();
+            const match = text.match(/^\d+$/);
+            if (match) {
+                return parseInt(match[0]);
+            }
+        }
+        return null;
+    }
+
+    // Function to show/update progress meter
+    function showProgressMeter(current, total) {
+        if (!progressElement) {
+            progressElement = document.createElement('div');
+            progressElement.className = 'youtube-clear-playlist-progress';
+            document.body.appendChild(progressElement);
+        }
+
+        if (total) {
+            const percentage = (current / total) * 100;
+            progressElement.innerHTML = `
+                <div class="youtube-clear-playlist-progress-text">${current}/${total} videos removed</div>
+                <div class="youtube-clear-playlist-progress-bar">
+                    <div class="youtube-clear-playlist-progress-fill" style="width: ${percentage}%"></div>
+                </div>
+            `;
+        } else {
+            progressElement.innerHTML = `
+                <div class="youtube-clear-playlist-progress-text">${current} videos removed</div>
+            `;
+        }
+    }
+
+    // Function to hide progress meter
+    function hideProgressMeter() {
+        if (progressElement) {
+            progressElement.classList.add('fadeOut');
+            setTimeout(() => {
+                if (progressElement && progressElement.parentNode) {
+                    progressElement.remove();
+                }
+                progressElement = null;
+            }, 300);
+        }
+    }
+
     function clearWatchLater() {
         // To stop process, set `stop = true;` in the console
         if (stop) {
             console.log('Script stopped by user');
+            hideProgressMeter();
             showToast('Script stopped by user', false);
+            stop = false;
+            videosRemoved = 0;
+            totalVideos = null;
             return;
         }
 
@@ -123,6 +227,8 @@
                 if (removeButton) {
                     removeButton.click();
                     console.log('Removed video from Watch Later');
+                    videosRemoved++;
+                    showProgressMeter(videosRemoved, totalVideos);
                     // Wait a bit then call function again for next video
                     setTimeout(clearWatchLater, 500);
                 } else {
@@ -133,6 +239,9 @@
             }, 300); // Increased delay slightly
         } else {
             console.log('All videos cleared.');
+            hideProgressMeter();
+            videosRemoved = 0;
+            totalVideos = null;
             setTimeout(() => {
                 showToast('All videos cleared.', false);
             }, 500);
@@ -143,6 +252,10 @@
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.key === 'd') {
             e.preventDefault();
+            // Initialize progress meter
+            totalVideos = getTotalVideoCount();
+            videosRemoved = 0;
+            showProgressMeter(0, totalVideos);
             clearWatchLater();
         };
         if (e.ctrlKey && e.key === 'k') {
