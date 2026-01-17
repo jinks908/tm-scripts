@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Notifications
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.0-alpha
+// @version      1.1.1-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Notifications.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Notifications.user.js
 // @description  Expands notifications panel to full page for easier viewing
@@ -14,6 +14,10 @@
 
 (function() {
     'use strict';
+
+    // Store reference to original parent for restoration
+    let originalParent = null;
+    let movedContainer = null;
 
     // Add custom styles for the modal overlay
     GM_addStyle(`
@@ -199,12 +203,12 @@
     // Open the expanded view
     function openExpandedView() {
         console.log('Opening expanded view...');
-        
+
         // Use the specific menu-style attribute to find notifications
         const notificationsMenu = document.querySelector(
             'ytd-multi-page-menu-renderer[menu-style="multi-page-menu-style-type-notifications"]'
         );
-        
+
         if (!notificationsMenu) {
             console.error('Notifications menu not found');
             return;
@@ -216,20 +220,24 @@
         const overlay = document.getElementById('yt-notifications-modal-overlay');
         const modalBody = document.getElementById('yt-notifications-modal-body');
 
-        // Clone the entire container instead of just sections
+        // Find the container to move
         const container = notificationsMenu.querySelector('#container');
         console.log('Container found:', container);
-        
+
         if (container) {
             // Clear previous content
             modalBody.innerHTML = '';
 
-            // Clone the entire container with all its content (deep clone)
-            const clonedContainer = container.cloneNode(true);
-            console.log('Cloned container:', clonedContainer);
-            console.log('Cloned container children:', clonedContainer.children.length);
-            
-            modalBody.appendChild(clonedContainer);
+            // Store reference to original parent for restoration
+            originalParent = container.parentElement;
+            movedContainer = container;
+
+            console.log('Original parent:', originalParent);
+
+            // MOVE the container (not clone) - this preserves all shadow DOM and functionality
+            modalBody.appendChild(container);
+
+            console.log('Container moved to modal');
 
             // Make all links open in new tabs
             const links = modalBody.querySelectorAll('a');
@@ -249,9 +257,23 @@
 
     // Close the modal
     function closeModal() {
+        console.log('Closing modal...');
+
         const overlay = document.getElementById('yt-notifications-modal-overlay');
         if (overlay) {
             overlay.classList.remove('active');
+        }
+
+        // Restore the container back to its original location
+        if (movedContainer && originalParent) {
+            console.log('Restoring container to original location');
+            originalParent.appendChild(movedContainer);
+
+            // Reset references
+            movedContainer = null;
+            originalParent = null;
+
+            console.log('Container restored');
         }
     }
 
