@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Notifications
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.1-alpha
+// @version      1.1.2-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Notifications.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Notifications.user.js
 // @description  Expands notifications panel to full page for easier viewing
@@ -83,7 +83,21 @@
         #yt-notifications-modal-body {
             flex: 1;
             overflow-y: auto;
+            overflow-x: hidden;
             padding: 12px 0;
+            position: relative;
+        }
+
+        /* Override container styles to allow proper scrolling in modal */
+        #yt-notifications-modal-body #container {
+            max-height: none !important;
+            overflow: visible !important;
+            width: 100%;
+        }
+
+        #yt-notifications-modal-body #sections {
+            overflow: visible !important;
+            max-height: none !important;
         }
 
         #yt-notifications-expand-btn {
