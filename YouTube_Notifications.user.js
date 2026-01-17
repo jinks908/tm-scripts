@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Notifications
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.0-alpha
+// @version      1.1.0-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Notifications.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Notifications.user.js
 // @description  Expands notifications panel to full page for easier viewing
@@ -106,36 +106,22 @@
         }
     `);
 
-    // Wait for the notifications dropdown to appear
-    function waitForElement(selector, callback, checkInterval = 100, timeout = 10000) {
-        const startTime = Date.now();
-        const interval = setInterval(() => {
-            const element = document.querySelector(selector);
-            if (element) {
-                clearInterval(interval);
-                callback(element);
-            } else if (Date.now() - startTime > timeout) {
-                clearInterval(interval);
-            }
-        }, checkInterval);
-    }
-
     // Create and inject the Expand button
     function injectExpandButton() {
         const observer = new MutationObserver((mutations) => {
-            const dropdown = document.querySelector('tp-yt-iron-dropdown[aria-label*="Notifications"]');
-            if (!dropdown) return;
+            // Use the specific menu-style attribute to identify notifications dropdown
+            const notificationsMenu = document.querySelector(
+                'ytd-multi-page-menu-renderer[menu-style="multi-page-menu-style-type-notifications"]'
+            );
+
+            if (!notificationsMenu) return;
 
             // Check if button already exists
-            if (dropdown.querySelector('#yt-notifications-expand-btn')) return;
+            if (notificationsMenu.querySelector('#yt-notifications-expand-btn')) return;
 
-            // Find the header/title area to inject the button
-            const menuRenderer = dropdown.querySelector('ytd-multi-page-menu-renderer');
-            if (!menuRenderer) return;
-
-            // Look for the header section
-            const header = menuRenderer.querySelector('#header');
-            if (!header) return;
+            // Find the buttons container in the header
+            const buttonsContainer = notificationsMenu.querySelector('#header #buttons');
+            if (!buttonsContainer) return;
 
             // Create expand button
             const expandBtn = document.createElement('button');
@@ -152,8 +138,8 @@
                 openExpandedView();
             });
 
-            // Insert the button into the header
-            header.appendChild(expandBtn);
+            // Insert the button before the Settings button (as first child)
+            buttonsContainer.insertBefore(expandBtn, buttonsContainer.firstChild);
         });
 
         // Observe the document for the dropdown appearing
@@ -212,34 +198,53 @@
 
     // Open the expanded view
     function openExpandedView() {
-        const dropdown = document.querySelector('tp-yt-iron-dropdown[aria-label*="Notifications"]');
-        if (!dropdown) return;
+        console.log('Opening expanded view...');
+        
+        // Use the specific menu-style attribute to find notifications
+        const notificationsMenu = document.querySelector(
+            'ytd-multi-page-menu-renderer[menu-style="multi-page-menu-style-type-notifications"]'
+        );
+        
+        if (!notificationsMenu) {
+            console.error('Notifications menu not found');
+            return;
+        }
+        console.log('Notifications menu found:', notificationsMenu);
 
         createModal();
 
         const overlay = document.getElementById('yt-notifications-modal-overlay');
         const modalBody = document.getElementById('yt-notifications-modal-body');
 
-        // Clone the notifications content
-        const sectionsContainer = dropdown.querySelector('#sections');
-        if (sectionsContainer) {
+        // Clone the entire container instead of just sections
+        const container = notificationsMenu.querySelector('#container');
+        console.log('Container found:', container);
+        
+        if (container) {
             // Clear previous content
             modalBody.innerHTML = '';
 
-            // Clone the sections
-            const clonedSections = sectionsContainer.cloneNode(true);
-            modalBody.appendChild(clonedSections);
+            // Clone the entire container with all its content (deep clone)
+            const clonedContainer = container.cloneNode(true);
+            console.log('Cloned container:', clonedContainer);
+            console.log('Cloned container children:', clonedContainer.children.length);
+            
+            modalBody.appendChild(clonedContainer);
 
             // Make all links open in new tabs
             const links = modalBody.querySelectorAll('a');
+            console.log('Found links:', links.length);
             links.forEach(link => {
                 link.setAttribute('target', '_blank');
                 link.setAttribute('rel', 'noopener noreferrer');
             });
+        } else {
+            console.error('Container not found in notifications menu');
         }
 
         // Show the modal
         overlay.classList.add('active');
+        console.log('Modal should now be visible');
     }
 
     // Close the modal
