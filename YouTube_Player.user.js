@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.4.6-alpha
+// @version      1.5.0-beta
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -39,51 +39,57 @@
     // Create toggle variable
     let volumeBoosterEnabled = false;
 
+    // Setup AudioContext for volume boosting on a video element
+    function setupVolumeBooster(video) {
+        if (!video || video.audioCtx) return;
+
+        // Create AudioContext and GainNode for volume boosting
+        const audioCtx = new AudioContext();
+        // Attach to video element
+        video.audioCtx = audioCtx;
+        video.gainNode = video.audioCtx.createGain();
+        // Feed the video element into the AudioContext
+        video.source = video.audioCtx.createMediaElementSource(video);
+
+        // Connect source to gainNode and gainNode to destination
+        video.source.connect(video.gainNode);
+        video.gainNode.connect(video.audioCtx.destination);
+
+        // Apply current volume booster state
+        video.gainNode.gain.value = volumeBoosterEnabled ? 4.0 : 1.0;
+        console.log('Volume booster setup complete, state:', volumeBoosterEnabled);
+    }
+
     // Boost volume beyond 100%
     function toggleVolumeBooster() {
 
         // Query the YouTube video player
         const video = document.querySelector('video');
 
-        // Check for existing AudioContext
+        // Setup AudioContext if not already present
         if (!video.audioCtx) {
-            // Create AudioContext and GainNode for volume boosting
-            const audioCtx = new AudioContext();
-            // Attach to video element
-            video.audioCtx = audioCtx;
-            video.gainNode = video.audioCtx.createGain();
-            // Feed the video element into the AudioContext
-            video.source = video.audioCtx.createMediaElementSource(video);
-
-            // Connect source to gainNode and gainNode to destination
-            video.source.connect(video.gainNode);
-            video.gainNode.connect(video.audioCtx.destination);
+            setupVolumeBooster(video);
         };
 
-        // Reset volume booster
+        // Toggle volume booster
         if (volumeBoosterEnabled) {
             // Disable volume booster
             video.gainNode.gain.value = 1.0;
             volumeBoosterEnabled = false;
-            showIndicator('Volume Boost Off  ', 'decrease');
+            showIndicator('Volume Boost Off  ', 'decrease');
             return;
         } else {
             // Boost volume by 400%
             video.gainNode.gain.value = 4.0;
             volumeBoosterEnabled = true;
-            showIndicator('Volume Booster On  ', 'increase');
+            showIndicator('Volume Booster On  ', 'increase');
             return;
         };
     };
 
-    // Initialize video volume level
-    const videoInit = document.querySelector('video');
-    let currentVolume;
-    let start = false;
-    if (videoInit && !start) {
-        currentVolume = videoInit.volume;
-        start = true;
-    };
+    // Initialize state variables (will be synced when video element is detected)
+    let currentVolume = null;
+    let currentVideoElement = null;
 
     // Increase/decrease volume
     function updateVolume(change) {
@@ -122,8 +128,8 @@
         };
     };
 
-    // Set default playback speed
-    let currentSpeed = 1.0;
+    // Set default playback speed (will be synced when video element is detected)
+    let currentSpeed = null;
 
     // Set custom playback speed
     function updateSpeed(change) {
@@ -268,17 +274,108 @@
         };
     }, true);
 
-    // Sync with actual playback rate periodically
-    // NOTE: This handles cases where speed is changed via UI controls
-    // N> and/or switching to/from other audiobooks
-    setInterval(() => {
-        const video = document.querySelector('video');
-        if (video && Math.abs(video.playbackRate - currentSpeed) > 0.01) {
+    // Event handlers for syncing with YouTube's native controls
+    function handleRateChange(e) {
+        const video = e.target;
+        // Only update our tracking if the change didn't come from our updateSpeed function
+        // We detect this by checking if there's a small timing window
+        if (Math.abs(video.playbackRate - currentSpeed) > 0.01) {
+            currentSpeed = video.playbackRate;
+            console.log('Synced playback rate from YouTube UI:', currentSpeed);
+        }
+    }
+
+    function handleVolumeChange(e) {
+        const video = e.target;
+        // Only update our tracking if the change didn't come from our updateVolume function
+        if (Math.abs(video.volume - currentVolume) > 0.01) {
+            currentVolume = video.volume;
+            console.log('Synced volume from YouTube UI:', currentVolume);
+        }
+    }
+
+    // Setup video element with event listeners and apply stored settings
+    function setupVideoElement(video) {
+        if (!video) return;
+
+        // Remove listeners from previous video element if it exists
+        if (currentVideoElement && currentVideoElement !== video) {
+            cleanupVideoElement(currentVideoElement);
+        }
+
+        currentVideoElement = video;
+
+        // Apply stored settings to new video (persist across navigation)
+        if (currentSpeed !== null) {
             video.playbackRate = currentSpeed;
-        };
-        if (video && Math.abs(video.volume - currentVolume) > 0.01) {
+            console.log('Applied stored playback rate:', currentSpeed);
+        } else {
+            // First time initialization
+            currentSpeed = video.playbackRate;
+            console.log('Initialized playback rate:', currentSpeed);
+        }
+
+        if (currentVolume !== null) {
             video.volume = currentVolume;
-        };
-    }, 1000);
+            console.log('Applied stored volume:', currentVolume);
+        } else {
+            // First time initialization
+            currentVolume = video.volume;
+            console.log('Initialized volume:', currentVolume);
+        }
+
+        // Setup volume booster if it was previously enabled
+        if (volumeBoosterEnabled) {
+            setupVolumeBooster(video);
+        }
+
+        // Attach event listeners for bidirectional sync
+        video.addEventListener('ratechange', handleRateChange);
+        video.addEventListener('volumechange', handleVolumeChange);
+
+        console.log('Video element setup complete');
+    }
+
+    // Cleanup function to remove event listeners
+    function cleanupVideoElement(video) {
+        if (!video) return;
+        video.removeEventListener('ratechange', handleRateChange);
+        video.removeEventListener('volumechange', handleVolumeChange);
+        console.log('Cleaned up old video element listeners');
+    }
+
+    // MutationObserver to detect video element changes (YouTube SPA navigation)
+    function observeVideoElement() {
+        // Try to setup initial video element
+        const initialVideo = document.querySelector('video');
+        if (initialVideo) {
+            setupVideoElement(initialVideo);
+        }
+
+        // Watch for video element changes
+        const observer = new MutationObserver((mutations) => {
+            const video = document.querySelector('video');
+            if (video && video !== currentVideoElement) {
+                console.log('Detected new video element, setting up...');
+                setupVideoElement(video);
+            }
+        });
+
+        // Observe the entire document for video element changes
+        // YouTube's player container can change during navigation
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        console.log('MutationObserver initialized');
+    }
+
+    // Initialize video element observation when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', observeVideoElement);
+    } else {
+        observeVideoElement();
+    }
 
 })();
