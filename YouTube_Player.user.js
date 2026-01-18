@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.4.5-stable
+// @version      1.4.6-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -253,11 +253,11 @@
                 e.preventDefault();
                 updateSpeed(-0.05); // Decrease speed by 0.05x
                 break;
-            case 'ArrowUp':
+            case '=':
                 e.preventDefault();
                 updateVolume(0.05);
                 break;
-            case 'ArrowDown':
+            case '-':
                 e.preventDefault();
                 updateVolume(-0.05);
                 break;
