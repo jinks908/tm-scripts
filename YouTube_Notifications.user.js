@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Notifications
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.3-alpha
+// @version      1.1.4-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Notifications.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Notifications.user.js
 // @description  Expands notifications panel to full page for easier viewing
@@ -82,23 +82,21 @@
 
         #yt-notifications-modal-body {
             flex: 1;
-            overflow: hidden;
-            padding: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 12px 0;
             position: relative;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* Let container handle its own scrolling for infinite scroll to work */
+        /* Override container to not interfere with modal scrolling */
         #yt-notifications-modal-body #container {
-            height: 100%;
-            width: 100%;
-            overflow-y: auto !important;
-            overflow-x: hidden !important;
             max-height: none !important;
+            overflow: visible !important;
+            width: 100%;
         }
 
         #yt-notifications-modal-body #sections {
+            overflow: visible !important;
             max-height: none !important;
         }
 
@@ -216,6 +214,26 @@
         });
     }
 
+    // Setup scroll event forwarding to trigger infinite scroll
+    function setupScrollForwarding(modalBody, container) {
+        console.log('Setting up scroll forwarding...');
+
+        modalBody.addEventListener('scroll', () => {
+            // Calculate if we're near the bottom
+            const scrollPosition = modalBody.scrollTop + modalBody.clientHeight;
+            const scrollHeight = modalBody.scrollHeight;
+            const threshold = 100; // pixels from bottom to trigger load
+
+            if (scrollHeight - scrollPosition < threshold) {
+                console.log('Near bottom, triggering scroll event on container');
+
+                // Dispatch a scroll event on the container to trigger YouTube's infinite scroll
+                const scrollEvent = new Event('scroll', { bubbles: true, cancelable: true });
+                container.dispatchEvent(scrollEvent);
+            }
+        });
+    }
+
     // Open the expanded view
     function openExpandedView() {
         console.log('Opening expanded view...');
@@ -254,6 +272,9 @@
             modalBody.appendChild(container);
 
             console.log('Container moved to modal');
+
+            // Setup scroll event forwarding to trigger infinite scroll
+            setupScrollForwarding(modalBody, container);
 
             // Make all links open in new tabs
             const links = modalBody.querySelectorAll('a');
