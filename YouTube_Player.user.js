@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.1-beta
+// @version      1.5.2-beta
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -288,6 +288,18 @@
             case 'k':
                 e.preventDefault();
                 playPauseVideo();
+                break;
+            case 'j':
+                showIndicator(`Skip 󰴪 `, 'decrease');
+                break;
+            case 'l':
+                showIndicator(`Skip 󰵱 `, 'increase');
+                break;
+            case 'ArrowLeft':
+                showIndicator(`Skip 󱇹 `, 'decrease');
+                break;
+            case 'ArrowRight':
+                showIndicator(`Skip 󱇸 `, 'increase');
                 break;
         };
     }, true);
