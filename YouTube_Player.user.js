@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.2-beta
+// @version      1.5.3-beta
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -179,6 +179,21 @@
         };
     };
 
+    // Show current chapter title
+    function showChapterTitle() {
+        const video = document.querySelector('video');
+        if (!video) return;
+
+        const chapterTitle = document.querySelector('div.ytp-chapter-container button.ytp-chapter-title.ytp-button div.ytp-chapter-title-content[title="View chapter"]');
+        if (!chapterTitle) {
+            showIndicator('No chapter title found', 'decrease');
+            return;
+        } else {
+            showIndicator(`  ${chapterTitle.textContent}`, 'normal');
+            return;
+        };
+    };
+
     // Show indicator float
     function showIndicator(text, type) {
         // Remove existing indicator
@@ -261,6 +276,13 @@
             e.preventDefault();
             defaultPlaybackRate();
             return;
+        };
+        // Show chapter title when seeking
+        if (e.altKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+            setTimeout(() => {
+                showChapterTitle();
+                return;
+            }, 100)
         };
 
         // Volume controls
