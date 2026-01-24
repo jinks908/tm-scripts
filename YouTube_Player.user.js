@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.4-stable
+// @version      1.5.5-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -91,6 +91,7 @@
     let currentVolume = null;
     let currentMuteState = null;
     let currentVideoElement = null;
+    let muteToggleInProgress = false;  // Flag to prevent YouTube from undoing our mute
 
     // Increase/decrease volume
     function updateVolume(change) {
@@ -113,22 +114,44 @@
         };
     };
 
-     // Mute/unmute volume
-     function toggleMute() {
-         const video = document.querySelector('video');
-         if (!video) return;
+    // Mute/unmute volume
+    function toggleMute() {
+        const video = document.querySelector('video');
+        if (!video) return;
 
-         // Toggle mute
-         video.muted = !video.muted;
-         currentMuteState = video.muted;
+        // Toggle mute
+        const newMuteState = !video.muted;
+        video.muted = newMuteState;
+        currentMuteState = newMuteState;
 
-         // Show mute indicator
-         if (video.muted) {
-             showIndicator('󰖁 ', 'decrease');
-         } else {
-             showIndicator('  ', 'increase');
-         };
-     };
+        // Set flag to prevent YouTube from undoing our change
+        // We'll actively re-enforce the mute state during this period
+        muteToggleInProgress = true;
+        
+        // Aggressively re-enforce the mute state for 1 second
+        let enforceAttempts = 0;
+        const enforceInterval = setInterval(() => {
+            if (enforceAttempts >= 10) {
+                clearInterval(enforceInterval);
+                muteToggleInProgress = false;
+                return;
+            }
+            
+            const currentVideo = document.querySelector('video');
+            if (currentVideo && currentVideo.muted !== newMuteState) {
+                console.log(`Re-enforcing mute state (attempt ${enforceAttempts + 1}):`, newMuteState);
+                currentVideo.muted = newMuteState;
+            }
+            enforceAttempts++;
+        }, 100);  // Check every 100ms for 1 second total
+
+        // Show mute indicator
+        if (video.muted) {
+            showIndicator('󰖁 ', 'decrease');
+        } else {
+            showIndicator('  ', 'increase');
+        };
+    };
 
     // Set default playback speed (will be synced when video element is detected)
     let currentSpeed = null;
@@ -341,6 +364,12 @@
 
     function handleVolumeChange(e) {
         const video = e.target;
+        
+        // Skip syncing if we're actively enforcing a mute change
+        if (muteToggleInProgress) {
+            return;
+        }
+
         // Check if this is a mute state change (volume may not change, but muted property does)
         if (video.muted !== currentMuteState) {
             currentMuteState = video.muted;
