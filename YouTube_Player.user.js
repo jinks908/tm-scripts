@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.3-beta
+// @version      1.5.4-stable
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -89,6 +89,7 @@
 
     // Initialize state variables (will be synced when video element is detected)
     let currentVolume = null;
+    let currentMuteState = null;
     let currentVideoElement = null;
 
     // Increase/decrease volume
@@ -112,21 +113,22 @@
         };
     };
 
-    // Mute/unmute volume
-    function toggleMute() {
-        const video = document.querySelector('video');
-        if (!video) return;
+     // Mute/unmute volume
+     function toggleMute() {
+         const video = document.querySelector('video');
+         if (!video) return;
 
-        // Toggle mute
-        video.muted = !video.muted;
+         // Toggle mute
+         video.muted = !video.muted;
+         currentMuteState = video.muted;
 
-        // Show mute indicator
-        if (video.muted) {
-            showIndicator('󰖁 ', 'decrease');
-        } else {
-            showIndicator('  ', 'increase');
-        };
-    };
+         // Show mute indicator
+         if (video.muted) {
+             showIndicator('󰖁 ', 'decrease');
+         } else {
+             showIndicator('  ', 'increase');
+         };
+     };
 
     // Set default playback speed (will be synced when video element is detected)
     let currentSpeed = null;
@@ -339,7 +341,12 @@
 
     function handleVolumeChange(e) {
         const video = e.target;
-        // Only update our tracking if the change didn't come from our updateVolume function
+        // Check if this is a mute state change (volume may not change, but muted property does)
+        if (video.muted !== currentMuteState) {
+            currentMuteState = video.muted;
+            console.log('Synced mute state from YouTube UI:', currentMuteState);
+        }
+        // Only update volume if the actual volume changed (not just mute state)
         if (Math.abs(video.volume - currentVolume) > 0.01) {
             currentVolume = video.volume;
             console.log('Synced volume from YouTube UI:', currentVolume);
@@ -374,6 +381,15 @@
             // First time initialization
             currentVolume = video.volume;
             console.log('Initialized volume:', currentVolume);
+        }
+
+        if (currentMuteState !== null) {
+            video.muted = currentMuteState;
+            console.log('Applied stored mute state:', currentMuteState);
+        } else {
+            // First time initialization
+            currentMuteState = video.muted;
+            console.log('Initialized mute state:', currentMuteState);
         }
 
         // Setup volume booster if it was previously enabled
