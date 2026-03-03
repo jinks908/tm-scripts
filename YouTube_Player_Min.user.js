@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         YouTube Player (Minimal)
 // @namespace    SkyColtNinja/userscripts
-// @version      1.6.1-alpha
+// @version      1.6.2-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player_Min.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player_Min.user.js
 // @description  YouTube video player keybindings and enhancements
 // @author       SkyColtNinja
 // @match        https://www.youtube.com/*
-// @match        https://www.tv.youtube.com/*
+// @match        https://tv.youtube.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        GM_addStyle
 // ==/UserScript==
