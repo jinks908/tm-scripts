@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player (Minimal)
 // @namespace    SkyColtNinja/userscripts
-// @version      1.6.0-alpha
+// @version      1.6.1-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player_Min.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player_Min.user.js
 // @description  YouTube video player keybindings and enhancements
