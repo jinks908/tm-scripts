@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         YouTube Player
+// @name         YouTube Player (Minimal)
 // @namespace    SkyColtNinja/userscripts
 // @version      1.6.0-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player_Min.user.js
