@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player (Minimal)
 // @namespace    SkyColtNinja/userscripts
-// @version      1.6.2-alpha
+// @version      1.6.3-alpha
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player_Min.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player_Min.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -15,11 +15,17 @@
 (function() {
     'use strict';
 
-    // For YouTubeTV player
+    // Focus player
     function focusVideoPlayer() {
-        // Select the container element
-        const player = document.querySelector('#id-player-main');
-        if (!player) return;
+        // Check for YouTubeTV player
+        if (document.querySelector('#id-player-main')) {
+            const player = document.querySelector('#id-player-main');
+        // Check for YouTube player
+        } else if (document.querySelector('#movie_player')) {
+            const player = document.querySelector('#movie_player');
+        } else {
+            return;
+        };
         player.focus({ preventScroll: true });
     }
 
