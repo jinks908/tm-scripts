@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Google Docs
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1
+// @version      1.2.2
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Google_Docs.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Google_Docs.user.js
 // @description  Automatically set zoom to "Fit" using keybinding
@@ -42,7 +42,7 @@
 
     // Main function
     function setZoomFit() {
-        const zoomInput = document.querySelector('#zoomSelect input.goog-toolbar-combo-button-input');
+        let zoomInput = document.getElementById('zoomSelect');
         if (!zoomInput) {
             console.log('Zoom input not found');
             return;
