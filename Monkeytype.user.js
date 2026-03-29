@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Monkeytype Keybindings
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.0
+// @version      1.0.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Monkeytype.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Monkeytype.user.js
 // @description  Adds keybindings to Monkeytype for easier navigation and control
@@ -13,45 +13,20 @@
 
 (function() {
 
-    const TIMEOUT = 1000; // ms to wait for follow-up key
-    let leaderActive = false;
-    let leaderTimer = null;
+    const restartBtn = document.querySelector('button#restartTestButton');
+    function restartTest() {
+        restartBtn.click();
+    };
 
-    function activateLeader() {
-        leaderActive = true;
-        clearTimeout(leaderTimer);
-        leaderTimer = setTimeout(() => { leaderActive = false; }, TIMEOUT);
-    }
-
-    document.addEventListener('keydown', (e) => {
-        // Detect Ctrl+` as leader
-        if (e.ctrlKey && e.key === '`') {
+    /*
+     * NOTE: The default binding for restarting the test is `Tab + Enter`, but since I've remapped `Tab` to `Ctrl`
+     * when used as a modifier, we need to explicitly define this binding for Monkeytpe.
+    */
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'Enter') {
             e.preventDefault();
-            activateLeader();
-            return;
-        }
-
-        if (leaderActive) {
-            leaderActive = false;
-            clearTimeout(leaderTimer);
-
-            switch (e.key) {
-                case 'k':
-                    e.preventDefault();
-                    // restart
-                    document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Tab', keyCode: 9, bubbles: true}));
-                    document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter', keyCode: 13, bubbles: true}));
-                    break;
-                case 'j':
-                    e.preventDefault();
-                    document.querySelector('button.textButton[mode="time"]')?.click();
-                    break;
-                case 'l':
-                    e.preventDefault();
-                    document.querySelector('button.textButton[mode="quote"]')?.click();
-                    break;
-            }
-        }
-    }, true); // capture phase so we get it before Monkeytype does
+            restartTest();
+        };
+    });
 
 })();
