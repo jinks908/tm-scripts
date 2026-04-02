@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.5-alpha
+// @version      1.5.6
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -26,7 +26,7 @@
             /* Colors */
             --tpr-default: #e3dede;
             --tpr-skyblue: #9ec6ea;
-            --tpr-seafoam: #52e3c3; 
+            --tpr-seafoam: #52e3c3;
             --tpr-orange: #fc8530;
             --tpr-yellow: #fec339;
             --tpr-green: #a5fa69;
@@ -97,7 +97,7 @@
         [style*="color: var(--c-texPri)"],
         [style*="fill:var(--c-texPri)"],
         [style*="fill: var(--c-texPri)"] {
-            color: var(--tpr-default) !important; 
+            color: var(--tpr-default) !important;
             fill: var(--tpr-default) !important;
         }
 
@@ -107,14 +107,14 @@
         [style*="color: rgb(134, 131, 126)"],
         [style*="fill: rgba(134, 131, 126,"],
         [style*="fill: rgb(134, 131, 126)"] {
-            color: var(--tpr-skyblue) !important; 
+            color: var(--tpr-skyblue) !important;
             fill: var(--tpr-skyblue) !important;
         }
         [style*="color:var(--c-graTexSec)"],
         [style*="color: var(--c-graTexSec)"],
         [style*="fill:var(--c-graTexSec)"],
         [style*="fill: var(--c-graTexSec)"] {
-            color: var(--tpr-skyblue) !important; 
+            color: var(--tpr-skyblue) !important;
             fill: var(--tpr-skyblue) !important;
         }
 
@@ -285,12 +285,12 @@
         /* ## Fonts
         ** ------------------------------------------------------------- */
         /* Main font */
-        body, 
-        .notion-app-inner .notion-light-theme, 
+        body,
+        .notion-app-inner .notion-light-theme,
         .notion-app-inner .notion-light-theme div,
-        .notion-cursor-listener, 
-        main, 
-        .notion-frame, 
+        .notion-cursor-listener,
+        main,
+        .notion-frame,
         .layout .layout-content {
             font-family: var(--tpr-font-main) !important;
             font-weight: 500 !important;
@@ -324,7 +324,7 @@
         }
          */
         /* Block code font */
-        .notion-code-block, 
+        .notion-code-block,
         .notion-code-block span {
             font-family: var(--tpr-font-code) !important;
             font-size: 102% !important;
@@ -425,7 +425,7 @@
         /* TOC font style and color */
         /* Top-level menu items */
         .notion-overlay-container div[role="dialog"] a span.notranslate {
-            color: var(--tpr-default) !important; 
+            color: var(--tpr-default) !important;
             font-family: var(--tpr-font-main) !important;
             font-weight: 600;
             font-size: 18px;
@@ -561,6 +561,9 @@
         .back-to-top-btn:hover svg, svg:hover {
             fill: var(--tpr-bg);
         }
+        .notion-sidebar > div:has(.back-to-top-btn) {
+            min-height: 100%;
+        }
 
         /* Fix Find-and-Replace popup colors (Note --> We have to select via style since there are other elements under ".notion-cursor-listener" that would be affected otherwise) */
         .notion-cursor-listener div[style*="box-shadow: rgba(15, 15, 15, 0.04) 0px 0px 0px 1px, rgba(15, 15, 15, 0.03) 0px 3px 6px, rgba(15, 15, 15, 0.06) 0px 9px 24px; position: absolute; top: 0px; right: 16px; z-index: 1000; background-color: rgb(255, 255, 255); border-radius: 12px; width: 280px; outline: rgba(35, 131, 226, 0.14) solid 3px; opacity: 1; transform: translateY(60px); transition-property: opacity, transform; transition-duration: 150ms; transition-delay: 0ms; transition-timing-function: ease;"] {
@@ -604,24 +607,24 @@
         }
 
         /* Set cursor color */
-        html, 
-        body, 
-        #notion-app, 
-        div, 
-        .notranslate, 
-        .notion-selectable, 
+        html,
+        body,
+        #notion-app,
+        div,
+        .notranslate,
+        .notion-selectable,
         .notion-text-block,
-        .notion-header-block, 
-        .notion-page-block, 
-        .notion-code-block, 
+        .notion-header-block,
+        .notion-page-block,
+        .notion-code-block,
         .notion-callout-block,
-        .notion-divider-block, 
-        .notion-table_of_contents-block, 
+        .notion-divider-block,
+        .notion-table_of_contents-block,
         .notion-collection_view_page-block,
-        h1, 
-        h2, 
-        h3, 
-        h4, 
+        h1,
+        h2,
+        h3,
+        h4,
         span {
             caret-color: var(--tpr-default) !important;
         }
@@ -658,7 +661,7 @@
 
         /* Header bottom border */
         div.layout-full {
-            border-bottom: 1px solid var(--tpr-bg-alt) !important; 
+            border-bottom: 1px solid var(--tpr-bg-alt) !important;
         }
         .notion-selectable.notion-table_of_contents-block {
             background-color: var(--tpr-bg) !important;
@@ -688,7 +691,7 @@
         }
         .notion-sidebar {
             height: 100% !important;
-            top: -15px; 
+            top: -15px;
         }
         .notion-sidebar, .notion-sidebar div {
             border-start-end-radius: 0px !important;
@@ -785,6 +788,10 @@
         const debouncedObserver = () => {
             clearTimeout(observerTimeout);
             observerTimeout = setTimeout(() => {
+                // Hide top menu (Search, Home, Meetings, etc.)
+                const divs = document.querySelectorAll('.notion-sidebar > div > div');
+                const target = [...divs].find(el => el.textContent.includes('Search'));
+                target.style.display = 'none';
                 injectBackToTopButton();
             }, 250);
         };
