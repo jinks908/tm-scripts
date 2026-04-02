@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.6
+// @version      1.5.7
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -537,14 +537,16 @@
 
         /* Back to Top Button */
         .back-to-top-btn {
+            position: absolute;
+            bottom: 6px;
+            width: 95%;
             display: flex;
             align-items: center;
             padding: 6px 14px;
-            margin-top: 25px;
             cursor: pointer;
             border-radius: 4px;
             color: var(--tpr-seafoam);
-            background: transparent;
+            background: var(--tpr-bg-alt);
             border: none;
             font-size: 14px;
             transition: background 20ms ease-in 0s;
@@ -562,7 +564,7 @@
             fill: var(--tpr-bg);
         }
         .notion-sidebar > div:has(.back-to-top-btn) {
-            min-height: 100%;
+            min-height: 94%;
         }
 
         /* Fix Find-and-Replace popup colors (Note --> We have to select via style since there are other elements under ".notion-cursor-listener" that would be affected otherwise) */
