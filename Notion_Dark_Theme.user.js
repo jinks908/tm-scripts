@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.8
+// @version      1.5.9
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -16,6 +16,7 @@
     'use strict';
 
     // [ ] Fix: Broken dialog menu animations/colors
+    // [ ] Fix: Notion callout block hover colors :469 and :480
 
     // Apply CSS at document-start
     GM_addStyle(`
