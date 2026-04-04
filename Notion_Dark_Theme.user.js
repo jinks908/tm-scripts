@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.5.7
+// @version      1.5.8
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -465,11 +465,16 @@
             opacity: 1 !important;
         }
         /* In-page menus / links */
-        .notion-selectable.notion-page-block a:hover,
+        .notion-selectable.notion-page-block a[role="treeitem"]:hover,
         div[dir="ltr"] div div:hover {
             border-radius: 4px !important;
             color: var(--tpr-bg-alt) !important;
             background-color: var(--tpr-seafoam) !important;
+        }
+        /* Fix submenu green borders on hover (floating sidebar) */
+        .notion-outliner-bookmarks[role="group"] > div > div,
+        .notion-outliner-bookmarks[role="group"] > div > div:hover {
+            background-color: var(--tpr-bg-alt) !important;
         }
         .notion-selectable a:hover,
         div[dir="ltr"] div div:hover,
