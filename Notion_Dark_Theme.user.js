@@ -15,6 +15,7 @@
 (function() {
     'use strict';
 
+    // [ ] Add: <h4> CSS styles (floating TOC menu indentation)
     // [ ] Fix: Broken dialog menu animations/colors
     // [ ] Fix: Notion callout block hover colors :469 and :480
 
@@ -763,7 +764,7 @@
         }
         blockquote div {
             color: var(--tpr-yellow) !important;
-            font-size: 19px !important;
+            font-size: 17px !important;
         }
         blockquote div div.notranslate {
             color: var(--tpr-skyblue) !important;
