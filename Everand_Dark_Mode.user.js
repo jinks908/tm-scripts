@@ -3,7 +3,7 @@
 // @namespace    SkyColtNinja/userscripts
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Everand_Dark_Mode.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Everand_Dark_Mode.user.js
-// @version      1.2.8-stable
+// @version      1.2.9
 // @description  A nicer dark theme for Everand audio player
 // @author       SkyColtNinja
 // @match        https://www.everand.com/listen/*
@@ -14,13 +14,26 @@
 (function() {
     'use strict';
 
+    // Disable Dark Mode for listening pages
+    // DM exclude list doesn't support path-level exclusions (only domain-level)
+    function removeDarkStyle() {
+        document.querySelectorAll('link[href*="dark_6.css"], style[id*="dark"]').forEach(el => el.remove());
+    }
+
+    // Watch for DM injections and remove them
+    const observer = new MutationObserver(removeDarkStyle);
+    observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+    });
+
     GM_addStyle(`
 
         :root {
             /* Colors */
             --tpr-default: #e3dede;
             --tpr-bg: #0c1621;
-            --tpr-seafoam: #52e3c3; 
+            --tpr-seafoam: #52e3c3;
             --tpr-red: #ff596f;
             --tpr-dark-grey: #2b3840;
             --tpr-grey: #596d73;
@@ -40,7 +53,7 @@
         .utogen_class_views_layouts_audiobook.autogen_class_views_layouts_web.autogen_class_widgets_page.autogen_class_widgets_base.no_header.locale_en_US.responsive.body_container.mobile_bottom_tabs.jsblock_done {
             background-color: var(--tpr-bg) !important;
         }
-        .auto__audiobooks_show, 
+        .auto__audiobooks_show,
         .auto__audiobooks_show .audiobook_show_container {
             background-color: var(--tpr-bg) !important;
         }
@@ -51,7 +64,7 @@
             background-color: var(--tpr-bg) !important;
         }
         #lightbox_area {
-            background-color: var(--tpr-bg) !important; 
+            background-color: var(--tpr-bg) !important;
             z-index: -10 !important;
         }
         html {
@@ -75,11 +88,11 @@
             background-color: var(--tpr-dark-grey) !important;
         }
         .track.fill {
-            background: none !important; 
+            background: none !important;
             background-color: var(--tpr-grey) !important;
         }
         .handle {
-            background: none !important; 
+            background: none !important;
             background-color: var(--tpr-seafoam) !important;
         }
         .controls_container {
@@ -128,7 +141,7 @@
             background-color: var(--tpr-bg) !important;
         }
         .button_menu_items_container {
-            background-color: var(--tpr-bg) !important; 
+            background-color: var(--tpr-bg) !important;
             color: var(--tpr-default) !important;
         }
         .button_menu_items_container h2 {
