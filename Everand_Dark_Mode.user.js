@@ -3,7 +3,7 @@
 // @namespace    SkyColtNinja/userscripts
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Everand_Dark_Mode.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Everand_Dark_Mode.user.js
-// @version      1.2.9
+// @version      1.3.0
 // @description  A nicer dark theme for Everand audio player
 // @author       SkyColtNinja
 // @match        https://www.everand.com/listen/*
@@ -17,7 +17,7 @@
     // Disable Dark Mode for listening pages
     // DM exclude list doesn't support path-level exclusions (only domain-level)
     function removeDarkStyle() {
-        document.querySelectorAll('link[href*="dark_6.css"], style[id*="dark"]').forEach(el => el.remove());
+        document.querySelectorAll('link[href*="dark_6.css"], link[href*="dark_12.css"], style[id*="dark"]').forEach(el => el.remove());
     }
 
     // Watch for DM injections and remove them
