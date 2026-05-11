@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.0
+// @version      1.3.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -92,8 +92,8 @@
         .youtube-clear-playlist-progress-fill {
             height: 100%;
             width: 0%;
-            background-color: #ff5f5f;
-            transition: width 0.3s ease;
+            background-color: var(--fill-color, #ff5f5f) !important;
+            transition: width 0.3s ease, background-color 0.5s ease !important;
         }
         .youtube-clear-playlist-progress-text {
             font-size: 16px;
@@ -204,7 +204,7 @@
             const percentage = (current / total) * 100;
             textElement.textContent = `${current}/${total} videos removed`;
             fillElement.style.width = `${percentage}%`;
-            fillElement.style.setProperty('background-color', getProgressColor(percentage), 'important');
+            fillElement.style.setProperty('--fill-color', getProgressColor(percentage));
             fillElement.style.setProperty('transition', 'width 0.3s ease, background-color 0.5s ease', 'important');
         } else {
             textElement.textContent = `${current} videos removed`;
