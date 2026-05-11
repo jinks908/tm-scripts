@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.1
+// @version      1.3.2
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -90,7 +90,7 @@
             overflow: hidden;
         }
         .youtube-clear-playlist-progress-fill {
-            height: 100%;
+            height: 8px;
             width: 0%;
             background-color: var(--fill-color, #ff5f5f) !important;
             transition: width 0.3s ease, background-color 0.5s ease !important;
@@ -142,22 +142,15 @@
 
         } else {
             // Other playlists
-            const metadataRows = document.querySelectorAll('div.yt-content-metadata-view-model__metadata-row')
-
-            if (metadataRows.length < 2) return null;
-
-            metadataStats = metadataRows[1];
-            const spans = metadataStats.querySelectorAll('span.yt-core-attributed-string');
-
+            const spans = document.querySelectorAll('span.ytContentMetadataViewModelMetadataText');
             for (let span of spans) {
                 const text = span.textContent.trim();
-                // Match pattern "<num> videos"
-                let match = text.match(/(\d+)\s+videos/);
+                const match = text.match(/(\d+)\s+videos?/i);
                 if (match) {
-                    return parseInt(match[0]);
+                    // match[1] captures just the number
+                    return parseInt(match[1]);
                 };
             };
-
         };
 
         // If video count not found, fallback to counting (visible) menu buttons
@@ -175,14 +168,17 @@
         if (!progressElement) {
             progressElement = document.createElement('div');
             progressElement.className = 'youtube-clear-playlist-progress';
+
             const textDiv = document.createElement('div');
             textDiv.className = 'youtube-clear-playlist-progress-text';
+
             const barDiv = document.createElement('div');
             barDiv.className = 'youtube-clear-playlist-progress-bar';
+
             const fillDiv = document.createElement('div');
             fillDiv.className = 'youtube-clear-playlist-progress-fill';
-            barDiv.appendChild(fillDiv);
 
+            barDiv.appendChild(fillDiv);
             progressElement.appendChild(textDiv);
             progressElement.appendChild(barDiv);
             document.body.appendChild(progressElement);
@@ -191,23 +187,26 @@
         const textElement = progressElement.querySelector('.youtube-clear-playlist-progress-text');
         const fillElement = progressElement.querySelector('.youtube-clear-playlist-progress-fill');
 
-        // Set progress color based on completion percentage
         function getProgressColor(percentage) {
             if (percentage < 35) return '#ff5f5f';
             if (percentage < 50) return '#ff875f';
             if (percentage < 80) return '#f6be55';
             if (percentage < 90) return '#a6e87d';
-            if (percentage <= 100) return '#46fc8f';
+            return '#46fc8f';
         };
 
         if (total) {
             const percentage = (current / total) * 100;
             textElement.textContent = `${current}/${total} videos removed`;
-            fillElement.style.width = `${percentage}%`;
+            fillElement.style.setProperty('width', `${percentage}%`);
             fillElement.style.setProperty('--fill-color', getProgressColor(percentage));
-            fillElement.style.setProperty('transition', 'width 0.3s ease, background-color 0.5s ease', 'important');
         } else {
+            // No total known — show indeterminate count, but still grow the bar
+            // based on how many have been removed (cap at 90% so it never "completes")
+            const estimatedPct = Math.min(current * 2, 90);
             textElement.textContent = `${current} videos removed`;
+            fillElement.style.setProperty('width', `${estimatedPct}%`);
+            fillElement.style.setProperty('--fill-color', getProgressColor(estimatedPct));
         };
     };
 
