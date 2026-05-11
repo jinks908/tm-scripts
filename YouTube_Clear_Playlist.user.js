@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.8
+// @version      1.2.9
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -174,12 +174,16 @@
         if (!progressElement) {
             progressElement = document.createElement('div');
             progressElement.className = 'youtube-clear-playlist-progress';
-            progressElement.innerHTML = `
-                <div class="youtube-clear-playlist-progress-text"></div>
-                <div class="youtube-clear-playlist-progress-bar">
-                    <div class="youtube-clear-playlist-progress-fill"></div>
-                </div>
-            `;
+            const textDiv = document.createElement('div');
+            textDiv.className = 'youtube-clear-playlist-progress-text';
+            const barDiv = document.createElement('div');
+            barDiv.className = 'youtube-clear-playlist-progress-bar';
+            const fillDiv = document.createElement('div');
+            fillDiv.className = 'youtube-clear-playlist-progress-fill';
+            barDiv.appendChild(fillDiv);
+
+            progressElement.appendChild(textDiv);
+            progressElement.appendChild(barDiv);
             document.body.appendChild(progressElement);
         };
 
