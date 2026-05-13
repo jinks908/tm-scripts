@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.2
+// @version      1.1.0
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -12,19 +12,21 @@
 // ==/UserScript==
 
 
-// TODO
-// - [ ] Add: Keybinding to prompt for answer choice
-
 (function() {
     'use strict';
+
+    // TODO
+    // - [ ] Add: Keybinding to prompt for answer choice
+    // - [ ] Fix: `console.log` not showing in browser console
+
+    // EIQ assessment choices
+    const OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
 
     // Main function
     function fillAnswers(choice) {
 
         // Function to randomize answer if no specific choice is provided
         function randomizeAnswer() {
-            // EIQ assessment choices
-            const OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
             const answer = OPTIONS[Math.floor(Math.random() * OPTIONS.length)];
             return answer;
         };
@@ -61,11 +63,31 @@
         console.log(`✅ Answered: ${answered} | ⚠️ Skipped: ${skipped}`);
     };
 
+    // Prompt use for answer choice (1-5)
+    function getAnswerChoice() {
+        const userChoice = prompt("Enter choice number:\n1) Strongly Disagree\n2) Disagree\n3) Neither Agree nor Disagree\n4) Agree\n5) Strongly Agree");
+        const choiceIndex = parseInt(userChoice) - 1;
+        let answerChoice = null;
+
+        // Validate input and return corresponding option
+        if (choiceIndex >= 0 && choiceIndex < OPTIONS.length) {
+            answerChoice = OPTIONS[choiceIndex];
+        } else {
+            alert("Invalid choice. Please enter a number between 1 and 5.");
+            answerChoice = null;
+        };
+        fillAnswers(answerChoice);
+    };
+
     // Keybinding (Ctrl+G)
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.key === 'g') {
             e.preventDefault();
             fillAnswers();
+        };
+        if (e.ctrlKey && e.key === 'c') {
+            e.preventDefault();
+            getAnswerChoice();
         };
     });
 
