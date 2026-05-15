@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.6.0
+// @version      1.6.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -493,7 +493,16 @@
         .notion-outliner-bookmarks[role="group"] > div > div:hover {
             background-color: var(--tpr-bg-alt) !important;
         }
-        .notion-selectable a:hover,
+        /*
+        .notion-selectable:not(has(.notion-callout-block, .content-editable-leaf-rtl)) a:hover,
+        div[dir="ltr"] div div:not(has(.notion-callout-block, .content-editable-leaf-rtl)):hover,
+        div[role="menuitem"]:not(has(.notion-callout-block, .content-editable-leaf-rtl)):hover,
+        div[role="dialog"]:not(has(.notion-callout-block, .content-editable-leaf-rtl)):hover {
+            background-color: var(--tpr-seafoam) !important;
+            border-radius: 4px !important;
+        }
+        */
+        .notion-selectable:not(.notion-callout-block) a:hover,
         div[dir="ltr"] div div:hover,
         div[role="menuitem"]:hover,
         div[role="dialog"]:hover {
