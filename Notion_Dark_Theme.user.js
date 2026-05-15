@@ -303,13 +303,26 @@
             font-family: var(--tpr-font-header) !important;
             font-weight: SemiBold !important;
         }
-        /* Default inline hyperlink color */
+        /* Default inline hyperlinks */
         a.notion-link-token {
-            color: var(--tpr-seafoam) !important;
+            color: var(--tpr-skyblue) !important;
             font-weight: bold !important;
+            transition: color 200ms ease-in-out !important;
+        }
+        a.notion-link-token:hover {
+            color: var(--tpr-seafoam) !important;
+            transition: color 200ms ease-in-out !important;
+        }
+        /* We need a transparent background to avoid conflict with other hover styles */
+        .notion-selectable a.notion-link-token:hover {
+            background-color: rgba(0, 0, 0, 0) !important;
         }
         /* Increase default font size (body) */
-        .notion-page-content .notion-selectable .notion-text-block,
+        .notion-page-content .notion-selectable .notion-text-block, .notion-numbered_list-block
+        [style*="font-size:14px"],
+        [style*="font-size: 14px"],
+        [style*="font-size:15px"],
+        [style*="font-size: 15px"],
         [style*="font-size:16px"],
         [style*="font-size: 16px"] {
             font-size: 17px !important;
@@ -318,6 +331,9 @@
         [style*="font-size:14px"],
         [style*="font-size: 14px"] {
             font-size: 15px !important;
+        }
+        .notion-numbered_list-block, .notion-bulleted_list-block {
+            font-size: 17px !important;
         }
         /* Increase boldness on text blocks (exclude header fonts)
         [style*="font-weight:600"]:not(.layout .layout-content h1, h2, h3, h4, h5, h6),
@@ -459,7 +475,6 @@
         div[role="dialog"]:hover {
             border-radius: 4px !important;
             background-color: var(--tpr-seafoam) !important;
-            color: var(--tpr-bg-alt) !important;
             opacity: 1 !important;
         }
         .notion-scroller.vertical div[role="menuitem"]:hover, .notion-scroller.vertical div[role="option"]:hover {
@@ -483,7 +498,6 @@
         div[role="menuitem"]:hover,
         div[role="dialog"]:hover {
             background-color: var(--tpr-seafoam) !important;
-            color: var(--tpr-bg-alt) !important;
             border-radius: 4px !important;
         }
         .notion-sidebar .notion-selectable a,
@@ -797,9 +811,9 @@
         const debouncedObserver = () => {
             clearTimeout(observerTimeout);
             observerTimeout = setTimeout(() => {
-                // Hide top menu (Search, Home, Meetings, etc.)
-                const divs = document.querySelectorAll('.notion-sidebar > div > div');
-                const target = [...divs].find(el => el.textContent.includes('Search'));
+                // Hide "New chat" float at bottom of sidebar
+                const divs = document.querySelectorAll('.notion-sidebar > div > div > div > div');
+                const target = [...divs].find(el => el.textContent.includes('New chat'));
                 target.style.display = 'none';
                 injectBackToTopButton();
             }, 250);
