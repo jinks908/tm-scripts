@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.1
+// @version      1.1.2
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -37,6 +37,7 @@
 
         let answered = 0;
         let skipped = 0;
+        let scores = [];
 
         Object.entries(groups).forEach(([groupName, radios]) => {
             // If 'choice' provided, use it, otherwise randomize
@@ -51,15 +52,18 @@
             if (target) {
                 target.click();
                 answered++;
+                // Store the answer choice (for column output)
+                scores.push(OPTIONS.indexOf(ANSWER_CHOICE) + 1);
             } else {
                 console.warn(`No match for "${ANSWER_CHOICE}" in group ${groupName}`);
                 skipped++;
             }
         });
-        console.log(`✅ Answered: ${answered} | ⚠️ Skipped: ${skipped}`);
+        console.log(`  Answered: ${answered} | 󰀧  Skipped: ${skipped}`);
+        console.log(`󰄨  Scores:\n` + scores.join('\n'));
     };
 
-    // Prompt use for answer choice (1-5)
+    // Prompt user for answer choice (1-5)
     function getAnswerChoice() {
         const userChoice = prompt("Enter choice number:\n1) Strongly Disagree\n2) Disagree\n3) Neither Agree nor Disagree\n4) Agree\n5) Strongly Agree");
         const choiceIndex = parseInt(userChoice) - 1;
