@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.2
+// @version      1.2.0
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -18,7 +18,7 @@
     // EIQ assessment choices
     const OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
 
-    // Main function
+    // Fill out assessment with either random answers or a specific choice (if provided)
     function fillAnswers(choice) {
 
         // Function to randomize answer if no specific choice is provided
@@ -79,6 +79,22 @@
         fillAnswers(answerChoice);
     };
 
+    // Print currently selected answers (doesn't make changes)
+    function printAnswers() {
+        const scores = [];
+        const currentAnswers = document.querySelectorAll('input[type="radio"][name^="group_"]');
+        currentAnswers.forEach(radio => {
+            if (radio.checked) {
+                const label = document.querySelector(`label[for="${radio.id}"]`);
+                if (label) {
+                    const score = OPTIONS.indexOf(label.title.trim()) + 1;
+                    scores.push(score);
+                };
+            };
+        });
+        console.log(`󰄨  Current Scores:\n` + scores.join('\n'));
+    };
+
     // Keybinding (Ctrl+G)
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.key === 'g') {
@@ -88,6 +104,10 @@
         if (e.ctrlKey && e.key === 'c') {
             e.preventDefault();
             getAnswerChoice();
+        };
+        if (e.ctrlKey && e.key === 'a') {
+            e.preventDefault();
+            printAnswers();
         };
     });
 
