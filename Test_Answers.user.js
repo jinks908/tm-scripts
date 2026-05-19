@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.0
+// @version      1.2.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -9,6 +9,7 @@
 // @match        https://jinksperspective.brilliantassessments.com/Home/Index*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        GM_addStyle
+// @grant        GM_setClipboard
 // ==/UserScript==
 
 
@@ -59,8 +60,11 @@
                 skipped++;
             }
         });
-        console.log(`  Answered: ${answered} | 󰀧  Skipped: ${skipped}`);
-        console.log(`󰄨  Scores:\n` + scores.join('\n'));
+        const output = scores.join('\n');
+        console.log(`Answered: ${answered} | Skipped: ${skipped}`);
+        console.log(`Scores:\n` + output);
+        // Copy scores to clipboard for easy pasting into spreadsheet
+        GM_setClipboard(output);
     };
 
     // Prompt user for answer choice (1-5)
@@ -92,7 +96,10 @@
                 };
             };
         });
-        console.log(`󰄨  Current Scores:\n` + scores.join('\n'));
+        const output = scores.join('\n');
+        console.log(`Current Scores:\n` + output);
+        // Copy scores to clipboard for easy pasting into spreadsheet
+        GM_setClipboard(output);
     };
 
     // Keybinding (Ctrl+G)
