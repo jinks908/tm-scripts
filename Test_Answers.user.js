@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1
+// @version      1.2.2
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -17,7 +17,10 @@
     'use strict';
 
     // EIQ assessment choices
-    const OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
+    // const OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
+
+    // DISC assessment choices
+    const OPTIONS = ["Not me", "Less like  me", "Neutral", "More like me", "Definitely me"];
 
     // Fill out assessment with either random answers or a specific choice (if provided)
     function fillAnswers(choice) {
@@ -69,7 +72,8 @@
 
     // Prompt user for answer choice (1-5)
     function getAnswerChoice() {
-        const userChoice = prompt("Enter choice number:\n1) Strongly Disagree\n2) Disagree\n3) Neither Agree nor Disagree\n4) Agree\n5) Strongly Agree");
+        // const userChoice = prompt("Enter choice number:\n1) Strongly Disagree\n2) Disagree\n3) Neither Agree nor Disagree\n4) Agree\n5) Strongly Agree");
+        const userChoice = prompt("Enter choice number:\n1) Not me\n2) Less like me\n3) Neutral\n4) More like me\n5) Definitely me");
         const choiceIndex = parseInt(userChoice) - 1;
         let answerChoice = null;
 
