@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.6.4
+// @version      1.6.5
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -721,7 +721,7 @@
             border-end-end-radius: 0px !important;
         }
 
-        /* ## Code / Callout / Quote Blocks
+        /* ## Code / Callout / Quote / Image Blocks
         ** ------------------------------------------------------------- */
         .notion-selectable .notion-callout-block, div[role="note"] div {
             background-color: var(--tpr-bg-alt) !important;
@@ -740,11 +740,20 @@
             padding-bottom: 15px !important;
             background-color: var(--tpr-bg-alt) !important;
         }
+        /* Add borders and spacing to code blocks and callouts */
         .notion-selectable.notion-code-block, .notion-selectable.notion-callout-block {
-            margin-top: 25px !important;
-            margin-bottom: 25px !important;
+            margin-top: 30px !important;
+            margin-bottom: 30px !important;
             border: 1px solid #404D59 !important;
-            box-shadow: 0px 0px 25px #0d0d0d !important;
+            box-shadow: 0px 0px 30px #0d0d0d !important;
+        }
+        /* Add borders and spacing to image blocks */
+        .notion-selectable.notion-image-block {
+            padding: 0px !important;
+            margin-top: 30px !important;
+            margin-bottom: 30px !important;
+            border: 1px solid #404D59 !important;
+            box-shadow: 0px 0px 30px #0d0d0d !important;
         }
         .notion-code-block div {
             color: var(--tpr-default) !important;
@@ -774,7 +783,7 @@
 
         /* Set quote block styles (for notes) */
         blockquote {
-            margin: 20px 25px 20px 25px !important;
+            margin: 20px 30px 20px 30px !important;
         }
         blockquote div {
             color: var(--tpr-yellow) !important;
