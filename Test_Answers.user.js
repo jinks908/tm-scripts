@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.2
+// @version      1.3.0
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -20,7 +20,7 @@
     // const OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
 
     // DISC assessment choices
-    const OPTIONS = ["Not me", "Less like  me", "Neutral", "More like me", "Definitely me"];
+    const OPTIONS = ["Not me", "Less like me", "Neutral", "More like me", "Definitely me"];
 
     // Fill out assessment with either random answers or a specific choice (if provided)
     function fillAnswers(choice) {
@@ -65,7 +65,7 @@
         });
         const output = scores.join('\n');
         console.log(`Answered: ${answered} | Skipped: ${skipped}`);
-        console.log(`Scores:\n` + output);
+        // console.log(`Scores:\n` + output);
         // Copy scores to clipboard for easy pasting into spreadsheet
         GM_setClipboard(output);
     };
@@ -88,7 +88,7 @@
     };
 
     // Print currently selected answers (doesn't make changes)
-    function printAnswers() {
+    function printAnswers(points) {
         const scores = [];
         const currentAnswers = document.querySelectorAll('input[type="radio"][name^="group_"]');
         currentAnswers.forEach(radio => {
@@ -101,24 +101,105 @@
             };
         });
         const output = scores.join('\n');
-        console.log(`Current Scores:\n` + output);
+        // console.log(`Current Scores:\n` + output);
+
+        // For DISC assessment
+        const convertedScores = convertToPoints(scores);
+
         // Copy scores to clipboard for easy pasting into spreadsheet
+        if (points) {
+            GM_setClipboard(convertedScores.join('\n'));
+        } else {
+            GM_setClipboard(output);
+        };
+    };
+
+    // Fill answers from a pasted column of numbers (1-5), one per line
+    function fillFromInput() {
+        const userInput = prompt("Paste response choices (separated by spaces):");
+        if (!userInput) return;
+
+        // Parse input into an array of integers
+        const values = userInput.trim().split(' ').map(line => parseInt(line.trim()));
+
+        // Validate all values are within range
+        const invalid = values.filter(v => isNaN(v) || v < 1 || v > 5);
+        if (invalid.length > 0) {
+            alert(`Invalid values found: ${invalid.join(', ')}\nAll values must be integers between 1 and 5.`);
+            return;
+        };
+
+        // Get all radio button groups in order
+        const groups = {};
+        document.querySelectorAll('input[type="radio"][name^="group_"]').forEach(radio => {
+            const group = radio.name;
+            if (!groups[group]) groups[group] = [];
+            groups[group].push(radio);
+        });
+        const groupEntries = Object.entries(groups);
+
+        // Abort if input length doesn't match number of questions
+        if (values.length !== groupEntries.length) {
+            alert(`Input has ${values.length} value(s) but the assessment has ${groupEntries.length} question(s). Aborting.`);
+            return;
+        };
+
+        let answered = 0;
+        let skipped = 0;
+        let scores = [];
+
+        groupEntries.forEach(([groupName, radios], index) => {
+            const answerChoice = OPTIONS[values[index] - 1];
+
+            const target = radios.find(radio => {
+                const label = document.querySelector(`label[for="${radio.id}"]`);
+                return label && label.title.trim() === answerChoice;
+            });
+
+            if (target) {
+                target.click();
+                answered++;
+                scores.push(values[index]);
+            } else {
+                console.warn(`No match for "${answerChoice}" in group ${groupName}`);
+                skipped++;
+            };
+        });
+
+        const output = scores.join('\n');
+        console.log(`Answered: ${answered} | Skipped: ${skipped}`);
+        // console.log(`Scores:\n` + output);
         GM_setClipboard(output);
     };
 
-    // Keybinding (Ctrl+G)
+    // Convert numeric scores (1-5) to their corresponding assessment point values
+    // NOTE: This mapping is specific to the DISC assessment and may need to be adjusted for other assessments
+    function convertToPoints(scores) {
+        const pointMap = { 1: 0, 2: 1, 3: 1, 4: 4, 5: 5 };
+        return scores.map(score => String(pointMap[score]));
+    };
+
+    // Keybindings
     document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.key === 'g') {
+        // Fill answers with random choices
+        if (e.ctrlKey && e.key === 'r') {
             e.preventDefault();
             fillAnswers();
         };
-        if (e.ctrlKey && e.key === 'c') {
+        // Fill answers from pasted input column
+        if (e.ctrlKey && e.key === 'g') {
             e.preventDefault();
-            getAnswerChoice();
+            fillFromInput();
         };
+        // Print choice values (1-5)
         if (e.ctrlKey && e.key === 'a') {
             e.preventDefault();
-            printAnswers();
+            printAnswers(false);
+        };
+        // Print converted point values
+        if (e.ctrlKey && e.key === 's') {
+            e.preventDefault();
+            printAnswers(true);
         };
     });
 
