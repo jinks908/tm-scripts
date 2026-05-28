@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.6.3
+// @version      1.6.4
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
 // @author       Clayton Jinks
-// @match        https://app.notion.so/p/skycoltninja/*
+// @match        https://app.notion.com/p/skycoltninja/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        GM_addStyle
 // @run-at       document-start
