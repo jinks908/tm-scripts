@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Desmos Enhancements
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.3
+// @version      1.0.4
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Desmos.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Desmos.user.js
 // @description  Enhancements for Desmos graphing calculator
@@ -47,6 +47,10 @@
         // Open settings menu
         clickElement(wrench);
 
+        // Hide menu panel while toggling to avoid visual glitches
+        const menuPanel = document.querySelector('.dcg-dropdown-popover__interior');
+        menuPanel.style.display = 'none';
+
         // Let settings menu load before checking dark mode checkbox
         await new Promise(r => setTimeout(r, 1000));
         const checkbox = await waitForElement('label.dcg-reverse-contrast-checkbox .dcg-checkbox__box');
@@ -55,6 +59,9 @@
         // Wait for dark mode switch before closing settings menu
         await new Promise(r => setTimeout(r, 1000));
         clickElement(wrench);
+
+        // Restore default menu panel visibility
+        menuPanel.style.display = '';
     };
 
     // Run initial toggle
