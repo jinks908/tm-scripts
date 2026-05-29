@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Desmos Enhancements
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.2
+// @version      1.0.3
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Desmos.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Desmos.user.js
 // @description  Enhancements for Desmos graphing calculator
@@ -59,5 +59,13 @@
 
     // Run initial toggle
     toggleDarkMode();
+
+    // Add keyboard shortcut (Ctrl + R) to toggle dark mode
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'r') {
+            e.preventDefault();
+            toggleDarkMode();
+        };
+    });
 
 })();
