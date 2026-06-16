@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.2
+// @version      1.3.3
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -251,7 +251,7 @@
                 const spans = document.querySelectorAll('ytd-menu-service-item-renderer span.yt-formatted-string');
                 for (let span of spans) {
                     // Note the space after "from" to avoid partial matches
-                    if (span.textContent.includes('Remove from ')) {
+                    if (span.textContent.includes('Remove from')) {
                         // Find the clickable parent element (often a role="menuitem", but in this case it's role="option")
                         removeButton = span.closest('[role="option"]') || span.closest('button') || span.closest('a');
                         break;
