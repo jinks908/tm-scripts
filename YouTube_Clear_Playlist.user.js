@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Clear Playlist
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.3
+// @version      1.3.4
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Clear_Playlist.user.js
 // @description  Clear all videos from a YouTube playlist
@@ -236,11 +236,11 @@
         };
 
         // Look for the three-dot menu buttons on each video
-        const menuButtons = document.querySelectorAll('div#contents button[aria-label="Action menu"]');
+        const menuButtons = document.querySelectorAll('div#menu button[aria-label="Action menu"]');
 
         if (menuButtons.length > 0) {
             // Click the first menu button
-            menuButtons[0].click();
+            menuButtons[1].click();
 
             // Wait for menu to appear, then find "Remove from Watch later" option
             setTimeout(() => {
@@ -249,11 +249,12 @@
 
                 // Method 1: Look for span containing "Remove from " text
                 const spans = document.querySelectorAll('ytd-menu-service-item-renderer span.yt-formatted-string');
+                // const spans = document.querySelectorAll('.yt-icon-shape.style-scope.yt-icon.ytSpecIconShapeHost');
                 for (let span of spans) {
                     // Note the space after "from" to avoid partial matches
                     if (span.textContent.includes('Remove from')) {
                         // Find the clickable parent element (often a role="menuitem", but in this case it's role="option")
-                        removeButton = span.closest('[role="option"]') || span.closest('button') || span.closest('a');
+                        removeButton = span.closest('[dir="auto"]') || span.closest('button') || span.closest('a');
                         break;
                     };
                 };
