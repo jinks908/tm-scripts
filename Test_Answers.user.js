@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.0
+// @version      1.3.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -16,11 +16,23 @@
 (function() {
     'use strict';
 
-    // EIQ assessment choices
-    // const OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
+    // TODO
+    // - [ ] Add: Motivator assessment support
 
-    // DISC assessment choices
-    const OPTIONS = ["Not me", "Less like me", "Neutral", "More like me", "Definitely me"];
+    // Assessment type ("CRSA", "EIQ", or "DISC")
+    const ASSESSMENT = "CRSA";
+    let OPTIONS = [];
+
+    // Define answer options based on assessment type
+    if (ASSESSMENT === "CRSA" || ASSESSMENT === "EIQ") {
+        OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
+    } else if (ASSESSMENT === "DISC") {
+        OPTIONS = ["Not me", "Less like me", "Neutral", "More like me", "Definitely me"];
+    } else {
+        console.warn("No answer options defined for assessment type: " + ASSESSMENT);
+        alert(`No answer options defined for assessment type: ${ASSESSMENT}. Must be "CRSA", "EIQ", or "DISC".`);
+        return;
+    };
 
     // Fill out assessment with either random answers or a specific choice (if provided)
     function fillAnswers(choice) {
@@ -101,10 +113,22 @@
             };
         });
         const output = scores.join('\n');
-        // console.log(`Current Scores:\n` + output);
+        console.log(`Current Scores:\n` + output);
 
-        // For DISC assessment
-        const convertedScores = convertToPoints(scores);
+        let convertedScores = [];
+
+        // For CRSA assessment
+        if (ASSESSMENT === "CRSA") {
+            convertedScores = scores;
+        } else if (ASSESSMENT === "EIQ") {
+            convertedScores = scores;
+        } else if (ASSESSMENT === "DISC") {
+            // For DISC assessment
+            convertedScores = convertToPoints(scores);
+        } else {
+            console.warn("No point conversion defined for assessment type: " + ASSESSMENT);
+            convertedScores = scores;
+        };
 
         // Copy scores to clipboard for easy pasting into spreadsheet
         if (points) {
