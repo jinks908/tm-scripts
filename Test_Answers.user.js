@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.1
+// @version      1.3.2-beta
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -23,15 +23,25 @@
     const ASSESSMENT = "CRSA";
     let OPTIONS = [];
 
-    // Define answer options based on assessment type
-    if (ASSESSMENT === "CRSA" || ASSESSMENT === "EIQ") {
-        OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
-    } else if (ASSESSMENT === "DISC") {
-        OPTIONS = ["Not me", "Less like me", "Neutral", "More like me", "Definitely me"];
-    } else {
-        console.warn("No answer options defined for assessment type: " + ASSESSMENT);
-        alert(`No answer options defined for assessment type: ${ASSESSMENT}. Must be "CRSA", "EIQ", or "DISC".`);
-        return;
+    // Convert numeric scores (1-5) to their corresponding assessment point values
+    // NOTE: This mapping is specific to the DISC assessment and may need to be adjusted for other assessments
+    function convertToPoints(scores) {
+        const pointMap = { 1: 0, 2: 1, 3: 1, 4: 4, 5: 5 };
+        return scores.map(score => String(pointMap[score]));
+    };
+
+    function init(assessmentType) {
+        // Define answer options based on assessment type
+        if (assessmentType === "CRSA" || assessmentType === "EIQ") {
+            OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
+        } else if (assessmentType === "DISC") {
+            OPTIONS = ["Not me", "Less like me", "Neutral", "More like me", "Definitely me"];
+            convertedScores = convertToPoints(scores);
+        } else {
+            console.warn("No answer options defined for assessment type: " + assessmentType);
+            // alert(`No answer options defined for assessment type: ${ASSESSMENT}. Must be "CRSA", "EIQ", or "DISC".`);
+            return;
+        };
     };
 
     // Fill out assessment with either random answers or a specific choice (if provided)
@@ -196,31 +206,27 @@
         GM_setClipboard(output);
     };
 
-    // Convert numeric scores (1-5) to their corresponding assessment point values
-    // NOTE: This mapping is specific to the DISC assessment and may need to be adjusted for other assessments
-    function convertToPoints(scores) {
-        const pointMap = { 1: 0, 2: 1, 3: 1, 4: 4, 5: 5 };
-        return scores.map(score => String(pointMap[score]));
-    };
+    // Initialize the script with the specified assessment type
+    init(ASSESSMENT);
 
     // Keybindings
     document.addEventListener('keydown', function(e) {
-        // Fill answers with random choices
+        // Fill answers with random choices (Ctrl + R)
         if (e.ctrlKey && e.key === 'r') {
             e.preventDefault();
             fillAnswers();
         };
-        // Fill answers from pasted input column
-        if (e.ctrlKey && e.key === 'g') {
+        // Fill answers from pasted input column (Ctrl + Shift + G)
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'g') {
             e.preventDefault();
             fillFromInput();
         };
-        // Print choice values (1-5)
+        // Print choice values 1-5 (Ctrl + A)
         if (e.ctrlKey && e.key === 'a') {
             e.preventDefault();
             printAnswers(false);
         };
-        // Print converted point values
+        // Print converted point values (Ctrl + S)
         if (e.ctrlKey && e.key === 's') {
             e.preventDefault();
             printAnswers(true);
