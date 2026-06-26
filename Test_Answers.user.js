@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.1-beta
+// @version      1.3.2-beta
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -206,24 +206,27 @@
         GM_setClipboard(output);
     };
 
+    // Initialize the script with the specified assessment type
+    init(ASSESSMENT);
+
     // Keybindings
     document.addEventListener('keydown', function(e) {
-        // Fill answers with random choices
+        // Fill answers with random choices (Ctrl + R)
         if (e.ctrlKey && e.key === 'r') {
             e.preventDefault();
             fillAnswers();
         };
-        // Fill answers from pasted input column
-        if (e.ctrlKey && e.key === 'g') {
+        // Fill answers from pasted input column (Ctrl + Shift + G)
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'g') {
             e.preventDefault();
             fillFromInput();
         };
-        // Print choice values (1-5)
+        // Print choice values 1-5 (Ctrl + A)
         if (e.ctrlKey && e.key === 'a') {
             e.preventDefault();
             printAnswers(false);
         };
-        // Print converted point values
+        // Print converted point values (Ctrl + S)
         if (e.ctrlKey && e.key === 's') {
             e.preventDefault();
             printAnswers(true);
