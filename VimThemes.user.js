@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vim Colorschemes Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.1
+// @version      1.1.0
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/VimThemes.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/VimThemes.user.js
 // @description  Font and Styles for Vim Colorschemes
@@ -15,6 +15,7 @@
     'use strict';
 
     GM_addStyle(`
+        /* Import CDN fonts */
         @font-face {
             font-family: 'JetBrains Mono';
             font-style: normal;
@@ -42,9 +43,40 @@
                 url(https://cdn.jsdelivr.net/fontsource/fonts/fira-code@latest/latin-400-normal.woff) format('woff');
             unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
         }
+        /* Set all fonts to Neovim font */
         article > div > pre > code {
             font-family: 'Source Code Pro', monospace !important;
         }
     `);
+
+    // Track background color state
+    let backgroundOn = false;
+
+    // Toggle background color for code preview sections
+    function toggleBackground() {
+        const codeThemes = document.querySelectorAll('.index-module__nCnU7W__codePreview');
+        if (backgroundOn) {
+            codeThemes.forEach(theme => {
+                theme.style.backgroundColor = '';
+            });
+            backgroundOn = false;
+            return;
+        } else {
+            codeThemes.forEach(theme => {
+                theme.style.backgroundColor = '#051626';
+            });
+            backgroundOn = true;
+            return;
+        };
+    };
+
+    // Keybindings
+    document.addEventListener('keydown', function(e) {
+        // Fill answers with random choices (Ctrl + B)
+        if (e.ctrlKey && e.key === 'b') {
+            e.preventDefault();
+            toggleBackground();
+        };
+    });
 
 })();
