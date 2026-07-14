@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.2-beta
+// @version      1.3.3
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -16,11 +16,8 @@
 (function() {
     'use strict';
 
-    // TODO
-    // - [ ] Add: Motivator assessment support
-
     // Assessment type ("CRSA", "EIQ", or "DISC")
-    const ASSESSMENT = "CRSA";
+    const ASSESSMENT = "CLA";
     let OPTIONS = [];
 
     // Convert numeric scores (1-5) to their corresponding assessment point values
@@ -37,6 +34,8 @@
         } else if (assessmentType === "DISC") {
             OPTIONS = ["Not me", "Less like me", "Neutral", "More like me", "Definitely me"];
             convertedScores = convertToPoints(scores);
+        } else if (assessmentType === "CLA") {
+            OPTIONS = ["Not at all", "Once in a while", "Sometimes", "Fairly often", "Frequently, if not always"];
         } else {
             console.warn("No answer options defined for assessment type: " + assessmentType);
             // alert(`No answer options defined for assessment type: ${ASSESSMENT}. Must be "CRSA", "EIQ", or "DISC".`);
@@ -131,6 +130,8 @@
         if (ASSESSMENT === "CRSA") {
             convertedScores = scores;
         } else if (ASSESSMENT === "EIQ") {
+            convertedScores = scores;
+        } else if (ASSESSMENT === "CLA") {
             convertedScores = scores;
         } else if (ASSESSMENT === "DISC") {
             // For DISC assessment
