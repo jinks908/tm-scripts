@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.3
+// @version      1.3.4
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -38,7 +38,7 @@
             OPTIONS = ["Not at all", "Once in a while", "Sometimes", "Fairly often", "Frequently, if not always"];
         } else {
             console.warn("No answer options defined for assessment type: " + assessmentType);
-            // alert(`No answer options defined for assessment type: ${ASSESSMENT}. Must be "CRSA", "EIQ", or "DISC".`);
+            alert(`No answer options defined for assessment type: ${ASSESSMENT}. Must be "CRSA", "EIQ", "DISC", or "CLA".`);
             return;
         };
     };
