@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nebula Player Controls
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1-stable
+// @version      1.3.0
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Nebula_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Nebula_Player.user.js
 // @description  Custom keybindings for the Nebula video player
@@ -38,6 +38,35 @@
 
         showIndicator(`${newVolume}`, 'volume');
     };
+
+    // Timestamp tracker for "previous" position
+    let prevTime;
+
+    // Jump to 10%, 20%, 30%, ..., 90%
+    function jumpToSection(section) {
+        const video = document.querySelector('video');
+        if (!video) return;
+
+        // Mark current track position
+        prevTime = video.currentTime;
+
+        // Calculate section intervals
+        const duration = video.duration;
+        const sectionLength = duration / 10;
+
+        // Jump to section
+        video.currentTime = section * sectionLength;
+        showIndicator(`Section ${section}`, 'forward');
+    };
+
+    // Jump to previous spot
+    function jumpToLast() {
+        const video = document.querySelector('video');
+        if (!video) return;
+
+        if (!prevTime) return;
+        video.currentTime = prevTime;
+    }
 
     // Show indicator float
     function showIndicator(text, type) {
@@ -139,6 +168,18 @@
                 break;
             case 'k':
                 showIndicator('Play/Pause', 'play');
+                break;
+            case 'Backspace':
+                e.preventDefault();
+                jumpToLast();
+                showIndicator('Previous', 'back');
+                break;
+            default:
+                // Jump to section 0-9
+                if (/^[0-9]$/.test(e.key)) {
+                    e.preventDefault();
+                    jumpToSection(parseInt(e.key));
+                }
                 break;
         };
     }, true);
