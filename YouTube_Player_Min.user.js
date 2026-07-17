@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Player (Minimal)
 // @namespace    SkyColtNinja/userscripts
-// @version      1.6.6
+// @version      1.6.7
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player_Min.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Player_Min.user.js
 // @description  YouTube video player keybindings and enhancements
@@ -14,6 +14,17 @@
 
 (function() {
     'use strict';
+
+    // Get the active video element
+    function getActiveVideo() {
+        const videos = document.querySelectorAll('video');
+        for (const v of videos) {
+            if (v.readyState >= 1 && isFinite(v.duration) && v.duration > 0) {
+                return v;
+            }
+        }
+        return null;
+    }
 
     // Focus player
     function focusVideoPlayer() {
@@ -37,7 +48,7 @@
 
     // Jump to 10%, 20%, 30%, ..., 90%
     function jumpToSection(section) {
-        const video = document.querySelector('video.html5-main-video');
+        const video = getActiveVideo();
         if (!video) return;
 
         // Mark current track position
@@ -54,7 +65,7 @@
 
     // Jump to previous spot
     function jumpToLast() {
-        const video = document.querySelector('video.html5-main-video');
+        const video = getActiveVideo();
         if (!video) return;
 
         if (!prevTime) return;
@@ -64,7 +75,7 @@
 
     // Check if video is muted or unmuted
     function checkMute() {
-        const video = document.querySelector('video.html5-main-video');
+        const video = getActiveVideo();
         if (!video) return;
 
         if (video.muted) {

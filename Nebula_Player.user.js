@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nebula Player Controls
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.0
+// @version      1.3.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Nebula_Player.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Nebula_Player.user.js
 // @description  Custom keybindings for the Nebula video player
@@ -14,9 +14,20 @@
 (function() {
     'use strict';
 
+    // Get the active video element
+    function getActiveVideo() {
+        const videos = document.querySelectorAll('video');
+        for (const v of videos) {
+            if (v.readyState >= 1 && isFinite(v.duration) && v.duration > 0) {
+                return v;
+            }
+        }
+        return null;
+    }
+
     // Focus player to enable keybindings
     function focusVideoPlayer() {
-        const video = document.querySelector('video');
+        const video = getActiveVideo();
         if (!video) {
             return;
         };
@@ -28,7 +39,7 @@
 
     // Set custom volume
     function updateVolume(change) {
-        const video = document.querySelector('video');
+        const video = getActiveVideo();
         if (!video) return;
 
         let newVolume = Math.round((video.volume + change) * 100) / 100;
@@ -44,7 +55,7 @@
 
     // Jump to 10%, 20%, 30%, ..., 90%
     function jumpToSection(section) {
-        const video = document.querySelector('video');
+        const video = getActiveVideo();
         if (!video) return;
 
         // Mark current track position
@@ -61,7 +72,7 @@
 
     // Jump to previous spot
     function jumpToLast() {
-        const video = document.querySelector('video');
+        const video = getActiveVideo();
         if (!video) return;
 
         if (!prevTime) return;
