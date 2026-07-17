@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Brass Session
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1
+// @version      1.2.2
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Session.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Session.user.js
 // @description  Ping the server at regular intervals to remain logged in
@@ -11,21 +11,13 @@
 // @grant        GM_addStyle
 // ==/UserScript==
 
-
 (function() {
-
     setInterval(() => {
-        document.dispatchEvent(new MouseEvent('mousemove', {
-            bubbles: true,
-            clientX: Math.floor(Math.random() * window.innerWidth),
-            clientY: Math.floor(Math.random() * window.innerHeight)
-        }));
-
-        document.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'Shift' }));
-        document.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, key: 'Shift' }));
-
+        // Ping the server by sending a GET request to the current page URL with credentials included
         fetch(location.href, { credentials: 'include', method: 'GET' })
             .catch(() => {});
-    }, 5 * 60 * 1000); // 5 minutes
-
+        // Log each ping with timestamp for debug/review
+        console.log('Session pinged at ' + new Date().toLocaleTimeString());
+    // 5 minutes
+    }, 5 * 60 * 1000);
 })();
