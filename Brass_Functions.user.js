@@ -6,7 +6,7 @@
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @description  Custom functions/automations for Brilliant Assessment Builder
 // @author       SkyColtNinja
-// @match        https://jinksperspective.brilliantassessments.com/Home/Index*
+// @match        https://jinksperspective.brilliantassessments.com/AssessmentBuilder*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        GM_addStyle
 // @grant        GM_setClipboard
