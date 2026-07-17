@@ -23,6 +23,9 @@
 
         document.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'Shift' }));
         document.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, key: 'Shift' }));
-    }, 300 * 1000); // 5 minutes
+
+        fetch(location.href, { credentials: 'include', method: 'GET' })
+            .catch(() => {});
+    }, 5 * 60 * 1000); // 5 minutes
 
 })();
