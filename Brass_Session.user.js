@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Brass Session
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.0
+// @version      1.2.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Session.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Session.user.js
 // @description  Ping the server at regular intervals to remain logged in
