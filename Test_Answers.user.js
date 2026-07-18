@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.4
+// @version      1.3.5
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -16,28 +16,33 @@
 (function() {
     'use strict';
 
-    // Assessment type ("CRSA", "EIQ", or "DISC")
+    // Assessment type ("CRSA", "EIQ", "DISC", or "CLA")
     const ASSESSMENT = "CLA";
     let OPTIONS = [];
 
     // Convert numeric scores (1-5) to their corresponding assessment point values
-    // NOTE: This mapping is specific to the DISC assessment and may need to be adjusted for other assessments
-    function convertToPoints(scores) {
-        const pointMap = { 1: 0, 2: 1, 3: 1, 4: 4, 5: 5 };
+    function convertToPoints(scores, assessmentType) {
+        let pointMap = {};
+        if (assessmentType === "DISC") {
+            pointMap = { 1: 0, 2: 1, 3: 1, 4: 4, 5: 5 };
+        } else if (assessmentType === "CLA") {
+            pointMap = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4 };
+        } else {
+            return scores;
+        }
         return scores.map(score => String(pointMap[score]));
     };
 
-    function init(assessmentType) {
+    function init() {
         // Define answer options based on assessment type
-        if (assessmentType === "CRSA" || assessmentType === "EIQ") {
+        if (ASSESSMENT === "CRSA" || ASSESSMENT === "EIQ") {
             OPTIONS = ["Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree"];
-        } else if (assessmentType === "DISC") {
+        } else if (ASSESSMENT === "DISC") {
             OPTIONS = ["Not me", "Less like me", "Neutral", "More like me", "Definitely me"];
-            convertedScores = convertToPoints(scores);
-        } else if (assessmentType === "CLA") {
+        } else if (ASSESSMENT === "CLA") {
             OPTIONS = ["Not at all", "Once in a while", "Sometimes", "Fairly often", "Frequently, if not always"];
         } else {
-            console.warn("No answer options defined for assessment type: " + assessmentType);
+            console.warn("No answer options defined for assessment type: " + ASSESSMENT);
             alert(`No answer options defined for assessment type: ${ASSESSMENT}. Must be "CRSA", "EIQ", "DISC", or "CLA".`);
             return;
         };
@@ -86,7 +91,6 @@
         });
         const output = scores.join('\n');
         console.log(`Answered: ${answered} | Skipped: ${skipped}`);
-        // console.log(`Scores:\n` + output);
         // Copy scores to clipboard for easy pasting into spreadsheet
         GM_setClipboard(output);
     };
@@ -109,7 +113,7 @@
     };
 
     // Print currently selected answers (doesn't make changes)
-    function printAnswers(points) {
+    function printAnswers() {
         const scores = [];
         const currentAnswers = document.querySelectorAll('input[type="radio"][name^="group_"]');
         currentAnswers.forEach(radio => {
@@ -121,32 +125,13 @@
                 };
             };
         });
-        const output = scores.join('\n');
-        console.log(`Current Scores:\n` + output);
 
-        let convertedScores = [];
-
-        // For CRSA assessment
-        if (ASSESSMENT === "CRSA") {
-            convertedScores = scores;
-        } else if (ASSESSMENT === "EIQ") {
-            convertedScores = scores;
-        } else if (ASSESSMENT === "CLA") {
-            convertedScores = scores;
-        } else if (ASSESSMENT === "DISC") {
-            // For DISC assessment
-            convertedScores = convertToPoints(scores);
-        } else {
-            console.warn("No point conversion defined for assessment type: " + ASSESSMENT);
-            convertedScores = scores;
-        };
-
-        // Copy scores to clipboard for easy pasting into spreadsheet
-        if (points) {
-            GM_setClipboard(convertedScores.join('\n'));
-        } else {
-            GM_setClipboard(output);
-        };
+        // Convert scores (if applicable)
+        const convertedScores = convertToPoints(scores, ASSESSMENT);
+        // Copy to clipboard for easy pasting into spreadsheet
+        GM_setClipboard(convertedScores.join('\n'));
+        // Log to console for quick reference
+        console.log(`Current Scores:\n` + convertedScores.join('\n'));
     };
 
     // Fill answers from a pasted column of numbers (1-5), one per line
@@ -203,12 +188,11 @@
 
         const output = scores.join('\n');
         console.log(`Answered: ${answered} | Skipped: ${skipped}`);
-        // console.log(`Scores:\n` + output);
         GM_setClipboard(output);
     };
 
     // Initialize the script with the specified assessment type
-    init(ASSESSMENT);
+    init();
 
     // Keybindings
     document.addEventListener('keydown', function(e) {
@@ -222,15 +206,10 @@
             e.preventDefault();
             fillFromInput();
         };
-        // Print choice values 1-5 (Ctrl + A)
+        // Print/copy current answers to clipboard (Ctrl + A)
         if (e.ctrlKey && e.key === 'a') {
             e.preventDefault();
-            printAnswers(false);
-        };
-        // Print converted point values (Ctrl + S)
-        if (e.ctrlKey && e.key === 's') {
-            e.preventDefault();
-            printAnswers(true);
+            printAnswers();
         };
     });
 
