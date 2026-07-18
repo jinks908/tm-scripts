@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         Brass Session
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.2
+// @version      1.2.3
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Session.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Session.user.js
 // @description  Ping the server at regular intervals to remain logged in
 // @author       SkyColtNinja
 // @match        https://jinksperspective.brilliantassessments.com/*
+// @match        https://outlook.cloud.microsoft/mail/inbox/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        GM_addStyle
 // ==/UserScript==
