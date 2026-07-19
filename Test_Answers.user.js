@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.6
+// @version      1.3.7
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -138,7 +138,7 @@
         let choiceMap = {};
         // TLP-CLA360 uses a 0-4 scale, so we need to convert to 1-5 for the radio buttons
         if (ASSESSMENT === "CLA") {
-            choiceMap = { 0: 1, 1: 2, 2: 4, 3: 4, 4: 5 };
+            choiceMap = { 0: 1, 1: 2, 2: 3, 3: 4, 4: 5 };
         } else {
             return choices;
         }
