@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test Answers
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.5
+// @version      1.3.6
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Test_Answers.user.js
 // @description  Fill out assessment answers for testing scores (can randomize or set to a specific answer)
@@ -21,11 +21,11 @@
     let OPTIONS = [];
 
     // Convert numeric scores (1-5) to their corresponding assessment point values
-    function convertToPoints(scores, assessmentType) {
+    function convertToPoints(scores) {
         let pointMap = {};
-        if (assessmentType === "DISC") {
+        if (ASSESSMENT === "DISC") {
             pointMap = { 1: 0, 2: 1, 3: 1, 4: 4, 5: 5 };
-        } else if (assessmentType === "CLA") {
+        } else if (ASSESSMENT === "CLA") {
             pointMap = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4 };
         } else {
             return scores;
@@ -127,11 +127,22 @@
         });
 
         // Convert scores (if applicable)
-        const convertedScores = convertToPoints(scores, ASSESSMENT);
+        const convertedScores = convertToPoints(scores);
         // Copy to clipboard for easy pasting into spreadsheet
         GM_setClipboard(convertedScores.join('\n'));
         // Log to console for quick reference
         console.log(`Current Scores:\n` + convertedScores.join('\n'));
+    };
+
+    function convertToChoices(choices) {
+        let choiceMap = {};
+        // TLP-CLA360 uses a 0-4 scale, so we need to convert to 1-5 for the radio buttons
+        if (ASSESSMENT === "CLA") {
+            choiceMap = { 0: 1, 1: 2, 2: 4, 3: 4, 4: 5 };
+        } else {
+            return choices;
+        }
+        return choices.map(choice => String(choiceMap[choice]));
     };
 
     // Fill answers from a pasted column of numbers (1-5), one per line
@@ -140,7 +151,10 @@
         if (!userInput) return;
 
         // Parse input into an array of integers
-        const values = userInput.trim().split(' ').map(line => parseInt(line.trim()));
+        const nums = userInput.trim().split(' ').map(line => parseInt(line.trim()));
+
+        // Convert point values (from Excel) to assessment choices (if applicable)
+        const values = convertToChoices(nums);
 
         // Validate all values are within range
         const invalid = values.filter(v => isNaN(v) || v < 1 || v > 5);
