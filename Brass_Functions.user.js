@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Brass Functions
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.0
+// @version      1.1.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @description  Custom functions/automations for Brilliant Assessment Builder
@@ -9,7 +9,6 @@
 // @match        https://jinksperspective.brilliantassessments.com/AssessmentBuilder*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        GM_addStyle
-// @grant        GM_setClipboard
 // ==/UserScript==
 
 
@@ -34,27 +33,38 @@
         'smoke-blue':     'rgb(75, 100, 113)',
     }
 
+    // Sets value using the native DOM property setter,
+    // then manually dispatches an 'input' event to update
     function setNativeValue(element, value) {
+        // Grab the *original* value setter from HTMLInputElement's prototype,
         const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
         setter.call(element, value);
+        // Fire a real 'input' event so anything listening for changes picks up the new value
         element.dispatchEvent(new Event('input', { bubbles: true }));
     }
 
+    // Find color input field that is currently visible (not hidden) in the DOM
     function getVisibleHexInput() {
+        // Grab all hex inputs (including hidden)
         const inputs = Array.from(document.querySelectorAll('input.k-color-value'));
+        // Return the first one that's actually rendered/visible;
         return inputs.find(el => el.offsetParent !== null);
     }
 
+    // Set the color of the currently open color picker to the specified hex value
     function setColorPicker(color) {
+        // Locate the hex input belonging to the currently visible popup
         const hexInput = getVisibleHexInput();
         if (!hexInput) {
+            // No open/visible color picker found — nothing to do
             console.error('No visible hex input found.');
             return;
         }
-
+        // Focus the field
         hexInput.focus();
+        // Set the value using the native setter
         setNativeValue(hexInput, color);
-
+        // Simulate a real Enter keypress (keydown + keyup)
         hexInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, bubbles: true }));
         hexInput.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', code: 'Enter', keyCode: 13, bubbles: true }));
     }
@@ -63,6 +73,7 @@
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.key === 'e') {
             e.preventDefault();
+            // Set the color picker to Pacific Blue
             setColorPicker(colorsHex['pacific-blue']);
         };
     });
