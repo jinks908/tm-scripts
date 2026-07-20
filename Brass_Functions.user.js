@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Brass Functions
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.3
+// @version      1.2.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @description  Custom functions/automations for Brilliant Assessment Builder
@@ -18,12 +18,18 @@
 
     // Brand colors
     const colorsHex = {
+        // Main colors
         'pacific-blue': '#1e4264',
         'cardinal-red': '#c4403f',
         'sage':         '#5f886f',
         'cool-mint':    '#a3c6b4',
         'deep-pacific': '#2b3843',
-        'smoke-blue':   "#4b6471",
+        'smoke-blue':   '#4b6471',
+        // Chart colors (dimmed)
+        'blue-chart':   '#94abb8',
+        'sage-chart':   '#a5c0af',
+        'mint-chart':   '#d0e2d8',
+        'red-chart':    '#edc4c4',
     }
     const colorsRGB = {
         'pacific-blue':   'rgb(30, 66, 100)',
@@ -70,12 +76,49 @@
         hexInput.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', code: 'Enter', keyCode: 13, bubbles: true }));
     }
 
+    // Prompt user for brand color selection and set the color picker to the selected color
+    function colorFromInput() {
+        // Prompt user for brand color selection
+        const userInput = prompt(`Enter brand color selection
+        1 = Pacific Blue, 2 = Cardinal Red, 3 = Sage, 4 = Cool Mint, 5 = Smoke Blue, 6 = Deep Pacific
+        7 = Blue Chart, 8 = Red Chart, 9 = Sage Chart, 0 = Mint Chart`);
+        if (!userInput) return;
+
+        // Map user input to corresponding color hex values
+        const mapToColor = {
+            1: colorsHex['pacific-blue'],
+            2: colorsHex['cardinal-red'],
+            3: colorsHex['sage'],
+            4: colorsHex['cool-mint'],
+            5: colorsHex['deep-pacific'],
+            6: colorsHex['smoke-blue'],
+            7: colorsHex['blue-chart'],
+            8: colorsHex['red-chart'],
+            9: colorsHex['sage-chart'],
+            0: colorsHex['mint-chart']
+        };
+
+        // Trim and validate input
+        const selectedColor = mapToColor[userInput.trim()];
+        if (!selectedColor) {
+            alert('Invalid selection. Please enter a number between 1 and 6.');
+            return;
+        }
+        // Set the color picker to the selected color
+        setColorPicker(selectedColor);
+    }
+
     // Keybindings
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.key === 'e') {
             e.preventDefault();
             // Set the color picker to Pacific Blue
             setColorPicker(colorsHex['pacific-blue']);
+        };
+        // Ctrl + Shift + G to prompt for brand color selection
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'g') {
+            e.preventDefault();
+            colorFromInput();
         };
     });
 
