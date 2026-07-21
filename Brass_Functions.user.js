@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Brass Functions
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.1
+// @version      1.2.2
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @description  Custom functions/automations for Brilliant Assessment Builder
@@ -74,6 +74,8 @@
         // Simulate a real Enter keypress (keydown + keyup)
         hexInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, bubbles: true }));
         hexInput.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', code: 'Enter', keyCode: 13, bubbles: true }));
+        // Save the theme edit
+        saveThemeEdit();
     }
 
     // Prompt user for brand color selection and set the color picker to the selected color
@@ -86,22 +88,22 @@
 
         // Map user input to corresponding color hex values
         const mapToColor = {
-            1: colorsHex['pacific-blue'],
-            2: colorsHex['cardinal-red'],
-            3: colorsHex['sage'],
-            4: colorsHex['cool-mint'],
-            5: colorsHex['deep-pacific'],
-            6: colorsHex['smoke-blue'],
-            7: colorsHex['blue-chart'],
-            8: colorsHex['red-chart'],
-            9: colorsHex['sage-chart'],
-            0: colorsHex['mint-chart']
+            1: 'pacific-blue',
+            2: 'cardinal-red',
+            3: 'sage',
+            4: 'cool-mint',
+            5: 'deep-pacific',
+            6: 'smoke-blue',
+            7: 'blue-chart',
+            8: 'red-chart',
+            9: 'sage-chart',
+            0: 'mint-chart'
         };
 
         // Trim and validate input
-        const selectedColor = mapToColor[userInput.trim()];
+        const selectedColor = colorsHex[mapToColor[userInput.trim()]];
         if (!selectedColor) {
-            alert('Invalid selection. Please enter a number between 1 and 6.');
+            alert('Invalid selection. Please enter a number between 0 and 9.');
             return;
         }
         // Set the color picker to the selected color
@@ -114,12 +116,12 @@
             e.preventDefault();
             // Set the color picker to Pacific Blue
             setColorPicker(colorsHex['pacific-blue']);
-        };
+        }
         // Ctrl + Shift + G to prompt for brand color selection
         if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'g') {
             e.preventDefault();
             colorFromInput();
-        };
+        }
     });
 
 })();
