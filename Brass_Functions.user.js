@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Brass Functions
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.2
+// @version      1.2.3
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @description  Custom functions/automations for Brilliant Assessment Builder
@@ -39,6 +39,18 @@
         'deep-pacific':   'rgb(43, 56, 67)',
         'smoke-blue':     'rgb(75, 100, 113)',
     }
+
+    // Listen for global jQuery events (AJAX requests) to verify success/failure for saveThemeEdit()
+    $(document).ajaxSuccess(function(event, xhr, settings) {
+        if (settings.url.includes('SaveThemeEdit')) {
+            console.log('Saved theme changes');
+        }
+    });
+    $(document).ajaxError(function(event, xhr, settings) {
+        if (settings.url.includes('SaveThemeEdit')) {
+            console.error('Failed to save theme changes:', xhr.status, xhr.statusText);
+        }
+    });
 
     // Sets value using the native DOM property setter,
     // then manually dispatches an 'input' event to update
