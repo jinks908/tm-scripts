@@ -51,7 +51,7 @@ html * input, html * textarea {
 .a-divider-inner {
     display: none !important;
 }
-hr.bucketDivider {
+hr.bucketDivider, hr.bucketDivider::after {
     background-color: var(--amzn-smoke) !important;
 }
 
