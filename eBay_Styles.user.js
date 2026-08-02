@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         eBay Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.0
+// @version      1.0.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/eBay_Styles.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/eBay_Styles.user.js
 // @description  Enhanced styles for eBay Dark Mode
@@ -49,8 +49,16 @@
 
         /* Dark Mode Styles */
         input {
-            background-color: var(--amzn-dark) !important;
+            background-color: var(--amzn-dark-smoke) !important;
             color: var(--white) !important;
+        }
+        ul#ebay-autocomplete, .ebay-autocomplete-large, .ui-autocomplete {
+            background-color: var(--amzn-dark-smoke) !important;
+            color: var(--tpr-skyblue) !important;
+        }
+        .ebay-autocomplete-suggestion, .suggestion-text, .suggestion {
+            background-color: var(--amzn-dark-smoke) !important;
+            color: var(--tpr-skyblue) !important;
         }
     `);
 
