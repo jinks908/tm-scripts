@@ -1,5 +1,5 @@
 /* Custom Amazon Styles (for Dark Mode) */
-/* Version: 1.3.6 */
+/* Version: 1.3.7 */
 
 :root {
     /* Amazon Colors */
@@ -51,7 +51,8 @@ html * input, html * textarea {
 .a-divider-inner {
     display: none !important;
 }
-hr.bucketDivider, hr.bucketDivider::after {
+hr.bucketDivider, hr.bucketDivider::after, .bucketDivider::after, .a-divider-normal {
+    background: var(--amzn-dark) !important;
     background-color: var(--amzn-dark) !important;
 }
 
@@ -62,7 +63,7 @@ a:link {
 .a-section a.popover-trigger {
     color: var(--amzn-dark-smoke) !important;
 }
-a-color-secondary, a-color-tertiary {
+.a-color-secondary, .a-color-tertiary {
     color: var(--tpr-grey) !important;
 }
 
