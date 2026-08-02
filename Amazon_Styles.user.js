@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Amazon Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.3.2
+// @version      1.3.3
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.user.js
-// @resource     customCSS https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.css?v=1.3.1-stable
+// @resource     customCSS https://raw.githubusercontent.com/jinks908/tm-scripts/main/Amazon_Styles.css?v=1.3.3
 // @description  Enhanced styles for Amazon Dark Mode
 // @author       Clayton Jinks
 // @match        https://www.amazon.com/*
