@@ -18,7 +18,7 @@
     /* TPR Colors */
     --tpr-default: #e3dede;
     --tpr-skyblue: #9ec6ea;
-    --tpr-seafoam: #52e3c3; 
+    --tpr-seafoam: #52e3c3;
     --tpr-orange: #fc8530;
     --tpr-yellow: #fec339;
     --tpr-green: #a5fa69;
@@ -31,6 +31,9 @@
     --tpr-dark-grey: #5d6f6f;
     --tpr-bg: #0c1621;
     --tpr-bg-alt: #111f2e;
+
+    --bds-color-functional-neutral-on-surface:#1176ec !important;
+    --bds-color-functional-neutral-on-surface-fixed:#1176ec !important;
 }
 
 /* Fix white backgrounds and product image visibility */
@@ -41,7 +44,7 @@ html * input, html * textarea {
     background-color: var(--amzn-dark) !important;
 }
 .a-button-inner {
-    display: flex !important; 
+    display: flex !important;
 }
 .a-divider-inner {
     display: none !important;
@@ -199,7 +202,7 @@ table.a-bordered td, table.a-bordered th {
 /* Fix price colors (reds) */
 [style*="color:#c10015!important"], [style*="color: #c10015 !important"], [style*="color:#ff0000!important"],
 [style*="color: #ff0000 !important"], [style*="color:#f00!important"], [style*="color: #f00 !important"] {
-    color: var(--amzn-red) !important; 
+    color: var(--amzn-red) !important;
 }
 .r4m-sou-comparison-header-price *, .a-color-price, .bia-price,  .a-price[data-a-color='base'],
 #gw-asin-popover .pricing .price, #gw-asin-popover .pricing .price .a-color-price {
