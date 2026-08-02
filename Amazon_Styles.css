@@ -52,7 +52,7 @@ html * input, html * textarea {
     display: none !important;
 }
 hr.bucketDivider, hr.bucketDivider::after {
-    background-color: var(--amzn-smoke) !important;
+    background-color: var(--amzn-dark) !important;
 }
 
 /* General links */
