@@ -32,13 +32,15 @@
     --tpr-bg: #0c1621;
     --tpr-bg-alt: #111f2e;
 
-    --bds-color-functional-neutral-on-surface:#1176ec !important;
-    --bds-color-functional-neutral-on-surface-fixed:#1176ec !important;
+    --bds-color-functional-neutral-on-surface:var(--tpr-blue) !important;
+    --bds-color-functional-neutral-on-surface-fixed:var(--tpr-blue) !important;
+    --bds-color-functional-neutral-on-surface-variant:var(--tpr-grey) !important;
+    --__dChNmAwPaMXsw4B: var(--tpr-grey) !important;
 }
 
 /* Fix white backgrounds and product image visibility */
 html * input, html * textarea {
-    color: var(--white) !important; background-color: var(--black) !important;
+    color: var(--white) !important; background-color: var(--amzn-smoke) !important;
 }
 .a-accordion .a-accordion-row, .a-accordion .a-accordion-row .a-accordion-active {
     background-color: var(--amzn-dark) !important;
@@ -49,6 +51,9 @@ html * input, html * textarea {
 .a-divider-inner {
     display: none !important;
 }
+hr.bucketDivider {
+    background-color: var(--amzn-smoke) !important;
+}
 
 /* General links */
 a:link {
@@ -56,6 +61,9 @@ a:link {
 }
 .a-section a.popover-trigger {
     color: var(--amzn-dark-smoke) !important;
+}
+a-color-secondary, a-color-tertiary {
+    color: var(--tpr-grey) !important;
 }
 
 /* Hover Navbar */
