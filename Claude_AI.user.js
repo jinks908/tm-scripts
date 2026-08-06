@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Claude AI
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.9-stable
+// @version      1.2.0
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Claude_AI.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Claude_AI.user.js
 // @description  Change default behavior for certain keybindings
@@ -16,32 +16,35 @@
     'use strict';
 
     function handleKeymaps(e) {
-        // Block Claude.ai default bindings for 'Shift+Cmd+,' and 'Shift+Cmd+.'
-        // NOTE: We dont use preventDefault() since we still need these handled at the browser level
-        if (e.metaKey && e.shiftKey && (e.key === ',' || e.key === '.')) {
+        // Block 'Escape' globally (prevent response interruptions)
+        if (e.key === 'Escape') {
+            e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
             return;
         }
-        // Only watch chat input box
-        if (!e.target.closest('[data-testid="chat-input"]') && 
-            !e.target.matches('[data-testid="chat-input"]')) {
+
+        // Don't override tab moves
+        if (e.metaKey && e.shiftKey && (e.code === 'Comma' || e.code === 'Period')) {
+            e.stopPropagation();
+            e.stopImmediatePropagation();
             return;
-        };
-        // Allow 'Ctrl+Enter' or 'Shift+Enter'
-        if (e.ctrlKey || e.shiftKey) {
-            return;
-        };
-        // Block 'Enter' key
+        }
+
+        // Input-scoped events
+        const el = e.target instanceof Element ? e.target : null;
+        if (!el || !el.closest('[data-testid="chat-input"]')) return;
+
+        if (e.ctrlKey || e.shiftKey) return;
+
+        // Block 'Enter' key to prevent accidental submissions
+        // Use 'Ctrl+Enter' to submit instead
         if (e.key === 'Enter') {
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
-            return false;
-        };
-    };
+        }
+    }
 
-    // Since we run at document-start, we run before page scripts
-    document.addEventListener('keydown', handleKeymaps, true);
-
+    window.addEventListener('keydown', handleKeymaps, true);
 })();
