@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         Brass Functions
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.3
+// @version      1.2.4
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Brass_Functions.user.js
 // @description  Custom functions/automations for Brilliant Assessment Builder
 // @author       SkyColtNinja
 // @match        https://jinksperspective.brilliantassessments.com/*
+// @match        https://jinksperspective.brilliantassessments.com/Admin/*
 // @exclude      https://jinksperspective.brilliantassessments.com/Home/Index*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        GM_addStyle
