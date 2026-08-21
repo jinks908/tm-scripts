@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Notion Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.6.5
+// @version      1.6.6
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Notion_Dark_Theme.user.js
 // @description  A nicer dark theme for Notion
@@ -823,7 +823,9 @@
                 // Hide "New chat" float at bottom of sidebar
                 const divs = document.querySelectorAll('.notion-sidebar > div > div > div > div');
                 const target = [...divs].find(el => el.textContent.includes('New chat'));
-                target.style.display = 'none';
+                if (target) {
+                    target.style.display = 'none';
+                }
                 injectBackToTopButton();
             }, 250);
         };
