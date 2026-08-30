@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Global Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.2
+// @version      1.1.3
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Global_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Global_Theme.user.js
 // @description  Global styles/colors for Firefox
@@ -18,5 +18,13 @@
     GM_addStyle('html {::selection {background-color: #bcd788 !important; color: #303030 !important;}');
     // Hide Nord tracking shield icon on Google search results
     GM_addStyle('span[name="tp-shield"] {display: none !important;}');
+
+    // Add Quicksand font to TPR Color Studio
+    const colorStudio = document.getElementById('tpr-color-studio');
+    if (colorStudio) {
+        GM_addStyle(`
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+        `);
+    }
 
 })();
