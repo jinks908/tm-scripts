@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Global Theme
 // @namespace    SkyColtNinja/userscripts
-// @version      1.1.3
+// @version      1.1.4
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Global_Theme.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Global_Theme.user.js
 // @description  Global styles/colors for Firefox
@@ -15,7 +15,7 @@
     'use strict';
 
     // Custom Selection Colors
-    GM_addStyle('html {::selection {background-color: #bcd788 !important; color: #303030 !important;}');
+    GM_addStyle('html {::selection {background-color: #7dfb89 !important; color: #000000 !important;}');
     // Hide Nord tracking shield icon on Google search results
     GM_addStyle('span[name="tp-shield"] {display: none !important;}');
 
