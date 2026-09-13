@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Total Time
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.0
+// @version      1.0.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Total_Time.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Total_Time.user.js
 // @description  Count total runtime of all videos in a playlist
@@ -36,9 +36,10 @@
         const totalHours = Math.floor(totalSeconds / 3600);
         const totalMinutes = Math.floor((totalSeconds % 3600) / 60);
         const totalRemainingSeconds = totalSeconds % 60;
-
         const totalTimeString = `${totalHours}h ${totalMinutes}m ${totalRemainingSeconds}s`;
+
         console.log(totalTimeString);
+        alert(`Total Playlist Runtime: ${totalTimeString}`);
     };
 
     document.addEventListener('keydown', function(e) {
