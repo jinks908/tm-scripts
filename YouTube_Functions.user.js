@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Functions
 // @namespace    SkyColtNinja/userscripts
-// @version      1.0.0
+// @version      1.0.1
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Functions.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/YouTube_Functions.user.js
 // @description  YouTube video player functions and enhancements
@@ -15,10 +15,15 @@
 (function() {
     'use strict';
 
-    let thumbnails = document.querySelectorAll('yt-lockup-view-model');
-    let links = [];
-    thumbnails.forEach(thumbnail => {
-        let progressBar = thumbnail.querySelector('.ytThumbnailOverlayProgressBarHost');
+    // TODO
+    // [ ] Add: Video titles next to their respective links
+    // [ ] Add: Popup/alert confirmation
+
+    function getWatchedSources() {
+        let thumbnails = document.querySelectorAll('yt-lockup-view-model');
+        let links = [];
+        thumbnails.forEach(thumbnail => {
+            let progressBar = thumbnail.querySelector('.ytThumbnailOverlayProgressBarHost');
             if (progressBar) {
                 // We're looking for this acnhor tag
                 // <a href="/watch?v=tAzDdC43RwE&amp;t=321s" class="ytLockupViewModelContentImage">
@@ -26,7 +31,17 @@
                 links.push(link);
                 console.log(link);
             }
+        })
+        GM_setClipboard(links.join('\n'));
+    };
+
+    // Bind Shift+Ctrl+G to copy watched video links to clipboard
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'g') {
+            e.preventDefault();
+            getWatchedSources();
+        };
     })
-    GM_setClipboard(links.join('\n'));
+
 
 })();
