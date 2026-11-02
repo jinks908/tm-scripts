@@ -15,6 +15,6 @@
 (function() {
     'use strict';
 
-    console.log('Local Styles script loaded');
+    console.debug('Local Styles script loaded');
 
 })();
