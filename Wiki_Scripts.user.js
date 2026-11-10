@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wiki Popup / Styles
 // @namespace    SkyColtNinja/userscripts
-// @version      1.2.4
+// @version      1.2.5
 // @updateURL    https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
 // @downloadURL  https://raw.githubusercontent.com/jinks908/tm-scripts/main/Wiki_Scripts.user.js
 // @description  Hide Wikipedia popups when using Tridactyl hints
@@ -14,26 +14,20 @@
 (function() {
     'use strict';
 
+    // Fix MathML/SVG display issues in dark mode
+    GM_addStyle(`
+        mjx-container, mjx-container .MathJax, mjx-container[JAX="SVG"] {
+            filter: invert(1) !important;
+        }
+    `);
 
-    // #:# Styles / Fixes
-    // #;# ------------------------------------------------------------ #
-    // ## Fix MathML/SVG expression backgrounds
-    const tables = document.querySelectorAll('table');
-    tables.forEach(table => {
-        if (table.querySelector('.mwe-math-element')) {
-            // Note that Wiki's native dark theme inverts colors, hence 'white' -> 'black'
-            table.style.setProperty('background-color', 'white', 'important');
-        };
-    });
-
-    // #:# Hide cookie notice banners
+    // Hide cookie notice banners
     const cnoticeBanners = document.querySelectorAll('.cnotice');
     cnoticeBanners.forEach(banner => {
         banner.style.setProperty('display', 'none', 'important');
     });
 
-    // #:# Fix popup persistence when using Tridactyl hints
-    // Hint mode active flag
+    // Fix popup persistence when using Tridactyl hints
     let hintModeActive = false;
 
     // Watch for Tridactyl hints appearing and disappearing
@@ -55,7 +49,7 @@
                     popup.remove(); // Also remove it from DOM
                 });
             }, 800);
-        };
+        }
     });
 
     observer.observe(document.body, {
